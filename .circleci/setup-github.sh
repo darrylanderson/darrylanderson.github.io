@@ -1,5 +1,5 @@
-git config user.name "$USER_NAME"
-git config user.email "$USER_EMAIL"
+git config user.name "Darryl Anderson"
+git config user.email "6097929+darrylanderson@users.noreply.github.com"
 
 git checkout master
 git pull origin master
