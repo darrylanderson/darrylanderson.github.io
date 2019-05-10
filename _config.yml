@@ -15,9 +15,9 @@ cover: assets/images/blog-cover.jpg
 #logo: assets/images/blog-icon.png
 #logo_dark: assets/images/favicon.png
 #favicon: assets/images/favicon.png
-production_url: https://darrylanderson.github.io/
+production_url: https://darrylanderson.dev/
 source_url: https://github.com/darrylanderson/darrylanderson.github.io/
-CNAME: #add cname for website to be created
+CNAME: darrylanderson.dev
 
 # Social info
 navigation: True # show the navbar links
