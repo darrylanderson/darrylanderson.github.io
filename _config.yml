@@ -17,7 +17,7 @@ cover: assets/images/blog-cover.jpg
 #favicon: assets/images/favicon.png
 production_url: https://darrylanderson.dev/
 source_url: https://github.com/darrylanderson/darrylanderson.github.io/
-CNAME: darrylanderson.dev
+CNAME: www.darrylanderson.dev
 
 # Social info
 navigation: True # show the navbar links
