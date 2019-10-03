@@ -43,7 +43,11 @@ Email: <darryl@andersontech.consulting>
 
 I have 20+ years of experience in building large scale enterprise web applications.
 
-I currently serve as Chief Architect and Technical Advisor for project44, a rapid growth startup in the transportation logistics space.
+I currently serve as Principal Architect for Clearcover, a hyper growth insuretech startup where I lead the Architecture, Data Engineering, and SRE/Cloud Ops teams.
+
+Prior to joining Clearcover, I was the co-founder of ChainFront, a blockchain services company. 
+
+Before that, I was Chief Architect and Technical Advisor for project44, a rapid growth startup in the transportation logistics space.
 
 Prior to joining project44, I was the lead architect for Oracle's Healthcare Global Business Unit. I was responsible for the architecture and development of Oracle's Translational Research, Precision Medicine, and Healthcare Analytics product suites. These products combine genomic data with clinical data for research and point-of-care solutions.
 
