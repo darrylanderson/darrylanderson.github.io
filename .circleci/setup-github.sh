@@ -1,6 +1,8 @@
 git config user.name "Darryl Anderson"
 git config user.email "6097929+darrylanderson@users.noreply.github.com"
 
+rm package-lock.json
+
 git checkout master
 git pull origin master
 
