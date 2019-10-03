@@ -8,6 +8,8 @@ find . -maxdepth 1 ! -name '_site' ! -name '.git' ! -name '.gitignore' -exec rm 
 mv _site/* .
 rm -R _site/
 
+echo "www.darrylanderson.dev" > CNAME
+
 git add -fA
 git commit --allow-empty -m "$(git log develop -1 --pretty=%B)"
 git push origin master
