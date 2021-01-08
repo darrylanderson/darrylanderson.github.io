@@ -27,7 +27,6 @@ Learn more about me at the links below:
 
 <i class="fab fa-linkedin"></i> [LinkedIn](https://linkedin.com/in/darryl-anderson) 
 <i class="fab fa-github"></i> [GitHub](https://github.com/darrylanderson)
-<i class="fab fa-twitter"></i> [Twitter](https://twitter.com/DarrylAnderson_)
 <i class="fab fa-angellist"></i> [AngelList](https://angel.co/darryl-anderson)
 
 Email: <darryl@andersontech.consulting>
