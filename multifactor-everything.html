@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- Document Settings -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Base Meta -->
+    <!-- dynamically fixing the title for tag/author pages -->
+
+
+
+    <title>Multi-Factor Authentication With SSH And OpenVPN</title>
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.edited.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/syntax.css" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Noto+Serif|Open+Sans|Lora" rel="stylesheet">
+    <style>
+        body,
+        .main-nav a,
+        .post-meta,
+        .post-card-excerpt,
+        .post-full-content,
+        .read-next-story .post:before,
+        .pagination {
+            font-family: "Lora", serif;
+            font-size: 21px;
+            line-height: 1.58;
+        }
+        h1, h2, h3, h4, h5, h6,
+        .page-title,
+        .subscribe-button,
+        .floating-header,
+        .site-nav,
+        .site-footer {
+            font-family: sans-serif;
+        }
+        /* This is necessary to not mess up share icons at bottom of posts */
+        [class^="icon-"]:before, [class*=" icon-"]:before {
+            font-family: "casper-icons", "Open Sans", sans-serif;
+        }
+        /* syntax highlighting */
+        pre[class*=language-] {
+            margin: 1.75em 0;
+        }
+    </style>
+    <!-- highlight.js -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <style>.hljs { background: none; }</style>
+
+    <!--[if IE]>
+        <style>
+            p, ol, ul{
+                width: 100%;
+            }
+            blockquote{
+                width: 100%;
+            }
+        </style>
+    <![endif]-->
+    
+    <!-- This tag outputs SEO meta+structured data and other important settings -->
+    <meta name="description" content="Pragmatic Cloud Architecture" />
+    <link rel="shortcut icon" href="/" type="image/png" />
+    <link rel="canonical" href="/multifactor-everything" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+
+     <!--title below is coming from _includes/dynamic_title-->
+    <meta property="og:site_name" content="Anderson Technology Consulting" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Multi-Factor Authentication With SSH And OpenVPN" />
+    <meta property="og:description" content="Pragmatic Cloud Architecture" />
+    <meta property="og:url" content="/multifactor-everything" />
+    <meta property="og:image" content="/assets/images/cover-mfa.jpeg" />
+    <meta property="article:publisher" content="https://www.facebook.com/" />
+    <meta property="article:tag" content="Security" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Multi-Factor Authentication With SSH And OpenVPN" />
+    <meta name="twitter:description" content="Pragmatic Cloud Architecture" />
+    <meta name="twitter:url" content="/" />
+    <meta name="twitter:image" content="/assets/images/cover-mfa.jpeg" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Anderson Technology Consulting" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Security" />
+    <meta name="twitter:site" content="@" />
+    <meta name="twitter:creator" content="@" />
+    <meta property="og:image:width" content="2000" />
+    <meta property="og:image:height" content="666" />
+
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Website",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Anderson Technology Consulting",
+        "logo": "/"
+    },
+    "url": "/multifactor-everything",
+    "image": {
+        "@type": "ImageObject",
+        "url": "/assets/images/cover-mfa.jpeg",
+        "width": 2000,
+        "height": 666
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "/multifactor-everything"
+    },
+    "description": "Pragmatic Cloud Architecture"
+}
+    </script>
+
+    <!-- <script type="text/javascript" src="https://demo.ghost.io/public/ghost-sdk.min.js?v=724281a32e"></script>
+    <script type="text/javascript">
+    ghost.init({
+    	clientId: "ghost-frontend",
+    	clientSecret: "f84a07a72b17"
+    });
+    </script> -->
+
+    <meta name="generator" content="Jekyll 3.6.2" />
+    <link rel="alternate" type="application/rss+xml" title="Multi-Factor Authentication With SSH And OpenVPN" href="/feed.xml" />
+
+
+</head>
+<body class="post-template">
+
+    <div class="site-wrapper">
+        <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
+        <!-- default -->
+
+<!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template -->
+
+<header class="site-header outer">
+    <div class="inner">
+        <nav class="site-nav">
+    <div class="site-nav-left">
+        
+            
+                <a class="site-nav-logo" href="/">Anderson Technology Consulting</a>
+            
+        
+        
+            <ul class="nav" role="menu">
+    <li class="nav-home" role="menuitem"><a href="/">Home</a></li>
+    <li class="nav-about" role="menuitem"><a href="/about/">About Me</a></li>
+</ul>
+
+        
+    </div>
+    <div class="site-nav-right">
+        <div class="social-links">
+              <a href="https://linkedin.com/in/darryl-anderson" target="_blank" rel="noopener">
+             <i class="fab fa-linkedin"></i> linkedin
+          </a>
+          &nbsp;&nbsp;
+          <a href="https://github.com/darrylanderson" target="_blank" rel="noopener">
+            <i class="fab fa-github"></i> github
+          </a>
+          &nbsp;&nbsp;
+          <a href="https://twitter.com/DarrylAnderson_" target="_blank" rel="noopener">
+             <i class="fab fa-twitter"></i> twitter
+          </a>
+          &nbsp;&nbsp;
+
+          <!---->
+          <!---->
+        </div>
+        
+    </div>
+</nav>
+
+    </div>
+</header>
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<main id="site-main" class="site-main outer" role="main">
+    <div class="inner">
+
+        <article class="post-full  ">
+
+            <header class="post-full-header">
+                <section class="post-full-meta">
+                    <time class="post-full-meta-date" datetime=" 6 February 2018"> 6 February 2018</time>
+                    
+                        <span class="date-divider">/</span>
+                        
+                            
+                               <a href='/tag/security/'>SECURITY</a>
+                            
+                        
+                    
+                </section>
+                <h1 class="post-full-title">Multi-Factor Authentication With SSH And OpenVPN</h1>
+            </header>
+
+            
+            <figure class="post-full-image" style="background-image: url(/assets/images/cover-mfa.jpeg)">
+            </figure>
+            
+
+            <section class="post-full-content">
+                <div class="kg-card-markdown">
+                    <p>Lately I’ve been reviewing the security of my personal online accounts. Aside from regular password rotation, wherever possible I enable multi-factor authentication (MFA). Multi-factor authentication is where you not only supply something you <em>know</em> (your password), but you also supply an additional piece of information based on something that you <em>have</em>.</p>
+
+<p>This step is fairly simple, and because thieves would need to steal both your password and your phone (or similar device) in order to log in to your accounts, the risk of your account being compromised is considerably reduced.</p>
+
+<p>The same principles that we use to protect our bank and email accounts should also be used to protect all administrative access to cloud infrastructures.</p>
+
+<p>In this article I’ll explain how to add MFA protection to your cloud infrastructure.</p>
+
+<h2 id="best-practices-for-remote-access-to-cloud-infrastructure">Best Practices for Remote Access To Cloud Infrastructure</h2>
+
+<p>Let’s start by reviewing a typical cloud architecture which supports remote worker access.</p>
+
+<p><img src="/content/images/2018/02/Hybrid-Cloud-Architecture.png" alt="Hybrid-Cloud-Architecture" /></p>
+
+<p>Within our VPC (virtual private cloud), we have a private subnet running our database instance, and another private subnet running our application. In order to administer the application and database we need some way to ssh into the EC2 instances. Rather than exposing all of these instances to the public internet, we use a bastion host as the only publicly available ssh service.</p>
+
+<p>The bastion host (aka jump box) is the only instance which is open for remote SSH access. All other VMs in the cloud accept SSH only from that instance. Obviously the bastion host is a very important instance, and must be completely hardened.</p>
+
+<p>Rather than opening up the bastion host to public SSH traffic, we use a VPN service to create a virtual private network. The VPN allows us to create a security group on the bastion host which only accepts SSH from the VPN subnet. The bastion host can then be moved to a private subnet which has no inbound routes from the public internet.</p>
+
+<p>The two hosts that we want to harden with MFA are the bastion host and the OpenVPN host. We’ll see how to do that in the following sections.</p>
+
+<h2 id="mfa-basics">MFA Basics</h2>
+
+<blockquote>
+
+  <p>See this article for an excellent overview on MFA:
+https://www.nist.gov/itl/tig/back-basics-multi-factor-authentication</p>
+
+</blockquote>
+
+<p>Traditional authentication mechanisms usually involve the user presenting a username and credentials such as a password to gain access to a resource. This approach relies on the strength and secrecy of the credentials. If either of those are inadequate the resource is easily compromised.</p>
+
+<p>To mitigate this risk, we can use multi-factor authentication to add an additional layer of security. MFA augments the authentication flow by requiring not only something that you know (your password), but something that you have (your phone, a smartcard, etc).</p>
+
+<p><img src="/content/images/2018/01/MFA.png" alt="MFA" /></p>
+
+<p>While there are many implementations of smartphone-based MFA, for this article we’ll be using an <a href="https://en.wikipedia.org/wiki/Time-based_One-time_Password_Algorithm">OATH-TOTP</a> application on our phone to generate one-time use codes. These codes are 6 digit numbers that are changed every 30 seconds. <a href="https://github.com/google/google-authenticator/wiki">Google Authenticator</a> is one such application.</p>
+
+<h2 id="ssh-and-mfa">SSH and MFA</h2>
+
+<blockquote>
+  <p>This section is adapted from the following article to support Ubuntu 16.04:
+https://aws.amazon.com/blogs/startups/securing-ssh-to-amazon-ec2-linux-hosts/</p>
+</blockquote>
+
+<p>Start by SSHing into your EC2/Azure/Google Cloud VM, then install the MFA packages:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt-get update
+<span class="nb">sudo </span>apt-get install libpam-google-authenticator libqrencode3
+</code></pre></div></div>
+
+<p>We now initialize the google-authenticator app:</p>
+
+<p><img src="/content/images/2018/02/google-authenticator.png" alt="google-authenticator" /></p>
+
+<p>Using the Google Authenticator app on your smartphone (<a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&amp;hl=en">Android</a>, <a href="https://itunes.apple.com/us/app/google-authenticator/id388497605?mt=8">iOS</a>), scan the barcode presented on the screen to register your device.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Do you want me to update your "/home/darryl/.google_authenticator" file (y/n) y
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Do you want to disallow multiple uses of the same authentication
+token? This restricts you to one login about every 30s, but it increases
+your chances to notice or even prevent man-in-the-middle attacks (y/n) y
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>By default, tokens are good for 30 seconds and in order to compensate for
+possible time-skew between the client and the server, we allow an extra
+token before and after the current time. If you experience problems with poor
+time synchronization, you can increase the window from its default
+size of 1:30min to about 4min. Do you want to do so (y/n) n
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>If the computer that you are logging into isn't hardened against brute-force
+login attempts, you can enable rate-limiting for the authentication module.
+By default, this limits attackers to no more than 3 login attempts every 30s.
+Do you want to enable rate-limiting (y/n) y
+</code></pre></div></div>
+
+<p>Now that we have our device registered, we need to modify the ssh login flow to prompt for the time-based authentication code.</p>
+
+<blockquote>
+  <p><strong>WARNING:</strong> Do NOT close the ssh session where you’re making these changes. Do all your testing in a separate session. This way if you have trouble logging in you won’t lock yourself out of your VM.</p>
+</blockquote>
+
+<p>Start by editing <code class="highlighter-rouge">/etc/pam.d/sshd</code> and comment out the normal Unix auth line:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Standard Un*x authentication.</span>
+<span class="c">#@include common-auth</span>
+</code></pre></div></div>
+
+<p>Also in this file, add the following line to the end of the file to force use of the verification code:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>auth required pam_google_authenticator.so nullok
+</code></pre></div></div>
+
+<p>Now edit <code class="highlighter-rouge">/etc/ssh/sshd_config</code> and change the <code class="highlighter-rouge">ChallengeResponseAuthentication</code> to <code class="highlighter-rouge">yes</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Change to yes to enable challenge-response passwords (beware issues with</span>
+<span class="c"># some PAM modules and threads)</span>
+ChallengeResponseAuthentication yes
+</code></pre></div></div>
+
+<p>Also in this file, add the following line to the end of the file:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>AuthenticationMethods publickey,password publickey,keyboard-interactive
+</code></pre></div></div>
+
+<p>Restart the sshd service:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>service sshd restart
+</code></pre></div></div>
+
+<p>Now when you ssh to your VM you should see the following:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~<span class="nv">$ </span>ssh <span class="nt">-i</span> ~/.ssh/my-vm-key my-user@VM_IP_ADDR
+Authenticated with partial success.
+Verification code:
+</code></pre></div></div>
+
+<p>After entering the verification code you should be successfully logged in to the VM.</p>
+
+<h2 id="openvpn-basics">OpenVPN Basics</h2>
+
+<p>A VPN, or virtual private network, is a service which allows clients to securely connect to a remote private network. It does this by securely tunneling data through a single TCP/UDP port over an unsecured network such as the internet.</p>
+
+<p>Within a public cloud architecture, a VPN allows you to securely expose your virtual cloud networks (VPCs in AWS and Google Cloud, VNets in Azure) to remote workers or your corporate network. In this article I’ll focus primarily on securely extending connectivity to remote workers.</p>
+
+<p>VPN technology generally falls into one of two flavors… IPSec or SSL. IPSec is commonly implemented with hardware-based VPN services, and each client requires special software which can operate at the kernel layer.</p>
+
+<p><a href="https://openvpn.net">OpenVPN</a> uses the SSL/TLS libraries to manage its cryptographic layer. The dual authenticated SSL/TLS key agreement/exchange method is almost identical to IPsec’s Internet Key Exchange (IKE), and OpenVPN implements a tunnel system like IPsec’s Encapsulating Security Payload (ESP) that has equivalent or better security to the IPSec standard.</p>
+
+<p>Setting up OpenVPN requires a fair amount of configuration, so I’ve created an Ansible role to configure an Ubuntu 16.04 instance with an MFA-enabled OpenVPN service. This is a modification of the popular ‘<a href="https://galaxy.ansible.com/Stouts/openvpn/">Stouts.openvpn</a>’ role in Ansible Galaxy to add MFA support.</p>
+
+<p>https://github.com/darrylanderson/ansible-aws/tree/master/playbooks/roles/openvpn</p>
+
+<p>In the following sections I’ll review some of the key prerequisites and network configuration needed to get your VPN up and running, and then walk through how to use the Ansible role.</p>
+
+<h4 id="create-vm-and-configure-route">Create VM And Configure Route</h4>
+
+<p>Assuming you already have a subnet created in your VPC to host your VPN VM, launch an Ubuntu 16.04 instance in that subnet.</p>
+
+<p>Once the VM has launched, you need to create the network routes. We need the following additional routes on our subnet’s route table:</p>
+
+<ol>
+  <li>A route allowing traffic from the public internet. This will be locked down to TCP/UDP traffic on port 1194.</li>
+  <li>A route for VPN traffic to flow to the VPN VM instance.</li>
+</ol>
+
+<p>An example of what this might look like in your AWS environment is shown below:
+<img src="/content/images/2018/02/AWS-route-1.png" alt="AWS-route-1" /></p>
+
+<h4 id="configure-vm-for-packet-forwarding">Configure VM For Packet Forwarding</h4>
+
+<p>By default the Linux kernel is not configured to support packet forwarding, which is a requirement for our VPN tunnel to forward packets.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>vi /etc/sysctl.conf
+</code></pre></div></div>
+
+<p>Enable ip forwarding by uncommenting the line containing the <code class="highlighter-rouge">net.ipv4.ip_forward</code> setting as follows:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Uncomment the next line to enable packet forwarding for IPv4</span>
+net.ipv4.ip_forward<span class="o">=</span>1
+</code></pre></div></div>
+
+<p>You also need to ensure that the network interface attached to your OpenVPN instance allows for IP forwarding, and that it doesn’t do source/destination checks. This allows you to route traffic to your private subnets. The mechanism for configuring this varies depending on your cloud provider.</p>
+
+<h6 id="aws">AWS</h6>
+<p>In AWS you need to disable the source/destination check on the elastic network interface attached to the OpenVPN EC2 instance to allow packets to route correctly. See <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-eni.html#change_source_dest_check">Changing the Source or Destination Checking</a> at the AWS doc site for more details.</p>
+
+<h6 id="azure">Azure</h6>
+<p>In Azure you need to enable IP forwarding on your OpenVPN VM. See <a href="https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-network-interface#enable-or-disable-ip-forwarding">Enable or disable IP forwarding</a> at the Microsoft Azure doc site for more details.</p>
+
+<h6 id="google-cloud">Google Cloud</h6>
+<p>In Google Cloud you need to have launched your OpenVPN VM with IP forwarding enabled. Unfortunately you can’t enable this setting on an existing VM. See <a href="https://cloud.google.com/vpc/docs/using-routes#canipforward">Enabling IP forwarding for instances</a> at the Google Cloud doc site for more details.</p>
+
+<h4 id="configure-ansible">Configure Ansible</h4>
+
+<p>Start by SSHing into your VM, cloning my Ansible repo to get the role and playbook, and install Ansible:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/darrylanderson/ansible-aws.git
+<span class="nb">cd </span>ansible-aws
+./bootstrap_ansible.sh
+</code></pre></div></div>
+
+<p>The Ansible role has a large number of configuration options. The simplest approach is to define them in the playbook. Below is an example of a configuration which will create an OpenVPN network using the default CIDR range of 10.8.0.0/24 (the default), and will push a route to clients allowing them to access a private subnet having a CIDR range of 10.10.0.0/16.</p>
+
+<blockquote>
+  <p>playbooks/setup-openvpn.yml</p>
+  <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
+<span class="c1"># Necessary for Ubuntu 16.04</span>
+<span class="pi">-</span> <span class="na">hosts</span><span class="pi">:</span> <span class="s">all</span>
+  <span class="na">become</span><span class="pi">:</span> <span class="s">yes</span>
+  <span class="na">become_user</span><span class="pi">:</span> <span class="s">root</span>
+  <span class="na">become_method</span><span class="pi">:</span> <span class="s">sudo</span>
+  <span class="na">gather_facts</span><span class="pi">:</span> <span class="s">False</span>
+  <span class="na">tasks</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">install python 2</span>
+    <span class="na">raw</span><span class="pi">:</span> <span class="s">test -e /usr/bin/python || (apt -y update &amp;&amp; apt install -y python-minimal)</span>
+
+<span class="c1"># For a local playbook run:  ansible-playbook -i "localhost," -c local --ask-sudo-pass playbooks/setup-openvpn.yml</span>
+<span class="pi">-</span> <span class="na">hosts</span><span class="pi">:</span> <span class="s">all</span>
+  <span class="na">become</span><span class="pi">:</span> <span class="s">yes</span>
+  <span class="na">become_user</span><span class="pi">:</span> <span class="s">root</span>
+  <span class="na">become_method</span><span class="pi">:</span> <span class="s">sudo</span>
+  <span class="na">roles</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">openvpn</span>
+  <span class="na">vars</span><span class="pi">:</span>
+    <span class="na">openvpn_use_pam</span><span class="pi">:</span> <span class="s">yes</span>
+    <span class="na">openvpn_proto</span><span class="pi">:</span> <span class="s2">"</span><span class="s">tcp"</span>
+    <span class="na">openvpn_topology</span><span class="pi">:</span> <span class="s2">"</span><span class="s">subnet"</span>
+    <span class="na">openvpn_key_country</span><span class="pi">:</span> <span class="s">US</span>
+    <span class="na">openvpn_key_province</span><span class="pi">:</span> <span class="s">IL</span>
+    <span class="na">openvpn_key_city</span><span class="pi">:</span> <span class="s">Chicago</span>
+    <span class="na">openvpn_key_org</span><span class="pi">:</span> <span class="s">My Company Name</span>
+    <span class="na">openvpn_key_email</span><span class="pi">:</span> <span class="s">me@myhost.mydomain</span>
+    <span class="na">openvpn_server_options</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">push "route 10.10.0.0 255.255.0.0"</span>
+</code></pre></div>  </div>
+</blockquote>
+
+<h4 id="run-ansible-playbook">Run Ansible Playbook</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> ~/ansible-aws
+ansible-playbook <span class="nt">-i</span> <span class="s2">"localhost,"</span> <span class="nt">-c</span> <span class="nb">local </span>playbooks/setup-openvpn.yml
+</code></pre></div></div>
+
+<p>This may appear to hang for a while when generating the server keys if the VM does not have enough randomness (a common issue with Linux VMs). It will eventually finish.</p>
+
+<h4 id="create-openvpn-client-configurations">Create OpenVPN Client Configurations</h4>
+
+<p>Now that you have your OpenVPN server running, you need to create client configurations.</p>
+
+<p>The Ansible role creates a helper script which does the following:</p>
+<ul>
+  <li>Create a new user account.</li>
+  <li>Create keys for the user.</li>
+  <li>Generate a MFA token for the user.</li>
+  <li>Create ovpn file to send to the user.</li>
+</ul>
+
+<p>Here’s how to create a new client:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo</span> /etc/openvpn/build-client.sh username
+</code></pre></div></div>
+
+<p>This will prompt you for a password for the user, display the QR code needed to register the smartphone, and if you have mutt installed and configured to send outbound emails, send the ovpn file to the user.</p>
+
+<p><img src="/content/images/2018/02/build-client-1.png" alt="build-client-1" />
+<img src="/content/images/2018/02/build-client-2.png" alt="build-client-2" /></p>
+
+<p>It’s usually easiest to have the user swing by and scan the QR code on their phone, but you can also send them the information offline so they can register their device.</p>
+
+<p>If you don’t have mutt configured, you need to send the user their ovpn file in <code class="highlighter-rouge">/etc/openvpn/client-config</code> for them to import into their OpenVPN client.</p>
+
+<p>Now when the client tries to connect, they will be prompted for a password. They should enter their token and password on the same line.</p>
+
+<p>For example, if their password is “mypassword” (hopefully it’s not), and their current MFA token is 345678, they should enter <code class="highlighter-rouge">345678mypassword</code> as their password when prompted by the VPN client.</p>
+
+<h4 id="revoking-clients">Revoking Clients</h4>
+
+<p>If a user leaves your organization, you can simply run <code class="highlighter-rouge">sudo userdel username</code> to deactive their OpenVPN access.</p>
+
+<p>To remove their certificates, run <code class="highlighter-rouge">sudo /etc/openvpn/revoke-client.sh username</code>.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Enabling MFA is a key step in hardening the critical remote entry points to your cloud infrastructure. In this article we’ve seen how to MFA-enable both your SSH services as well as OpenVPN. You should also enforce MFA on all your cloud console user accounts.</p>
+
+<p>Of course MFA is only one part of a broader information security management system. Standard security best practices such as network segmentation, intrusion detection, audit trails, patching, etc all have to work together to improve your overall security posture.</p>
+
+<h2 id="resources">Resources</h2>
+
+<ul>
+  <li>https://aws.amazon.com/blogs/startups/securing-ssh-to-amazon-ec2-linux-hosts/</li>
+  <li>https://www.digitalocean.com/community/tutorials/how-to-set-up-multi-factor-authentication-for-ssh-on-ubuntu-16-04</li>
+  <li>https://medium.com/@egonbraun/using-google-authenticator-mfa-with-openvpn-on-ubuntu-16-04-774e4acc2852</li>
+  <li>https://aws.amazon.com/blogs/security/category/best-practices/</li>
+</ul>
+
+<hr />
+
+<p style="text-align: center;">Also published on <a href="https://dzone.com/articles/multi-factor-authentication-with-ssh-and-openvpn">DZone</a>.</p>
+
+<hr />
+
+                </div>
+            </section>
+
+            <!-- Email subscribe form at the bottom of the page -->
+            
+
+            <footer class="post-full-footer">
+                <!-- Everything inside the #author tags pulls data from the author -->
+                <!-- #author-->
+                
+                    
+                        <section class="author-card">
+                            
+                                <img class="author-profile-image" src="/content/images/2018/03/ProfilePhoto-round-1.png" alt="darryl" />
+                            
+                            <section class="author-card-content">
+                                <h4 class="author-card-name"><a href="/author/darryl">Darryl Anderson</a></h4>
+                                
+                                    <p>Darryl provides technology advisement, design, and development services to early and growth stage software companies.</p>
+                                
+                            </section>
+                        </section>
+                        <div class="post-full-footer-right">
+                            <a class="author-card-button" href="/author/darryl">Read More</a>
+                        </div>
+                    
+                
+                <!-- /author  -->
+            </footer>
+
+            <!-- If you use Disqus comments, just uncomment this block.
+            The only thing you need to change is "test-apkdzgmqhj" - which
+            should be replaced with your own Disqus site-id. -->
+            
+
+        </article>
+
+    </div>
+</main>
+
+<!-- Links to Previous/Next posts -->
+<aside class="read-next outer">
+    <div class="inner">
+        <div class="read-next-feed">
+            
+                
+                
+                
+                
+            
+
+            <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+
+    <article class="post-card post-template">
+        
+            <a class="post-card-image-link" href="/building-a-microservice-chassis-with-spring-boot">
+                <div class="post-card-image" style="background-image: url(/assets/images/cover-chassis.jpeg)"></div>
+            </a>
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/building-a-microservice-chassis-with-spring-boot">
+                <header class="post-card-header">
+                    
+                        
+                            
+                                <span class="post-card-tags">Microservices</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">Building A Microservice Chassis With Spring Boot and Spring Cloud</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    
+                        <p></p>
+                    
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                        
+                        <img class="author-profile-image" src="/content/images/2018/03/ProfilePhoto-round-1.png" alt="Darryl Anderson" />
+                        
+                        <span class="post-card-author">
+                            <a href="/author/darryl/">Darryl Anderson</a>
+                        </span>
+                    
+                
+                <span class="reading-time">
+                    
+                    
+                      1 min read
+                    
+                </span>
+            </footer>
+        </div>
+    </article>
+
+            
+
+            <!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+
+    <article class="post-card post-template">
+        
+            <a class="post-card-image-link" href="/running-ansible-at-scale">
+                <div class="post-card-image" style="background-image: url(/assets/images/cover-ansible.jpeg)"></div>
+            </a>
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/running-ansible-at-scale">
+                <header class="post-card-header">
+                    
+                        
+                            
+                                <span class="post-card-tags">Devops</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">Running Ansible at Scale</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    
+                        <p></p>
+                    
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                        
+                        <img class="author-profile-image" src="/content/images/2018/03/ProfilePhoto-round-1.png" alt="Darryl Anderson" />
+                        
+                        <span class="post-card-author">
+                            <a href="/author/darryl/">Darryl Anderson</a>
+                        </span>
+                    
+                
+                <span class="reading-time">
+                    
+                    
+                      1 min read
+                    
+                </span>
+            </footer>
+        </div>
+    </article>
+
+            
+
+        </div>
+    </div>
+</aside>
+
+<!-- Floating header which appears on-scroll, included from includes/floating-header.hbs -->
+<div class="floating-header">
+    <div class="floating-header-logo">
+        <a href="/">
+            
+            <span>Anderson Technology Consulting</span>
+        </a>
+    </div>
+    <span class="floating-header-divider">&mdash;</span>
+    <div class="floating-header-title">Multi-Factor Authentication With SSH And OpenVPN</div>
+    <div class="floating-header-share">
+        <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
+</svg>
+</div>
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Multi-Factor+Authentication+With+SSH+And+OpenVPN&amp;url=https://darrylanderson.dev/multifactor-everything"
+            onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+
+        </a>
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://darrylanderson.dev/multifactor-everything"
+            onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
+
+        </a>
+    </div>
+    <progress class="progress" value="0">
+        <div class="progress-container">
+            <span class="progress-bar"></span>
+        </div>
+    </progress>
+</div>
+
+
+<!-- /post -->
+
+<!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs -->
+
+
+        <!-- Previous/next page links - displayed on every page -->
+        
+
+        <!-- The footer at the very bottom of the screen -->
+        <footer class="site-footer outer">
+            <div class="site-footer-content inner">
+                <section class="copyright"><a href="/">Anderson Technology Consulting</a> &copy; 2021</section>
+                <section class="poweredby">Published with <a href="https://jekyllrb.com/">Jekyll</a> &
+                    <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a> using
+                    <a href="https://github.com/jekyller/jasper2" target="_blank" rel="noopener">Jasper2</a></section>
+                <nav class="site-footer-nav">
+                    <a href="/">Latest Posts</a>
+                </nav>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- The big email subscribe modal content -->
+    
+
+    <!-- highlight.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.10.0/components/prism-abap.min.js"></script>
+    <script>$(document).ready(function() {
+      $('pre code').each(function(i, block) {
+        hljs.highlightBlock(block);
+      });
+    });</script>
+
+    <!-- jQuery + Fitvids, which makes all video embeds responsive -->
+    <script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous">
+    </script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="https://demo.ghost.io/assets/js/jquery.fitvids.js?v=724281a32e"></script>
+
+
+    <!-- Paginator increased to "infinit" in _config.yml -->
+    <!-- if paginator.posts  -->
+    <!-- <script>
+        var maxPages = parseInt('');
+    </script>
+    <script src="/assets/js/infinitescroll.js"></script> -->
+    <!-- /endif -->
+
+    
+
+
+    <!-- Add Google Analytics  -->
+    <!-- Google Analytics Tracking code -->
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-112416473-1', 'auto');
+  ga('send', 'pageview');
+
+ </script>
+
+
+    <!-- The #block helper will pull in data from the #contentFor other template files. In this case, there's some JavaScript which we only want to use in post.hbs, but it needs to be included down here, after jQuery has already loaded. -->
+    
+        <script>
+
+// NOTE: Scroll performance is poor in Safari
+// - this appears to be due to the events firing much more slowly in Safari.
+//   Dropping the scroll event and using only a raf loop results in smoother
+//   scrolling but continuous processing even when not scrolling
+$(document).ready(function () {
+    // Start fitVids
+    var $postContent = $(".post-full-content");
+    $postContent.fitVids();
+    // End fitVids
+
+    var progressBar = document.querySelector('progress');
+    var header = document.querySelector('.floating-header');
+    var title = document.querySelector('.post-full-title');
+
+    var lastScrollY = window.scrollY;
+    var lastWindowHeight = window.innerHeight;
+    var lastDocumentHeight = $(document).height();
+    var ticking = false;
+
+    function onScroll() {
+        lastScrollY = window.scrollY;
+        requestTick();
+    }
+
+    function onResize() {
+        lastWindowHeight = window.innerHeight;
+        lastDocumentHeight = $(document).height();
+        requestTick();
+    }
+
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(update);
+        }
+        ticking = true;
+    }
+
+    function update() {
+        var trigger = title.getBoundingClientRect().top + window.scrollY;
+        var triggerOffset = title.offsetHeight + 35;
+        var progressMax = lastDocumentHeight - lastWindowHeight;
+
+        // show/hide floating header
+        if (lastScrollY >= trigger + triggerOffset) {
+            header.classList.add('floating-active');
+        } else {
+            header.classList.remove('floating-active');
+        }
+
+        progressBar.setAttribute('max', progressMax);
+        progressBar.setAttribute('value', lastScrollY);
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', onScroll, {passive: true});
+    window.addEventListener('resize', onResize, false);
+
+    update();
+});
+</script>
+
+    
+
+    <!-- Ghost outputs important scripts and data with this tag - it should always be the very last thing before the closing body tag -->
+    <!-- ghost_foot -->
+
+</body>
+</html>

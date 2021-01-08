@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- Document Settings -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Base Meta -->
+    <!-- dynamically fixing the title for tag/author pages -->
+
+
+
+    <title>Running Ansible at Scale</title>
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.edited.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/syntax.css" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Noto+Serif|Open+Sans|Lora" rel="stylesheet">
+    <style>
+        body,
+        .main-nav a,
+        .post-meta,
+        .post-card-excerpt,
+        .post-full-content,
+        .read-next-story .post:before,
+        .pagination {
+            font-family: "Lora", serif;
+            font-size: 21px;
+            line-height: 1.58;
+        }
+        h1, h2, h3, h4, h5, h6,
+        .page-title,
+        .subscribe-button,
+        .floating-header,
+        .site-nav,
+        .site-footer {
+            font-family: sans-serif;
+        }
+        /* This is necessary to not mess up share icons at bottom of posts */
+        [class^="icon-"]:before, [class*=" icon-"]:before {
+            font-family: "casper-icons", "Open Sans", sans-serif;
+        }
+        /* syntax highlighting */
+        pre[class*=language-] {
+            margin: 1.75em 0;
+        }
+    </style>
+    <!-- highlight.js -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <style>.hljs { background: none; }</style>
+
+    <!--[if IE]>
+        <style>
+            p, ol, ul{
+                width: 100%;
+            }
+            blockquote{
+                width: 100%;
+            }
+        </style>
+    <![endif]-->
+    
+    <!-- This tag outputs SEO meta+structured data and other important settings -->
+    <meta name="description" content="Pragmatic Cloud Architecture" />
+    <link rel="shortcut icon" href="/" type="image/png" />
+    <link rel="canonical" href="/running-ansible-at-scale" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+
+     <!--title below is coming from _includes/dynamic_title-->
+    <meta property="og:site_name" content="Anderson Technology Consulting" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Running Ansible at Scale" />
+    <meta property="og:description" content="Pragmatic Cloud Architecture" />
+    <meta property="og:url" content="/running-ansible-at-scale" />
+    <meta property="og:image" content="/assets/images/cover-ansible.jpeg" />
+    <meta property="article:publisher" content="https://www.facebook.com/" />
+    <meta property="article:tag" content="Devops" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Running Ansible at Scale" />
+    <meta name="twitter:description" content="Pragmatic Cloud Architecture" />
+    <meta name="twitter:url" content="/" />
+    <meta name="twitter:image" content="/assets/images/cover-ansible.jpeg" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Anderson Technology Consulting" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Devops" />
+    <meta name="twitter:site" content="@" />
+    <meta name="twitter:creator" content="@" />
+    <meta property="og:image:width" content="2000" />
+    <meta property="og:image:height" content="666" />
+
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Website",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Anderson Technology Consulting",
+        "logo": "/"
+    },
+    "url": "/running-ansible-at-scale",
+    "image": {
+        "@type": "ImageObject",
+        "url": "/assets/images/cover-ansible.jpeg",
+        "width": 2000,
+        "height": 666
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "/running-ansible-at-scale"
+    },
+    "description": "Pragmatic Cloud Architecture"
+}
+    </script>
+
+    <!-- <script type="text/javascript" src="https://demo.ghost.io/public/ghost-sdk.min.js?v=724281a32e"></script>
+    <script type="text/javascript">
+    ghost.init({
+    	clientId: "ghost-frontend",
+    	clientSecret: "f84a07a72b17"
+    });
+    </script> -->
+
+    <meta name="generator" content="Jekyll 3.6.2" />
+    <link rel="alternate" type="application/rss+xml" title="Running Ansible at Scale" href="/feed.xml" />
+
+
+</head>
+<body class="post-template">
+
+    <div class="site-wrapper">
+        <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
+        <!-- default -->
+
+<!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template -->
+
+<header class="site-header outer">
+    <div class="inner">
+        <nav class="site-nav">
+    <div class="site-nav-left">
+        
+            
+                <a class="site-nav-logo" href="/">Anderson Technology Consulting</a>
+            
+        
+        
+            <ul class="nav" role="menu">
+    <li class="nav-home" role="menuitem"><a href="/">Home</a></li>
+    <li class="nav-about" role="menuitem"><a href="/about/">About Me</a></li>
+</ul>
+
+        
+    </div>
+    <div class="site-nav-right">
+        <div class="social-links">
+              <a href="https://linkedin.com/in/darryl-anderson" target="_blank" rel="noopener">
+             <i class="fab fa-linkedin"></i> linkedin
+          </a>
+          &nbsp;&nbsp;
+          <a href="https://github.com/darrylanderson" target="_blank" rel="noopener">
+            <i class="fab fa-github"></i> github
+          </a>
+          &nbsp;&nbsp;
+          <a href="https://twitter.com/DarrylAnderson_" target="_blank" rel="noopener">
+             <i class="fab fa-twitter"></i> twitter
+          </a>
+          &nbsp;&nbsp;
+
+          <!---->
+          <!---->
+        </div>
+        
+    </div>
+</nav>
+
+    </div>
+</header>
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<main id="site-main" class="site-main outer" role="main">
+    <div class="inner">
+
+        <article class="post-full  ">
+
+            <header class="post-full-header">
+                <section class="post-full-meta">
+                    <time class="post-full-meta-date" datetime="23 January 2018">23 January 2018</time>
+                    
+                        <span class="date-divider">/</span>
+                        
+                            
+                               <a href='/tag/devops/'>DEVOPS</a>
+                            
+                        
+                    
+                </section>
+                <h1 class="post-full-title">Running Ansible at Scale</h1>
+            </header>
+
+            
+            <figure class="post-full-image" style="background-image: url(/assets/images/cover-ansible.jpeg)">
+            </figure>
+            
+
+            <section class="post-full-content">
+                <div class="kg-card-markdown">
+                    <p>I’ve used plenty of automation solutions over the years. Chef, Puppet, Fabric, SaltStack, Capistrano, custom scripts, etc… all of them work well to varying degrees, but only one tool has stood the test of time for me. That tool is <a href="https://ansible.com">Ansible</a>.</p>
+
+<p>In my humble opinion, no other tool combines the same level of functionality, ease of use, maintainability, portability, extensibility, and security as Ansible. I’ve used it for everything as simple as checking the time on a fleet of AWS EC2 instances, to complex orchestration operations like a zero-downtime blue/green deployment.</p>
+
+<p>In this article I’ll give a brief overview of Ansible, and then quickly jump into some examples of how I’ve used it in the past for automation activities in a cloud environment.</p>
+
+<h2 id="the-basics">The Basics</h2>
+
+<p>Ansible uses an agentless approach, making it a perfect fit for dynamic cloud environments. Since it uses SSH to communicate with remote hosts, there’s no additional infrastructure required.</p>
+
+<p>Ansible has 3 primary concepts:</p>
+
+<ul>
+  <li><strong>Host Inventory</strong>: A set of named groupings of hosts. It can be a static map, or it can be dynamic when dealing with constantly changing cloud infrastructure.</li>
+  <li><strong>Playbooks</strong>: Indicates to Ansible which set of hosts should have what tasks performed on them. For example, there may be a web server farm which should all have Nginx installed.</li>
+  <li><strong>Roles</strong>: A grouping of tasks run on a single host. For example, there may be a role for installing, configuring, and starting Nginx. A role has no concept of <em>which</em> host it will apply to.</li>
+</ul>
+
+<p>We’ll look at each of these in more detail in the following sections.</p>
+
+<h2 id="host-inventory">Host Inventory</h2>
+
+<h3 id="static-host-inventory">Static Host Inventory</h3>
+
+<p>The simplest approach to defining host groupings is with a static inventory file.</p>
+
+<blockquote>
+  <p><code class="highlighter-rouge">inventories/mycloud/hosts</code></p>
+  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[webservers]
+10.0.0.1
+10.0.0.2
+10.0.0.3
+
+[dbservers]
+10.10.0.1
+10.10.0.2
+</code></pre></div>  </div>
+</blockquote>
+
+<p>This file defines 3 “webserver” hosts, and 2 “dbserver” hosts. While this may be fine when dealing with a traditional data center, it becomes nearly impossible to manage in a dynamic cloud environment. What we want is for the list of hosts to be dynamically constructed based on metadata. This is what the dynamic inventory feature of Ansible provides.</p>
+
+<h3 id="dynamic-host-inventory">Dynamic Host Inventory</h3>
+
+<p><a href="http://docs.ansible.com/ansible/latest/intro_dynamic_inventory.html">Dynamic inventory</a> is what makes Ansible such a great fit in a cloud environment. As servers come and go, Ansible can dynamically build a list of hosts.</p>
+
+<p>The exact mechanism of how this works depends on the cloud provider. In AWS, a script <code class="highlighter-rouge">ec2.py</code> is used to make calls to the EC2 metadata service and group hosts by whatever metadata you choose. For example, you may have a web server farm consisting of a number of identically configured servers running Nginx. You could add EC2 tags for each instance using a key of “Service”, and a value of “Webserver”. Ansible’s dynamic inventory can then be used to discover any of these EC2 instances using the host name <code class="highlighter-rouge">tag_Service_Webserver</code>.</p>
+
+<p>A similar option exists for <a href="http://docs.ansible.com/ansible/latest/guide_azure.html">Azure</a>. In this case the script is called <code class="highlighter-rouge">azure_rm.py</code>.</p>
+
+<p>For <a href="http://docs.ansible.com/ansible/latest/guide_gce.html">Google Cloud</a> the script is <code class="highlighter-rouge">gce.py</code>.</p>
+
+<p>All of the available dynamic inventory scripts can be found here: 
+https://github.com/ansible/ansible/tree/stable-2.4/contrib/inventory.</p>
+
+<p>To use these scripts, place them in a subdirectory of the <code class="highlighter-rouge">inventory</code> folder. For example, this is what my folder structure looks like for AWS.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>inventories/aws/ec2.py
+inventories/aws/ec2.ini
+</code></pre></div></div>
+
+<p>To use the inventory, simply pass it to the ansible-playbook command.</p>
+
+<p><code class="highlighter-rouge">ansible-playbook -i inventories/aws playbooks/myplaybook.yml</code></p>
+
+<h2 id="playbooks">Playbooks</h2>
+
+<p>Now that we know how to define named groups of hosts, we can create a playbook. A playbook is a yaml file which describes the tasks and roles which should be applied to a given set of hosts.</p>
+
+<p>In the example below, we configure any EC2 instance with the tag key-value pair of “service:zeppelin” to run Apache Zeppelin (a fantastic data analytics workbench).</p>
+
+<blockquote>
+  <p><code class="highlighter-rouge">playbooks/setup-zeppelin.yml</code></p>
+  <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
+<span class="pi">-</span> <span class="na">hosts</span><span class="pi">:</span> <span class="s">tag_service_zeppelin</span>
+  <span class="na">become</span><span class="pi">:</span> <span class="no">true</span>  
+  <span class="na">roles</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">java8</span>
+  <span class="pi">-</span> <span class="s">zeppelin</span>
+</code></pre></div>  </div>
+</blockquote>
+
+<p>For all matching hosts, this playbook will first apply the <code class="highlighter-rouge">java8</code> role, and then the <code class="highlighter-rouge">zeppelin</code> role. It is the responsiblity of the role to define what should actually happen.</p>
+
+<h2 id="roles">Roles</h2>
+
+<p>Defining <a href="http://docs.ansible.com/ansible/latest/playbooks_reuse_roles.html">roles</a> is where most of the work takes place in setting up an Ansible-based automation solution. The role is where you define what packages to install, any users to create, systemd templates, configuration file templates, start/stop the service, etc.</p>
+
+<p>Fortunately a large and active community can be found at <a href="https://galaxy.ansible.com/">Ansible Galaxy</a>. There you can find roles already built for most common applications.</p>
+
+<h2 id="variables">Variables</h2>
+
+<p>We want to reuse our playbooks and roles as much as possible, so we’ll extract any environment-specific values into variables.</p>
+
+<p>With a dynamic inventory, you can easily group variables by host group using the following layout:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>inventories/aws/group_vars/tag_PROD_webserver/vars.yml
+inventories/aws/group_vars/tag_PROD_webserver/vault.yml
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">vars.yml</code> contains property key-values that don’t need to be encrypted at rest.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
+<span class="na">http_port</span><span class="pi">:</span> <span class="s">8080</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">vault.yml</code> uses <a href="https://docs.ansible.com/ansible/2.4/vault.html">Ansible Vault</a> to store properties requiring encryption. Database passwords, private keys, etc. Start by creating a plain text properties file called <code class="highlighter-rouge">vault.yml</code> as follows:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
+<span class="na">db_password</span><span class="pi">:</span> <span class="s">some_complex_password</span>
+</code></pre></div></div>
+
+<p>To encrypt the file:
+<code class="highlighter-rouge">ansible-vault encrypt vault.yml</code></p>
+
+<p>To use the encrypted values during a playbook run, you need to supply the vault password. One way is to prompt for it with the <code class="highlighter-rouge">--ask-vault-pass</code> flag:
+<code class="highlighter-rouge">ansible-playbook --ask-vault-pass -i inventories/aws playbooks/myplaybook.yml</code></p>
+
+<h2 id="directory-layout">Directory Layout</h2>
+
+<p>Ansible has a <a href="http://docs.ansible.com/ansible/latest/playbooks_best_practices.html#directory-layout">recommended directory layout</a>, but I’ve found that having all the playbooks at the root level adds clutter.</p>
+
+<p>This is the structure that has worked well for me:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>inventories/
+    aws/
+        ec2.py
+        group_vars/      # variables for groups
+
+playbooks/  
+    setup-kafka.yml    # playbook to setup a Kafka cluster
+    deploy-myapp.yml   # playbook to deploy 'myapp'
+    
+    roles/
+        common/
+        kafka/
+        java8/
+        myapp/
+</code></pre></div></div>
+
+<h2 id="putting-it-all-together">Putting It All Together</h2>
+
+<p>The title of this article was “Running Ansible at Scale”. But we haven’t yet addressed how all of this should work when dealing with multiple teams, prod/uat/dev environments, and how to meet the normal enterprise requirements of least privilege and separation of duties.</p>
+
+<p>In order for Ansible to work we need a control server somewhere. I’ve found it works best to have separate control servers as dictated by security requirements. For example, you might have a locked down server for production automation, and a separate one for uat automation. This allows you to limit what each Ansible master can do. Network isolation, security groups, and separate SSH keys all contribute to keeping things locked down.</p>
+
+<p>You also should limit <em>who</em> is allowed to run Ansible. My preferred approach here is to restrict ssh access to the Ansible control hosts by using named-user accounts along with MFA. See here for details on how to do this: 
+https://www.andersontech.consulting/multifactor-everything</p>
+
+<p>And finally, you need to ensure you have a full audit trail. All of your Ansible code should be stored in a version control system. Each Ansible playbook run should write its log output to a centralized logging system. While I prefer using syslog along with a log shipping system such as logstash, there are plenty of other logging options detailed here: https://docs.ansible.com/ansible/devel/plugins/callback.html</p>
+
+<p>An excellent option for integrating Ansible into an enterprise is to use the commercial <a href="https://www.ansible.com/products/tower">Ansible Tower</a> product, or the open-source upstream <a href="https://github.com/ansible/awx">AWX</a> project.</p>
+
+<h2 id="examples">Examples</h2>
+
+<h3 id="time-checks">Time Checks</h3>
+
+<p>Ansible can be used to run ad-hoc commands across a set of hosts. Basically we forgo the use of a playbook, and instead execute a single command.</p>
+
+<p>The example below shows how to run an arbitrary command across a set of servers. In this case, we want to check the time and date of all EC2 instances with a tag key of <code class="highlighter-rouge">Role</code> and value of <code class="highlighter-rouge">PROD_apigateway</code>, <code class="highlighter-rouge">PROD_serviceA</code>, or <code class="highlighter-rouge">PROD_serviceB</code>. This particular command is useful to check for any servers with excessive clock drift due to ntp issues.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ansible tag_Role_PROD_apigateway, tag_Role_PROD_serviceA, tag_Role_PROD_serviceB -i inventories/aws -a "date"
+</code></pre></div></div>
+
+<h3 id="rolling-aws-deployment">Rolling AWS Deployment</h3>
+
+<p>The real value of playbooks can be seen when a complex orchestration of operations need to be performed across a fleet of servers.</p>
+
+<p>Let’s assume we have a fairly basic web application architecture. A fronting web server farm, an application server cluster, and a backend MySQL database.  We also assume that our applications can tolerate simultaneous different versions running across tiers.</p>
+
+<p><img src="/content/images/2018/01/Web-App-Reference-Architecture-1.png" alt="Web-App-Reference-Architecture-1" /></p>
+
+<p>At a high level, our deployment pipeline requires the following tasks to be orchestrated by Ansible (all running from the Ansible control host in our AWS devzone).</p>
+
+<ol>
+  <li>Record start of deployment process in release tracking tool</li>
+  <li>Perform database schema upgrade</li>
+  <li>For each tier (webserver, appserver):
+    <ol>
+      <li>Disable monitoring</li>
+      <li>Remove server from ELB pool</li>
+      <li>Shut down application</li>
+      <li>Update application</li>
+      <li>Start application</li>
+      <li>Enable monitoring</li>
+      <li>Add server to ELB pool</li>
+      <li>Wait for service to pass health checks</li>
+    </ol>
+  </li>
+  <li>Record deployment complete in release tracking tool</li>
+</ol>
+
+<p>Here is a sample playbook showing the process:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
+<span class="c1">#################</span>
+<span class="c1"># Send a slack notification that the deployment is starting</span>
+<span class="c1">################# </span>
+<span class="pi">-</span> <span class="na">hosts</span><span class="pi">:</span> <span class="s">tag_Role_PROD_webserver</span>  
+  <span class="na">tasks</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Send slack notification</span>
+      <span class="na">slack</span><span class="pi">:</span>
+        <span class="na">token</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+        <span class="na">msg</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Starting</span><span class="nv"> </span><span class="s">production</span><span class="nv"> </span><span class="s">deployment..."</span>
+        <span class="na">color</span><span class="pi">:</span> <span class="s">warning</span>
+        <span class="na">icon_url</span><span class="pi">:</span> <span class="s1">'</span><span class="s">'</span>
+      <span class="na">run_once</span><span class="pi">:</span> <span class="no">true</span>
+      <span class="na">delegate_to</span><span class="pi">:</span> <span class="s">localhost</span>
+
+
+<span class="c1">#################</span>
+<span class="c1"># Run database scheme update</span>
+<span class="c1">################# </span>
+<span class="pi">-</span> <span class="na">hosts</span><span class="pi">:</span> <span class="s">tag_Role_PROD_db</span> 
+  <span class="na">roles</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">database.liquibase</span>
+
+
+<span class="c1">#################</span>
+<span class="c1"># Rolling deployment: web server farm</span>
+<span class="c1">################# </span>
+
+<span class="c1"># Roll out updates to the webserver farm 2 nodes at a time</span>
+<span class="pi">-</span> <span class="na">hosts</span><span class="pi">:</span> <span class="s">tag_Role_PROD_webserver</span>
+  <span class="na">become</span><span class="pi">:</span> <span class="s">yes</span>  
+  <span class="na">serial</span><span class="pi">:</span> <span class="s">2</span>
+
+  <span class="c1"># These are the tasks to run before applying updates:</span>
+  <span class="na">pre_tasks</span><span class="pi">:</span>    
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Gather EC2 facts</span>
+      <span class="na">action</span><span class="pi">:</span> <span class="s">ec2_facts</span>
+
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">disable the server in the loadbalancer</span>
+      <span class="na">local_action</span><span class="pi">:</span> <span class="s">ec2_elb</span>
+      <span class="na">args</span><span class="pi">:</span>
+        <span class="na">instance_id</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+        <span class="na">region</span><span class="pi">:</span>      <span class="s2">"</span><span class="s">us-west-2"</span>
+        <span class="na">ec2_elbs</span><span class="pi">:</span>    <span class="s2">"</span><span class="s">"</span>
+        <span class="na">state</span><span class="pi">:</span>       <span class="s1">'</span><span class="s">absent'</span>
+
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Disable service monitor</span>
+      <span class="na">service</span><span class="pi">:</span> <span class="s">name='zabbix-agent' state=stopped</span>
+
+  <span class="c1"># Execute the deployment</span>
+  <span class="na">roles</span><span class="pi">:</span>  
+    <span class="pi">-</span> <span class="s">application.webserver.deploy</span>    
+
+  <span class="c1"># These tasks run after the roles:</span>
+  <span class="na">post_tasks</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Enable service monitor</span>
+      <span class="na">service</span><span class="pi">:</span> <span class="s">name='zabbix-agent' state=started</span>
+
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Add instance to ELB... will wait up to 5 minutes for healthy checks to pass</span>
+      <span class="na">local_action</span><span class="pi">:</span> <span class="s">ec2_elb</span>
+      <span class="na">args</span><span class="pi">:</span>
+        <span class="na">instance_id</span><span class="pi">:</span>  <span class="s2">"</span><span class="s">"</span>
+        <span class="na">region</span><span class="pi">:</span>       <span class="s2">"</span><span class="s">us-west-2"</span>
+        <span class="na">ec2_elbs</span><span class="pi">:</span>     <span class="s2">"</span><span class="s">"</span>
+        <span class="na">wait_timeout</span><span class="pi">:</span> <span class="s">300</span>
+        <span class="na">state</span><span class="pi">:</span>        <span class="s1">'</span><span class="s">present'</span>
+
+
+<span class="c1">#################</span>
+<span class="c1"># Rolling deployment: application server cluster</span>
+<span class="c1">################# </span>
+
+<span class="c1"># Roll out updates to the app server cluster 2 nodes at a time</span>
+<span class="pi">-</span> <span class="na">hosts</span><span class="pi">:</span> <span class="s">tag_Role_PROD_appserver</span>
+  <span class="na">become</span><span class="pi">:</span> <span class="s">yes</span>  
+  <span class="na">serial</span><span class="pi">:</span> <span class="s">2</span>
+
+  <span class="c1"># These are the tasks to run before applying updates:</span>
+  <span class="na">pre_tasks</span><span class="pi">:</span>    
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Gather EC2 facts</span>
+      <span class="na">action</span><span class="pi">:</span> <span class="s">ec2_facts</span>
+
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">disable the server in the loadbalancer</span>
+      <span class="na">local_action</span><span class="pi">:</span> <span class="s">ec2_elb</span>
+      <span class="na">args</span><span class="pi">:</span>
+        <span class="na">instance_id</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+        <span class="na">region</span><span class="pi">:</span>      <span class="s2">"</span><span class="s">us-west-2"</span>
+        <span class="na">ec2_elbs</span><span class="pi">:</span>    <span class="s2">"</span><span class="s">"</span>
+        <span class="na">state</span><span class="pi">:</span>       <span class="s1">'</span><span class="s">absent'</span>
+
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Disable service monitor</span>
+      <span class="na">service</span><span class="pi">:</span> <span class="s">name='zabbix-agent' state=stopped</span>
+
+  <span class="c1"># Execute the deployment</span>
+  <span class="na">roles</span><span class="pi">:</span>  
+    <span class="pi">-</span> <span class="s">application.appserver.deploy</span>    
+
+  <span class="c1"># These tasks run after the roles:</span>
+  <span class="na">post_tasks</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Enable service monitor</span>
+      <span class="na">service</span><span class="pi">:</span> <span class="s">name='zabbix-agent' state=started</span>
+
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Add instance to ELB... will wait up to 5 minutes for healthy checks to pass</span>
+      <span class="na">local_action</span><span class="pi">:</span> <span class="s">ec2_elb</span>
+      <span class="na">args</span><span class="pi">:</span>
+        <span class="na">instance_id</span><span class="pi">:</span>  <span class="s2">"</span><span class="s">"</span>
+        <span class="na">region</span><span class="pi">:</span>       <span class="s2">"</span><span class="s">us-west-2"</span>
+        <span class="na">ec2_elbs</span><span class="pi">:</span>     <span class="s2">"</span><span class="s">"</span>
+        <span class="na">wait_timeout</span><span class="pi">:</span> <span class="s">300</span>
+        <span class="na">state</span><span class="pi">:</span>        <span class="s1">'</span><span class="s">present'</span>
+
+
+<span class="c1">#################</span>
+<span class="c1"># Send a slack notification that the deployment is complete</span>
+<span class="c1">################# </span>
+<span class="pi">-</span> <span class="na">hosts</span><span class="pi">:</span> <span class="s">tag_Role_PROD_webserver</span>
+  <span class="na">tasks</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Send slack notification</span>
+      <span class="na">slack</span><span class="pi">:</span>
+        <span class="na">token</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+        <span class="na">msg</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Production</span><span class="nv"> </span><span class="s">deployment</span><span class="nv"> </span><span class="s">complete."</span>
+        <span class="na">color</span><span class="pi">:</span> <span class="s">good</span>
+        <span class="na">icon_url</span><span class="pi">:</span> <span class="s1">'</span><span class="s">'</span>
+      <span class="na">run_once</span><span class="pi">:</span> <span class="no">true</span>
+      <span class="na">delegate_to</span><span class="pi">:</span> <span class="s">localhost</span>
+
+</code></pre></div></div>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>In this post I’ve briefly outlined some of the concepts and approaches to using Ansible for configuration management and orchestration. With a mature product, active community, and a focus on simplicity, Ansible is a great tooling choice to manage your cloud infrastructure and applications.</p>
+
+<p>If you’d like to see working examples of some of these concepts, feel free to visit my GitHub repo: 
+https://github.com/darrylanderson/ansible-aws</p>
+
+<hr />
+
+<p style="text-align: center;">Also published on <a href="https://dzone.com/articles/running-ansible-at-scale">DZone</a>.</p>
+
+<hr />
+
+                </div>
+            </section>
+
+            <!-- Email subscribe form at the bottom of the page -->
+            
+
+            <footer class="post-full-footer">
+                <!-- Everything inside the #author tags pulls data from the author -->
+                <!-- #author-->
+                
+                    
+                        <section class="author-card">
+                            
+                                <img class="author-profile-image" src="/content/images/2018/03/ProfilePhoto-round-1.png" alt="darryl" />
+                            
+                            <section class="author-card-content">
+                                <h4 class="author-card-name"><a href="/author/darryl">Darryl Anderson</a></h4>
+                                
+                                    <p>Darryl provides technology advisement, design, and development services to early and growth stage software companies.</p>
+                                
+                            </section>
+                        </section>
+                        <div class="post-full-footer-right">
+                            <a class="author-card-button" href="/author/darryl">Read More</a>
+                        </div>
+                    
+                
+                <!-- /author  -->
+            </footer>
+
+            <!-- If you use Disqus comments, just uncomment this block.
+            The only thing you need to change is "test-apkdzgmqhj" - which
+            should be replaced with your own Disqus site-id. -->
+            
+
+        </article>
+
+    </div>
+</main>
+
+<!-- Links to Previous/Next posts -->
+<aside class="read-next outer">
+    <div class="inner">
+        <div class="read-next-feed">
+            
+                
+                
+                
+                
+            
+
+            <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+
+    <article class="post-card post-template">
+        
+            <a class="post-card-image-link" href="/multifactor-everything">
+                <div class="post-card-image" style="background-image: url(/assets/images/cover-mfa.jpeg)"></div>
+            </a>
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/multifactor-everything">
+                <header class="post-card-header">
+                    
+                        
+                            
+                                <span class="post-card-tags">Security</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">Multi-Factor Authentication With SSH And OpenVPN</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    
+                        <p></p>
+                    
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                        
+                        <img class="author-profile-image" src="/content/images/2018/03/ProfilePhoto-round-1.png" alt="Darryl Anderson" />
+                        
+                        <span class="post-card-author">
+                            <a href="/author/darryl/">Darryl Anderson</a>
+                        </span>
+                    
+                
+                <span class="reading-time">
+                    
+                    
+                      1 min read
+                    
+                </span>
+            </footer>
+        </div>
+    </article>
+
+            
+
+            <!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+
+    <article class="post-card post-template">
+        
+            <a class="post-card-image-link" href="/getting-started-with-ghost-on-google-cloud">
+                <div class="post-card-image" style="background-image: url(/assets/images/cover-gce-ghost.jpeg)"></div>
+            </a>
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/getting-started-with-ghost-on-google-cloud">
+                <header class="post-card-header">
+                    
+                        
+                            
+                                <span class="post-card-tags">Google cloud</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">Getting Started With Ghost on Google Cloud</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    
+                        <p></p>
+                    
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                        
+                        <img class="author-profile-image" src="/content/images/2018/03/ProfilePhoto-round-1.png" alt="Darryl Anderson" />
+                        
+                        <span class="post-card-author">
+                            <a href="/author/darryl/">Darryl Anderson</a>
+                        </span>
+                    
+                
+                <span class="reading-time">
+                    
+                    
+                      1 min read
+                    
+                </span>
+            </footer>
+        </div>
+    </article>
+
+            
+
+        </div>
+    </div>
+</aside>
+
+<!-- Floating header which appears on-scroll, included from includes/floating-header.hbs -->
+<div class="floating-header">
+    <div class="floating-header-logo">
+        <a href="/">
+            
+            <span>Anderson Technology Consulting</span>
+        </a>
+    </div>
+    <span class="floating-header-divider">&mdash;</span>
+    <div class="floating-header-title">Running Ansible at Scale</div>
+    <div class="floating-header-share">
+        <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
+</svg>
+</div>
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Running+Ansible+at+Scale&amp;url=https://darrylanderson.dev/running-ansible-at-scale"
+            onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+
+        </a>
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://darrylanderson.dev/running-ansible-at-scale"
+            onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
+
+        </a>
+    </div>
+    <progress class="progress" value="0">
+        <div class="progress-container">
+            <span class="progress-bar"></span>
+        </div>
+    </progress>
+</div>
+
+
+<!-- /post -->
+
+<!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs -->
+
+
+        <!-- Previous/next page links - displayed on every page -->
+        
+
+        <!-- The footer at the very bottom of the screen -->
+        <footer class="site-footer outer">
+            <div class="site-footer-content inner">
+                <section class="copyright"><a href="/">Anderson Technology Consulting</a> &copy; 2021</section>
+                <section class="poweredby">Published with <a href="https://jekyllrb.com/">Jekyll</a> &
+                    <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a> using
+                    <a href="https://github.com/jekyller/jasper2" target="_blank" rel="noopener">Jasper2</a></section>
+                <nav class="site-footer-nav">
+                    <a href="/">Latest Posts</a>
+                </nav>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- The big email subscribe modal content -->
+    
+
+    <!-- highlight.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.10.0/components/prism-abap.min.js"></script>
+    <script>$(document).ready(function() {
+      $('pre code').each(function(i, block) {
+        hljs.highlightBlock(block);
+      });
+    });</script>
+
+    <!-- jQuery + Fitvids, which makes all video embeds responsive -->
+    <script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous">
+    </script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="https://demo.ghost.io/assets/js/jquery.fitvids.js?v=724281a32e"></script>
+
+
+    <!-- Paginator increased to "infinit" in _config.yml -->
+    <!-- if paginator.posts  -->
+    <!-- <script>
+        var maxPages = parseInt('');
+    </script>
+    <script src="/assets/js/infinitescroll.js"></script> -->
+    <!-- /endif -->
+
+    
+
+
+    <!-- Add Google Analytics  -->
+    <!-- Google Analytics Tracking code -->
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-112416473-1', 'auto');
+  ga('send', 'pageview');
+
+ </script>
+
+
+    <!-- The #block helper will pull in data from the #contentFor other template files. In this case, there's some JavaScript which we only want to use in post.hbs, but it needs to be included down here, after jQuery has already loaded. -->
+    
+        <script>
+
+// NOTE: Scroll performance is poor in Safari
+// - this appears to be due to the events firing much more slowly in Safari.
+//   Dropping the scroll event and using only a raf loop results in smoother
+//   scrolling but continuous processing even when not scrolling
+$(document).ready(function () {
+    // Start fitVids
+    var $postContent = $(".post-full-content");
+    $postContent.fitVids();
+    // End fitVids
+
+    var progressBar = document.querySelector('progress');
+    var header = document.querySelector('.floating-header');
+    var title = document.querySelector('.post-full-title');
+
+    var lastScrollY = window.scrollY;
+    var lastWindowHeight = window.innerHeight;
+    var lastDocumentHeight = $(document).height();
+    var ticking = false;
+
+    function onScroll() {
+        lastScrollY = window.scrollY;
+        requestTick();
+    }
+
+    function onResize() {
+        lastWindowHeight = window.innerHeight;
+        lastDocumentHeight = $(document).height();
+        requestTick();
+    }
+
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(update);
+        }
+        ticking = true;
+    }
+
+    function update() {
+        var trigger = title.getBoundingClientRect().top + window.scrollY;
+        var triggerOffset = title.offsetHeight + 35;
+        var progressMax = lastDocumentHeight - lastWindowHeight;
+
+        // show/hide floating header
+        if (lastScrollY >= trigger + triggerOffset) {
+            header.classList.add('floating-active');
+        } else {
+            header.classList.remove('floating-active');
+        }
+
+        progressBar.setAttribute('max', progressMax);
+        progressBar.setAttribute('value', lastScrollY);
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', onScroll, {passive: true});
+    window.addEventListener('resize', onResize, false);
+
+    update();
+});
+</script>
+
+    
+
+    <!-- Ghost outputs important scripts and data with this tag - it should always be the very last thing before the closing body tag -->
+    <!-- ghost_foot -->
+
+</body>
+</html>

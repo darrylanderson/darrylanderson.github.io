@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title> - Articles</title>
+    <description>Pragmatic Cloud Architecture</description>
+    <link>
+    </link>
+    
+      
+      <item>
+        <title>A Comparison Of Distributed Ledgers For Tokenization</title>
+        
+          <description>&lt;p&gt;If you’re like me, hearing the very word “blockchain” causes you to immediately tune out. Over-hyped as a solution to nearly every business problem imaginable, trying to wade through the noise is nearly a full time job. However, the technology can offer very powerful solutions to certain business problems. Tokenization is one such area where blockchain can have an enormous impact.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Sun, 07 Oct 2018 02:58:07 +0000</pubDate>
+        <link>
+        /a-comparison-of-distributed-ledgers-for-tokenization</link>
+        <guid isPermaLink="true">/a-comparison-of-distributed-ledgers-for-tokenization</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Building A Microservice Chassis With Spring Boot and Spring Cloud</title>
+        
+          <description>&lt;p&gt;Starting development on a new application or service often results in repeating the same work to implement common concerns. The build system, runtime container, security, monitoring, logging, tracing, etc are all cross-cutting concerns that each of your services should ideally implement in a similar fashion. Just as we try to keep our code pragmatically DRY (don’t repeat yourself), we also want to apply the same principal to our application infrastructures.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Thu, 01 Mar 2018 20:09:17 +0000</pubDate>
+        <link>
+        /building-a-microservice-chassis-with-spring-boot</link>
+        <guid isPermaLink="true">/building-a-microservice-chassis-with-spring-boot</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Multi-Factor Authentication With SSH And OpenVPN</title>
+        
+          <description>&lt;p&gt;Lately I’ve been reviewing the security of my personal online accounts. Aside from regular password rotation, wherever possible I enable multi-factor authentication (MFA). Multi-factor authentication is where you not only supply something you &lt;em&gt;know&lt;/em&gt; (your password), but you also supply an additional piece of information based on something that you &lt;em&gt;have&lt;/em&gt;.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Tue, 06 Feb 2018 22:48:41 +0000</pubDate>
+        <link>
+        /multifactor-everything</link>
+        <guid isPermaLink="true">/multifactor-everything</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Running Ansible at Scale</title>
+        
+          <description>&lt;p&gt;I’ve used plenty of automation solutions over the years. Chef, Puppet, Fabric, SaltStack, Capistrano, custom scripts, etc… all of them work well to varying degrees, but only one tool has stood the test of time for me. That tool is &lt;a href=&quot;https://ansible.com&quot;&gt;Ansible&lt;/a&gt;.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Tue, 23 Jan 2018 02:56:39 +0000</pubDate>
+        <link>
+        /running-ansible-at-scale</link>
+        <guid isPermaLink="true">/running-ansible-at-scale</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Getting Started With Ghost on Google Cloud</title>
+        
+          <description>&lt;p&gt;A while back I started looking for a blogging platform. In my previous companies, when we were just starting up I was often asked “we need a quick blog site for marketing… can you get something up quickly?”. The usual choice was WordPress, which always started out great, but over time became more and more of a headache to operate. Especially since I wanted a completely hands-off solution. I decided there had to be something better. Enter &lt;a href=&quot;http://ghost.org&quot;&gt;Ghost&lt;/a&gt;.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Wed, 17 Jan 2018 14:59:56 +0000</pubDate>
+        <link>
+        /getting-started-with-ghost-on-google-cloud</link>
+        <guid isPermaLink="true">/getting-started-with-ghost-on-google-cloud</guid>
+      </item>
+      
+    
+  </channel>
+</rss>

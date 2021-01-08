@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- Document Settings -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Base Meta -->
+    <!-- dynamically fixing the title for tag/author pages -->
+
+
+
+    <title>Building A Microservice Chassis With Spring Boot and Spring Cloud</title>
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.edited.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/syntax.css" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Noto+Serif|Open+Sans|Lora" rel="stylesheet">
+    <style>
+        body,
+        .main-nav a,
+        .post-meta,
+        .post-card-excerpt,
+        .post-full-content,
+        .read-next-story .post:before,
+        .pagination {
+            font-family: "Lora", serif;
+            font-size: 21px;
+            line-height: 1.58;
+        }
+        h1, h2, h3, h4, h5, h6,
+        .page-title,
+        .subscribe-button,
+        .floating-header,
+        .site-nav,
+        .site-footer {
+            font-family: sans-serif;
+        }
+        /* This is necessary to not mess up share icons at bottom of posts */
+        [class^="icon-"]:before, [class*=" icon-"]:before {
+            font-family: "casper-icons", "Open Sans", sans-serif;
+        }
+        /* syntax highlighting */
+        pre[class*=language-] {
+            margin: 1.75em 0;
+        }
+    </style>
+    <!-- highlight.js -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <style>.hljs { background: none; }</style>
+
+    <!--[if IE]>
+        <style>
+            p, ol, ul{
+                width: 100%;
+            }
+            blockquote{
+                width: 100%;
+            }
+        </style>
+    <![endif]-->
+    
+    <!-- This tag outputs SEO meta+structured data and other important settings -->
+    <meta name="description" content="Pragmatic Cloud Architecture" />
+    <link rel="shortcut icon" href="/" type="image/png" />
+    <link rel="canonical" href="/building-a-microservice-chassis-with-spring-boot" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+
+     <!--title below is coming from _includes/dynamic_title-->
+    <meta property="og:site_name" content="Anderson Technology Consulting" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Building A Microservice Chassis With Spring Boot and Spring Cloud" />
+    <meta property="og:description" content="Pragmatic Cloud Architecture" />
+    <meta property="og:url" content="/building-a-microservice-chassis-with-spring-boot" />
+    <meta property="og:image" content="/assets/images/cover-chassis.jpeg" />
+    <meta property="article:publisher" content="https://www.facebook.com/" />
+    <meta property="article:tag" content="Microservices" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Building A Microservice Chassis With Spring Boot and Spring Cloud" />
+    <meta name="twitter:description" content="Pragmatic Cloud Architecture" />
+    <meta name="twitter:url" content="/" />
+    <meta name="twitter:image" content="/assets/images/cover-chassis.jpeg" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Anderson Technology Consulting" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Microservices" />
+    <meta name="twitter:site" content="@" />
+    <meta name="twitter:creator" content="@" />
+    <meta property="og:image:width" content="2000" />
+    <meta property="og:image:height" content="666" />
+
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Website",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Anderson Technology Consulting",
+        "logo": "/"
+    },
+    "url": "/building-a-microservice-chassis-with-spring-boot",
+    "image": {
+        "@type": "ImageObject",
+        "url": "/assets/images/cover-chassis.jpeg",
+        "width": 2000,
+        "height": 666
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "/building-a-microservice-chassis-with-spring-boot"
+    },
+    "description": "Pragmatic Cloud Architecture"
+}
+    </script>
+
+    <!-- <script type="text/javascript" src="https://demo.ghost.io/public/ghost-sdk.min.js?v=724281a32e"></script>
+    <script type="text/javascript">
+    ghost.init({
+    	clientId: "ghost-frontend",
+    	clientSecret: "f84a07a72b17"
+    });
+    </script> -->
+
+    <meta name="generator" content="Jekyll 3.6.2" />
+    <link rel="alternate" type="application/rss+xml" title="Building A Microservice Chassis With Spring Boot and Spring Cloud" href="/feed.xml" />
+
+
+</head>
+<body class="post-template">
+
+    <div class="site-wrapper">
+        <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
+        <!-- default -->
+
+<!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template -->
+
+<header class="site-header outer">
+    <div class="inner">
+        <nav class="site-nav">
+    <div class="site-nav-left">
+        
+            
+                <a class="site-nav-logo" href="/">Anderson Technology Consulting</a>
+            
+        
+        
+            <ul class="nav" role="menu">
+    <li class="nav-home" role="menuitem"><a href="/">Home</a></li>
+    <li class="nav-about" role="menuitem"><a href="/about/">About Me</a></li>
+</ul>
+
+        
+    </div>
+    <div class="site-nav-right">
+        <div class="social-links">
+              <a href="https://linkedin.com/in/darryl-anderson" target="_blank" rel="noopener">
+             <i class="fab fa-linkedin"></i> linkedin
+          </a>
+          &nbsp;&nbsp;
+          <a href="https://github.com/darrylanderson" target="_blank" rel="noopener">
+            <i class="fab fa-github"></i> github
+          </a>
+          &nbsp;&nbsp;
+          <a href="https://twitter.com/DarrylAnderson_" target="_blank" rel="noopener">
+             <i class="fab fa-twitter"></i> twitter
+          </a>
+          &nbsp;&nbsp;
+
+          <!---->
+          <!---->
+        </div>
+        
+    </div>
+</nav>
+
+    </div>
+</header>
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<main id="site-main" class="site-main outer" role="main">
+    <div class="inner">
+
+        <article class="post-full  ">
+
+            <header class="post-full-header">
+                <section class="post-full-meta">
+                    <time class="post-full-meta-date" datetime=" 1 March 2018"> 1 March 2018</time>
+                    
+                        <span class="date-divider">/</span>
+                        
+                            
+                               <a href='/tag/microservices/'>MICROSERVICES</a>
+                            
+                        
+                    
+                </section>
+                <h1 class="post-full-title">Building A Microservice Chassis With Spring Boot and Spring Cloud</h1>
+            </header>
+
+            
+            <figure class="post-full-image" style="background-image: url(/assets/images/cover-chassis.jpeg)">
+            </figure>
+            
+
+            <section class="post-full-content">
+                <div class="kg-card-markdown">
+                    <p>Starting development on a new application or service often results in repeating the same work to implement common concerns. The build system, runtime container, security, monitoring, logging, tracing, etc are all cross-cutting concerns that each of your services should ideally implement in a similar fashion. Just as we try to keep our code pragmatically DRY (don’t repeat yourself), we also want to apply the same principal to our application infrastructures.</p>
+
+<p>A <a href="http://microservices.io/patterns/microservice-chassis.html">microservice chassis</a> is one such way to implement these cross-cutting concerns. Building a reusable chassis can help save time, enforce consistency across teams, and ensure that each service shares the same operational charateristics. In this article I’ll outline a production-ready chassis using Spring Boot and Spring Cloud that you can use to bootstrap your own cloud applications.</p>
+
+<h2 id="microservices">Microservices</h2>
+
+<p>Ok, I’ll be honest… when I hear the term “microservices” I start to get a glazed look on my face. Just like the famous <a href="http://www.mongodb-is-web-scale.com/">“MongoDB is Web Scale”</a> cartoon, microservices are often touted as the <em>only</em> true way to implement an enterprise architecture. Of course, pragmatically your architecture may be better served by a clustered monolith. Or perhaps a collection of clustered “mini” services. Or maybe your team has the devops and architectural ability to properly implement and operate a microservices architecture. Or perhaps some combination of the above. While determining the granularity of your service footprint is an important up-front decision, it also should be adjustable over time. <strong>The important thing is to keep things as decoupled as possible.</strong></p>
+
+<p>Regardless of your decision regarding service granularity, you still have to address a common set of concerns up front. There may be additional unique concerns for your architecture, but these common areas are the ones that I’ll be addressing in this article:</p>
+
+<ul>
+  <li>Build System</li>
+  <li>Logging</li>
+  <li>Monitoring</li>
+  <li>Distributed Tracing</li>
+  <li>Service Discovery</li>
+  <li>Runtime Container</li>
+</ul>
+
+<h2 id="the-chassis">The Chassis</h2>
+
+<p>Our chassis is comprised of the following frameworks and components:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Framework/Component</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Spring Boot</td>
+      <td>Core framework</td>
+    </tr>
+    <tr>
+      <td>Spring Boot Actuator + Spring Boot Admin</td>
+      <td>Runtime monitoring</td>
+    </tr>
+    <tr>
+      <td>Spring Cloud Netflix (Eureka)</td>
+      <td>Service registration and discovery</td>
+    </tr>
+    <tr>
+      <td>Spring Cloud Sleuth + Zipkin</td>
+      <td>Distributed call tracing</td>
+    </tr>
+    <tr>
+      <td>slf4j and Logback</td>
+      <td>Logging</td>
+    </tr>
+    <tr>
+      <td>Gradle</td>
+      <td>Build system</td>
+    </tr>
+    <tr>
+      <td>Docker</td>
+      <td>Optional runtime container</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>We’ll dig into each of these areas in the following sections.</p>
+
+<hr />
+
+<h2 id="build-system">Build System</h2>
+
+<p>Our build system is based on <a href="https://gradle.org">Gradle</a>. It has the responsiblity for compiling, packaging, versioning, and resolving all of our 3rd party dependencies.</p>
+
+<p>For those who would rather just get right to it, I’ll start by presenting the entire <code class="highlighter-rouge">build.gradle</code> file. We’ll drill down into the details later.</p>
+
+<p><code class="highlighter-rouge">build.gradle</code></p>
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">buildscript</span> <span class="o">{</span>
+    <span class="n">repositories</span> <span class="o">{</span>
+        <span class="n">jcenter</span><span class="o">()</span>
+    <span class="o">}</span>
+    <span class="n">dependencies</span> <span class="o">{</span>
+        <span class="c1">// The gradle-docker plugin we want to use isn't yet in gradle plugin portal, so we</span>
+        <span class="c1">// pull it from jcenter</span>
+        <span class="n">classpath</span> <span class="s1">'se.transmode.gradle:gradle-docker:1.2'</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="n">plugins</span> <span class="o">{</span>
+    <span class="c1">// Use the Spring Boot Gradle plugin, which automatically applies the dependency management plugin</span>
+    <span class="c1">// and configures it to import the spring-boot-starter-parent bom.</span>
+    <span class="n">id</span> <span class="s1">'org.springframework.boot'</span> <span class="n">version</span> <span class="s1">'1.5.10.RELEASE'</span>
+
+    <span class="c1">// Versioning plugin</span>
+    <span class="n">id</span> <span class="s1">'pl.allegro.tech.build.axion-release'</span> <span class="n">version</span> <span class="s1">'1.8.1'</span>
+<span class="o">}</span>
+
+<span class="c1">// The Java plugin allows us to compile and package our code into a jar file</span>
+<span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">'java'</span>
+
+<span class="c1">// Support for packaging our application as a Docker image</span>
+<span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">'docker'</span>
+
+<span class="c1">// Define the namespace for our build artifacts (replace with your own group)</span>
+<span class="n">group</span> <span class="s1">'atc'</span>
+
+<span class="c1">// Explicitly declare that we're using JDK 1.8</span>
+<span class="n">sourceCompatibility</span> <span class="o">=</span> <span class="mf">1.8</span>
+
+<span class="c1">// Use Maven Central to resolve all 3rd party dependencies</span>
+<span class="n">repositories</span> <span class="o">{</span>
+    <span class="n">mavenCentral</span><span class="o">()</span>
+<span class="o">}</span>
+
+<span class="c1">// Using the dependency management plugin, import the dependencies for</span>
+<span class="c1">// Spring Cloud release train 'Edgware.SR2'</span>
+<span class="n">dependencyManagement</span> <span class="o">{</span>
+    <span class="n">imports</span> <span class="o">{</span>
+        <span class="n">mavenBom</span> <span class="s1">'org.springframework.cloud:spring-cloud-dependencies:Edgware.SR2'</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="n">dependencies</span> <span class="o">{</span>
+    <span class="c1">// Enable Spring MVC</span>
+    <span class="n">compile</span> <span class="nl">group:</span> <span class="s1">'org.springframework.boot'</span><span class="o">,</span> <span class="nl">name:</span> <span class="s1">'spring-boot-starter-web'</span>
+
+    <span class="c1">// Enable Spring Security</span>
+    <span class="n">compile</span> <span class="nl">group:</span> <span class="s1">'org.springframework.boot'</span><span class="o">,</span> <span class="nl">name:</span> <span class="s1">'spring-boot-starter-security'</span>
+
+    <span class="c1">// Production metrics for Spring Boot</span>
+    <span class="n">compile</span> <span class="nl">group:</span> <span class="s1">'org.springframework.boot'</span><span class="o">,</span> <span class="nl">name:</span> <span class="s1">'spring-boot-starter-actuator'</span>
+
+    <span class="c1">// Service registration via Eureka</span>
+    <span class="n">compile</span> <span class="nl">group:</span> <span class="s1">'org.springframework.cloud'</span><span class="o">,</span> <span class="nl">name:</span> <span class="s1">'spring-cloud-starter-eureka-server'</span>
+
+    <span class="c1">// Enable distributed tracing with Sleuth</span>
+    <span class="n">compile</span> <span class="nl">group:</span> <span class="s1">'org.springframework.cloud'</span><span class="o">,</span> <span class="nl">name:</span> <span class="s1">'spring-cloud-starter-zipkin'</span>
+
+    <span class="c1">// Enable JSON logging</span>
+    <span class="n">runtime</span><span class="o">(</span> <span class="nl">group:</span> <span class="s1">'net.logstash.logback'</span><span class="o">,</span> <span class="nl">name:</span> <span class="s1">'logstash-logback-encoder'</span><span class="o">,</span> <span class="nl">version:</span> <span class="s1">'4.11'</span> <span class="o">)</span> <span class="o">{</span>
+        <span class="n">exclude</span> <span class="nl">group:</span> <span class="s1">'ch.qos.logback'</span><span class="o">,</span> <span class="nl">module:</span> <span class="s1">'logback-core'</span>
+    <span class="o">}</span>
+
+    <span class="n">testCompile</span> <span class="nl">group:</span> <span class="s1">'junit'</span><span class="o">,</span> <span class="nl">name:</span> <span class="s1">'junit'</span><span class="o">,</span> <span class="nl">version:</span> <span class="s1">'4.12'</span>
+<span class="o">}</span>
+
+<span class="c1">// Configure the spring boot executable jar</span>
+<span class="n">springBoot</span> <span class="o">{</span>
+    <span class="n">executable</span> <span class="o">=</span> <span class="kc">true</span>
+    <span class="n">buildInfo</span><span class="o">()</span>
+<span class="o">}</span>
+
+<span class="c1">// Versioning with the Axion release plugin</span>
+<span class="n">scmVersion</span> <span class="o">{</span>
+    <span class="c1">// Treat uncommitted changes as trigger for version increment</span>
+    <span class="n">ignoreUncommittedChanges</span> <span class="o">=</span> <span class="kc">false</span>
+
+    <span class="c1">// All versions will start with "v"</span>
+    <span class="n">tag</span> <span class="o">{</span>
+        <span class="n">prefix</span> <span class="o">=</span> <span class="s1">'v'</span>
+        <span class="n">versionSeparator</span> <span class="o">=</span> <span class="s1">''</span>
+    <span class="o">}</span>
+
+    <span class="c1">// Our versioning scheme is major.minor.rcX. If we're on a branch named "release/*", increment the release</span>
+    <span class="c1">// candidate number, otherwise increment the minor version number.</span>
+    <span class="n">versionIncrementer</span> <span class="s1">'incrementMinorIfNotOnRelease'</span><span class="o">,</span> <span class="o">[</span><span class="nl">releaseBranchPattern:</span> <span class="s1">'release.*'</span><span class="o">]</span>
+    <span class="n">branchVersionIncrementer</span> <span class="o">=</span> <span class="o">[</span>
+          <span class="s1">'master'</span>    <span class="o">:</span> <span class="s1">'incrementMinor'</span><span class="o">,</span>
+          <span class="s1">'feature'</span>   <span class="o">:</span> <span class="s1">'incrementMinor'</span><span class="o">,</span>
+          <span class="s1">'release/.*'</span><span class="o">:</span> <span class="s1">'incrementPrerelease'</span>
+    <span class="o">]</span>
+
+    <span class="c1">// Decorators</span>
+    <span class="n">versionCreator</span> <span class="s1">'simple'</span>
+    <span class="n">branchVersionCreator</span> <span class="o">=</span> <span class="o">[</span>
+          <span class="s1">'feature/.*'</span><span class="o">:</span> <span class="s1">'versionWithBranch'</span>
+    <span class="o">]</span>
+
+    <span class="n">checks</span> <span class="o">{</span>
+        <span class="c1">// Allow for releasing a new version if there are uncommitted changes</span>
+        <span class="n">uncommittedChanges</span> <span class="o">=</span> <span class="kc">false</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="n">project</span><span class="o">.</span><span class="na">version</span> <span class="o">=</span> <span class="n">scmVersion</span><span class="o">.</span><span class="na">version</span>
+
+<span class="c1">// Add the version number to the manifest</span>
+<span class="n">jar</span> <span class="o">{</span>
+    <span class="n">manifest</span> <span class="o">{</span>
+        <span class="n">attributes</span><span class="o">(</span> <span class="s2">"Implementation-Title"</span><span class="o">:</span> <span class="n">project</span><span class="o">.</span><span class="na">name</span><span class="o">,</span>
+                    <span class="s2">"Implementation-Version"</span><span class="o">:</span> <span class="n">project</span><span class="o">.</span><span class="na">version</span><span class="o">.</span><span class="na">toString</span><span class="o">()</span> <span class="o">)</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+
+<span class="c1">// Build the docker container for this application</span>
+<span class="n">task</span> <span class="nf">buildDocker</span><span class="o">(</span> <span class="nl">type:</span> <span class="n">Docker</span><span class="o">,</span> <span class="nl">dependsOn:</span> <span class="n">build</span> <span class="o">)</span> <span class="o">{</span>
+    <span class="n">push</span> <span class="o">=</span> <span class="kc">false</span>
+    <span class="n">applicationName</span> <span class="o">=</span> <span class="n">rootProject</span><span class="o">.</span><span class="na">name</span>
+    <span class="n">dockerfile</span> <span class="o">=</span> <span class="n">file</span><span class="o">(</span> <span class="s1">'Dockerfile'</span> <span class="o">)</span>
+
+    <span class="n">doFirst</span> <span class="o">{</span>
+        <span class="c1">// Rename the app jar to "app.jar" so that the Dockerfile does not require renames</span>
+        <span class="n">copy</span> <span class="o">{</span>
+            <span class="n">from</span> <span class="s2">"${project.buildDir}/libs"</span>
+            <span class="n">into</span> <span class="n">stageDir</span>
+            <span class="n">include</span> <span class="s2">"${rootProject.name}-${version}.jar"</span>
+            <span class="n">rename</span><span class="o">(</span> <span class="s2">"${rootProject.name}-${version}.jar"</span><span class="o">,</span> <span class="s2">"app.jar"</span> <span class="o">)</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+
+<span class="c1">// Configure the Gradle wrapper</span>
+<span class="n">task</span> <span class="nf">wrapper</span><span class="o">(</span> <span class="nl">type:</span> <span class="n">Wrapper</span> <span class="o">)</span> <span class="o">{</span>
+    <span class="n">gradleVersion</span> <span class="o">=</span> <span class="s1">'4.5.1'</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Let’s start by looking at the build-specific behaviors.</p>
+
+<h3 id="versioning">Versioning</h3>
+
+<p>For versioning we will be using the excellent <a href="http://axion-release-plugin.readthedocs.io/en/latest/">Axion</a> gradle plugin. This will allow us to maintain unique version numbers by leveraging git tags. Basically it stores the version number as a git tag, and has various tasks that can be used to manage the version.</p>
+
+<p>You can view the current version by running <code class="highlighter-rouge">./gradlew currentVerion</code>, or <code class="highlighter-rouge">./gradlew cV</code> for short.</p>
+
+<p>To increment the version number, simply run <code class="highlighter-rouge">./gradlew release</code>.</p>
+
+<p>To force a non-sequential version number, run <code class="highlighter-rouge">./gradlew markNextVersion -Prelease.version=1.0.0</code>.</p>
+
+<p>That’s it! I’ve provided a default configuration (<code class="highlighter-rouge">scmVersion</code>) in the above <code class="highlighter-rouge">build.gradle</code> which will increment the minor release number unless you’re on a branch whose name starts with <code class="highlighter-rouge">release/</code>, in which case the <code class="highlighter-rouge">.rcX</code> number will be incremented. This is suitable for a git workflow similar to <a href="http://www.bitsnbites.eu/a-stable-mainline-branching-model-for-git/">this one</a>.</p>
+
+<h3 id="dependency-management">Dependency Management</h3>
+
+<p>The Spring Boot gradle plugin also includes the <a href="https://github.com/spring-gradle-plugins/dependency-management-plugin/">dependency management plugin</a>. This lets us import a maven bom which in turn allows us to omit version numbers from the dependencies managed by the bom.</p>
+
+<p>For example, we want to use the <a href="https://github.com/spring-projects/spring-cloud/wiki/Spring-Cloud-Edgware-Release-Notes">Edgware.SR2</a> Spring Cloud release train. We do so by importing the bom as shown below.</p>
+
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Using the dependency management plugin, import the dependencies for</span>
+<span class="c1">// Spring Cloud release train 'Edgware.SR2'</span>
+<span class="n">dependencyManagement</span> <span class="o">{</span>
+    <span class="n">imports</span> <span class="o">{</span>
+        <span class="n">mavenBom</span> <span class="s1">'org.springframework.cloud:spring-cloud-dependencies:Edgware.SR2'</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Now we can define our Spring Cloud dependencies without needing to specify a version number.</p>
+
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dependencies</span> <span class="o">{</span>
+    <span class="o">...</span>
+    <span class="c1">// Service registration via Eureka</span>
+    <span class="n">compile</span> <span class="nl">group:</span> <span class="s1">'org.springframework.cloud'</span><span class="o">,</span> <span class="nl">name:</span> <span class="s1">'spring-cloud-starter-eureka-server'</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="gradle-wrapper">Gradle Wrapper</h3>
+
+<p>The <a href="https://docs.gradle.org/current/userguide/gradle_wrapper.html">gradle wrapper</a> gives you the ability to generate a pre-built script which will self-bootstrap gradle onto local workstations. This means that developers working on the project won’t need to manage their own Gradle installations.</p>
+
+<p>To use the wrapper, simply add the following task to your <code class="highlighter-rouge">build.gradle</code> file:</p>
+
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Configure the Gradle wrapper</span>
+<span class="n">task</span> <span class="nf">wrapper</span><span class="o">(</span> <span class="nl">type:</span> <span class="n">Wrapper</span> <span class="o">)</span> <span class="o">{</span>
+    <span class="n">gradleVersion</span> <span class="o">=</span> <span class="s1">'4.5.1'</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>The first time you generate the wrapper, you need to install a local copy of gradle. Run <code class="highlighter-rouge">$GRADLE_HOME/bin/gradle wrapper</code> to generate the wrapper scripts which you can check into your version control system. Check in the resulting <code class="highlighter-rouge">gradlew</code> and <code class="highlighter-rouge">gradlew.bat</code> scripts, as well as the <code class="highlighter-rouge">gradle/</code> directory.</p>
+
+<p>After that, anyone can simply clone the repo and run <code class="highlighter-rouge">./gradlew</code> or <code class="highlighter-rouge">gradlew.bat</code> without needing to manually install gradle!</p>
+
+<hr />
+
+<h2 id="service-registration-and-discovery">Service Registration And Discovery</h2>
+
+<p>Within a cloud environment we need to expect service instances to come and go. As such, we need some mechanism to locate these instances.</p>
+
+<p>In AWS I’ve often relied on ELBs to act as the service registry. This is known as <a href="http://microservices.io/patterns/server-side-discovery.html">server-side discovery</a>. This works well if you’re using native AWS services such as Elastic Container Service.</p>
+
+<p>An alternative pattern is <a href="http://microservices.io/patterns/client-side-discovery.html">client-side discovery</a>. In this model, clients ask a service registry for the location of service instances, and handle load balancing themselves. This avoids having to pay for a bunch of AWS ELBs, instead you just need to operate an HA service registry. For our microservice chassis we’ll be implementing this pattern using <a href="https://github.com/Netflix/eureka/wiki/Eureka-at-a-glance">Eureka</a> as our service registry.</p>
+
+<h3 id="eureka-client">Eureka Client</h3>
+
+<p>In order for our application to register with Eureka, we need to do a few things.</p>
+
+<p>First, import the Eureka dependency in your <code class="highlighter-rouge">build.gradle</code> file:</p>
+
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Service registration via Eureka</span>
+<span class="n">compile</span> <span class="nl">group:</span> <span class="s1">'org.springframework.cloud'</span><span class="o">,</span> <span class="nl">name:</span> <span class="s1">'spring-cloud-starter-eureka-server'</span>
+</code></pre></div></div>
+
+<p>Then add the <code class="highlighter-rouge">@EnableDiscoveryClient</code> annotation to your main Spring Boot application class:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@EnableDiscoveryClient</span>
+<span class="nd">@SpringBootApplication</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Application</span>
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span> <span class="o">(</span> <span class="kd">final</span> <span class="n">String</span><span class="o">[]</span> <span class="n">args</span> <span class="o">)</span>
+    <span class="o">{</span>
+        <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span> <span class="n">Application</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span> <span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Finally, tell Spring Boot where to find the Eureka server(s) by adding the following to your <code class="highlighter-rouge">application.yml</code>:</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">eureka</span><span class="pi">:</span>
+  <span class="na">client</span><span class="pi">:</span>
+    <span class="na">serviceUrl</span><span class="pi">:</span>
+      <span class="na">default</span><span class="pi">:</span> <span class="s">http://localhost:8761/eureka/</span>
+</code></pre></div></div>
+
+<h3 id="eureka-server">Eureka Server</h3>
+
+<p>Standing up a single node Eureka server is quite simple. Using a standalone Spring Boot application, simply apply the <code class="highlighter-rouge">@EnableEurekaServer</code> annotation to your main application class. I’ve provided the code to do so here:</p>
+
+<p>https://github.com/darrylanderson/spring-boot-eureka-service</p>
+
+<p>Simply clone this repo, and then run <code class="highlighter-rouge">./gradlew bootRun</code> to start up a Eureka server listening on port 8761.</p>
+
+<p><img src="/content/images/2018/03/EurekaServer.png" alt="EurekaServer" /></p>
+
+<p>The Eureka server configuration I’ve presented is not suitable for a highly-available production infrastructure. In production you should run it across availability zones in a clustered configuration. I hope in the future to take a deeper dive into how to make Eureka production ready, but in the meantime take a look at this excellent article on running Eureka in a production environment: https://blog.asarkar.org/technical/netflix-eureka/.</p>
+
+<hr />
+
+<h2 id="logging">Logging</h2>
+
+<p>You have a lot of choices for logging frameworks in Java. Log4j, Logj42, java.util.logging, Commons Logging, Logback, and slf4j, the choice can be confusing.</p>
+
+<p>I almost always opt for using slf4j to abstract away the underlying log framework from the codebase, and either log4j2 or logback as the logging framework. In this case we’ll be using logback, for no other reason than it’s <em>slightly</em> easier to set up from a dependency perspective (log4j2 requires a few more dependencies).</p>
+
+<p>Configuring logback is done through a file <code class="highlighter-rouge">logback-spring.xml</code> in <code class="highlighter-rouge">src/main/resources</code>. We want to have the following logging characteristics:</p>
+
+<ul>
+  <li>Log to the console.</li>
+  <li>Log to a file in a folder defined by the <code class="highlighter-rouge">$LOG_PATH</code> variable, defaulting to /tmp.</li>
+  <li>Optionally log json logs to a file, for consumption by tools such as logstash.</li>
+  <li>For all log files, roll over every night, keeping a maximum of 90 days worth of log files.</li>
+</ul>
+
+<p>Here’s a copy of the configuration we’ll use in our chassis. I’ve tried to comment the file as much as possible so you can see what’s going on.</p>
+
+<p><code class="highlighter-rouge">src/main/resurces/logback-spring.xml</code></p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="nt">&lt;configuration&gt;</span>
+    <span class="nt">&lt;include</span> <span class="na">resource=</span><span class="s">"org/springframework/boot/logging/logback/defaults.xml"</span><span class="nt">/&gt;</span>
+    ​
+    <span class="nt">&lt;springProperty</span> <span class="na">scope=</span><span class="s">"context"</span> <span class="na">name=</span><span class="s">"springAppName"</span> <span class="na">source=</span><span class="s">"spring.application.name"</span><span class="nt">/&gt;</span>
+
+    <span class="c">&lt;!-- Example for logging into a 'logs' folder --&gt;</span>
+    <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"LOG_FILE"</span> <span class="na">value=</span><span class="s">"${LOG_FILE:-${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}}}/${springAppName}.log"</span><span class="nt">/&gt;</span>​
+
+    <span class="c">&lt;!-- You can override this to have a custom pattern --&gt;</span>
+    <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"CONSOLE_LOG_PATTERN"</span>
+              <span class="na">value=</span><span class="s">"%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) 
+              %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} 
+              %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"</span><span class="nt">/&gt;</span>
+
+    <span class="c">&lt;!-- Appender to log to console --&gt;</span>
+    <span class="nt">&lt;appender</span> <span class="na">name=</span><span class="s">"console"</span> <span class="na">class=</span><span class="s">"ch.qos.logback.core.ConsoleAppender"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;filter</span> <span class="na">class=</span><span class="s">"ch.qos.logback.classic.filter.ThresholdFilter"</span><span class="nt">&gt;</span>
+            <span class="c">&lt;!-- Minimum logging level to be presented in the console logs--&gt;</span>
+            <span class="nt">&lt;level&gt;</span>DEBUG<span class="nt">&lt;/level&gt;</span>
+        <span class="nt">&lt;/filter&gt;</span>
+        <span class="nt">&lt;encoder&gt;</span>
+            <span class="nt">&lt;pattern&gt;</span>${CONSOLE_LOG_PATTERN}<span class="nt">&lt;/pattern&gt;</span>
+            <span class="nt">&lt;charset&gt;</span>utf8<span class="nt">&lt;/charset&gt;</span>
+        <span class="nt">&lt;/encoder&gt;</span>
+    <span class="nt">&lt;/appender&gt;</span>
+
+    <span class="c">&lt;!-- Appender to log to file --&gt;</span>​
+    <span class="nt">&lt;appender</span> <span class="na">name=</span><span class="s">"flatfile"</span> <span class="na">class=</span><span class="s">"ch.qos.logback.core.rolling.RollingFileAppender"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;file&gt;</span>${LOG_FILE}<span class="nt">&lt;/file&gt;</span>
+        <span class="c">&lt;!-- Daily rollovers, keep a maximum of 90 log files --&gt;</span>
+        <span class="nt">&lt;rollingPolicy</span> <span class="na">class=</span><span class="s">"ch.qos.logback.core.rolling.TimeBasedRollingPolicy"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;fileNamePattern&gt;</span>${LOG_FILE}.%d{yyyy-MM-dd}.gz<span class="nt">&lt;/fileNamePattern&gt;</span>
+            <span class="nt">&lt;maxHistory&gt;</span>90<span class="nt">&lt;/maxHistory&gt;</span>
+        <span class="nt">&lt;/rollingPolicy&gt;</span>
+        <span class="nt">&lt;encoder&gt;</span>
+            <span class="nt">&lt;pattern&gt;</span>${CONSOLE_LOG_PATTERN}<span class="nt">&lt;/pattern&gt;</span>
+            <span class="nt">&lt;charset&gt;</span>utf8<span class="nt">&lt;/charset&gt;</span>
+        <span class="nt">&lt;/encoder&gt;</span>
+    <span class="nt">&lt;/appender&gt;</span>
+    ​
+    <span class="c">&lt;!-- Appender to log to file in a JSON format --&gt;</span>
+    <span class="nt">&lt;appender</span> <span class="na">name=</span><span class="s">"logstash"</span> <span class="na">class=</span><span class="s">"ch.qos.logback.core.rolling.RollingFileAppender"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;file&gt;</span>${LOG_FILE}.json<span class="nt">&lt;/file&gt;</span>
+        <span class="c">&lt;!-- Daily rollovers, keep a maximum of 90 log files --&gt;</span>
+        <span class="nt">&lt;rollingPolicy</span> <span class="na">class=</span><span class="s">"ch.qos.logback.core.rolling.TimeBasedRollingPolicy"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;fileNamePattern&gt;</span>${LOG_FILE}.json.%d{yyyy-MM-dd}.gz<span class="nt">&lt;/fileNamePattern&gt;</span>
+            <span class="nt">&lt;maxHistory&gt;</span>90<span class="nt">&lt;/maxHistory&gt;</span>
+        <span class="nt">&lt;/rollingPolicy&gt;</span>
+        <span class="nt">&lt;encoder</span> <span class="na">class=</span><span class="s">"net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;providers&gt;</span>
+                <span class="nt">&lt;timestamp&gt;</span>
+                    <span class="nt">&lt;timeZone&gt;</span>UTC<span class="nt">&lt;/timeZone&gt;</span>
+                <span class="nt">&lt;/timestamp&gt;</span>
+                <span class="nt">&lt;pattern&gt;</span>
+                    <span class="nt">&lt;pattern&gt;</span>
+                        {
+                        "severity": "%level",
+                        "service": "${springAppName:-}",
+                        "trace": "%X{X-B3-TraceId:-}",
+                        "span": "%X{X-B3-SpanId:-}",
+                        "parent": "%X{X-B3-ParentSpanId:-}",
+                        "exportable": "%X{X-Span-Export:-}",
+                        "pid": "${PID:-}",
+                        "thread": "%thread",
+                        "class": "%logger{40}",
+                        "rest": "%message"
+                        }
+                    <span class="nt">&lt;/pattern&gt;</span>
+                <span class="nt">&lt;/pattern&gt;</span>
+            <span class="nt">&lt;/providers&gt;</span>
+        <span class="nt">&lt;/encoder&gt;</span>
+    <span class="nt">&lt;/appender&gt;</span>
+    ​
+    <span class="nt">&lt;root</span> <span class="na">level=</span><span class="s">"INFO"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;appender-ref</span> <span class="na">ref=</span><span class="s">"console"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;appender-ref</span> <span class="na">ref=</span><span class="s">"flatfile"</span><span class="nt">/&gt;</span>
+        <span class="c">&lt;!-- uncomment this to have also JSON logs --&gt;</span>
+        <span class="c">&lt;!--&lt;appender-ref ref="logstash"/&gt;--&gt;</span>
+    <span class="nt">&lt;/root&gt;</span>
+<span class="nt">&lt;/configuration&gt;</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="tracing">Tracing</h2>
+
+<p>An often overlooked concern is how to log distributed calls across multiple services. If not addressed early, it can lead to a difficult manual effort of correlating logs based on timestamps to recreate an entire call flow.</p>
+
+<p>Fortunately Spring Cloud has a great solution for us. With a combination of Spring Cloud Sleuth as well as Zipkin we can gain visibility into distributed call traces.</p>
+
+<h3 id="spring-cloud-sleuth">Spring Cloud Sleuth</h3>
+
+<p><a href="https://github.com/spring-cloud/spring-cloud-sleuth">Spring Cloud Sleuth</a> will populate log entries with trace information as well as pass it to downstream services via request headers. This allows us to correlate log entries to view a complete distributed call trace.</p>
+
+<p>To start instrumenting your logs, add the following dependencies to <code class="highlighter-rouge">build.gradle</code>:</p>
+
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Enable distributed tracing with Sleuth</span>
+<span class="n">compile</span> <span class="nl">group:</span> <span class="s1">'org.springframework.cloud'</span><span class="o">,</span> <span class="nl">name:</span> <span class="s1">'spring-cloud-starter-zipkin'</span>
+
+<span class="c1">// Enable JSON logging</span>
+<span class="n">runtime</span><span class="o">(</span> <span class="nl">group:</span> <span class="s1">'net.logstash.logback'</span><span class="o">,</span> <span class="nl">name:</span> <span class="s1">'logstash-logback-encoder'</span><span class="o">,</span> <span class="nl">version:</span> <span class="s1">'4.11'</span> <span class="o">)</span> <span class="o">{</span>
+    <span class="n">exclude</span> <span class="nl">group:</span> <span class="s1">'ch.qos.logback'</span><span class="o">,</span> <span class="nl">module:</span> <span class="s1">'logback-core'</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Since we’re using slf4j we don’t need to do anything further to get trace information to show up in our logs. But if you’re using something different, you need to add the following to your logging pattern:</p>
+
+<p><code class="highlighter-rouge">%5p [${spring.zipkin.service.name:${spring.application.name:-}},%X{X-B3-TraceId:-},%X{X-B3-SpanId:-},%X{X-Span-Export:-}]</code></p>
+
+<p>Your logs will now look something like this:</p>
+
+<p><code class="highlighter-rouge">2018-02-27 15:52:19.254  INFO [microservice-chassis,44b89943973cf637,44b89943973cf637,true] 15010 --- [nio-8080-exec-1] a.e.c.ServiceInstanceRestController      : invoking GET /service-instances</code></p>
+
+<p>While this is a good start, what we really need is some way to search and visualize correlated trace ids. An easy way to get started is with Zipkin.</p>
+
+<h3 id="zipkin-server">Zipkin Server</h3>
+
+<p><a href="https://zipkin.io/">Zipkin</a> is a web application which ingests and visualizes log data from Spring Cloud Sleuth.</p>
+
+<p>To have logs sent to a Zipkin server, add the following to your <code class="highlighter-rouge">application.yml</code> file:</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">spring</span><span class="pi">:</span>
+  <span class="c1"># Send distributed traces to zipkin server (using Eureka to find the server)</span>
+  <span class="na">sleuth</span><span class="pi">:</span>
+    <span class="na">sampler</span><span class="pi">:</span>
+      <span class="na">percentage</span><span class="pi">:</span> <span class="s">1.0</span>
+  <span class="na">zipkin</span><span class="pi">:</span>
+    <span class="na">baseUrl</span><span class="pi">:</span> <span class="s">http://zipkin-service/</span>
+</code></pre></div></div>
+
+<p>What we’ve done is told Spring Cloud Sleuth to send 100% of our tracing logs to a Zipkin server which has registered itself Eureka as <code class="highlighter-rouge">zipkin-zervice</code>.</p>
+
+<p>Now we need to stand up a Zipkin server. Fortunately this is quite simple as you only need to apply the annotation <code class="highlighter-rouge">@EnableZipkinServer</code> to a Spring Boot application. I’ve provided the code to do so here:</p>
+
+<p>https://github.com/darrylanderson/spring-boot-zipkin-service</p>
+
+<p>Simply clone this repo, and then run <code class="highlighter-rouge">./gradlew bootRun</code> to start up a server listening on port 9411. It also expects a Eureka server to be running on port 8761.</p>
+
+<p>Now you’ll be able to visualize distributed log traces similar to below:</p>
+
+<p><img src="/content/images/2018/02/ZipkinExample.png" alt="ZipkinExample" /></p>
+
+<hr />
+
+<h2 id="monitoring">Monitoring</h2>
+
+<p>Spring Boot applications are very easy to monitor. With a combination of JMX and <a href="https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready.html">Spring Boot Actuator</a>, we have a wealth of useful instrumentation data to help monitor our applications in production.</p>
+
+<h3 id="spring-boot-actuator">Spring Boot Actuator</h3>
+
+<p>To start using Actuator, add the following dependency to <code class="highlighter-rouge">build.gradle</code>:</p>
+
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Production metrics for Spring Boot</span>
+<span class="n">compile</span> <span class="nl">group:</span> <span class="s1">'org.springframework.boot'</span><span class="o">,</span> <span class="nl">name:</span> <span class="s1">'spring-boot-starter-actuator'</span>
+</code></pre></div></div>
+
+<p>I usually like to host the Actuator endpoints on a different port from the main web application. This allows you to secure the port at a network level. Doing this is as simple as adding the following to your <code class="highlighter-rouge">application.yml</code>:</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">management</span><span class="pi">:</span>
+  <span class="na">port</span><span class="pi">:</span> <span class="s">8000</span>
+  <span class="na">add-application-context-header</span><span class="pi">:</span> <span class="no">false</span>
+  <span class="na">security</span><span class="pi">:</span>
+    <span class="c1"># Disable security on the management port (NOT FOR PRODUCTION)</span>
+    <span class="na">enabled</span><span class="pi">:</span> <span class="no">false</span>
+</code></pre></div></div>
+
+<p>Now you can request the following endpoints:</p>
+
+<p><code class="highlighter-rouge">curl -XGET http://localhost:8000/health</code></p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Composite Discovery Client"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UP"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"discoveryComposite"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Composite Discovery Client"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UP"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"discoveryClient"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Composite Discovery Client"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UP"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"services"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"spring-boot-admin-service"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"eureka-service"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"zipkin-service"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"microservice-chassis"</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"eureka"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Remote status from Eureka server"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UP"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"applications"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"SPRING-BOOT-ADMIN-SERVICE"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"MICROSERVICE-CHASSIS"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"EUREKA-SERVICE"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"ZIPKIN-SERVICE"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"diskSpace"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UP"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">159639302144</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"free"</span><span class="p">:</span><span class="w"> </span><span class="mi">24657862656</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"threshold"</span><span class="p">:</span><span class="w"> </span><span class="mi">10485760</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"hystrix"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UP"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p><code class="highlighter-rouge">curl -XGET http://localhost:8000/metrics</code></p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"mem"</span><span class="p">:</span><span class="w"> </span><span class="mi">723728</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"mem.free"</span><span class="p">:</span><span class="w"> </span><span class="mi">463508</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"processors"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"instance.uptime"</span><span class="p">:</span><span class="w"> </span><span class="mi">1724610</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"uptime"</span><span class="p">:</span><span class="w"> </span><span class="mi">1734904</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"systemload.average"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.68</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"heap.committed"</span><span class="p">:</span><span class="w"> </span><span class="mi">632320</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"heap.init"</span><span class="p">:</span><span class="w"> </span><span class="mi">256000</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"heap.used"</span><span class="p">:</span><span class="w"> </span><span class="mi">168811</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"heap"</span><span class="p">:</span><span class="w"> </span><span class="mi">3626496</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"nonheap.committed"</span><span class="p">:</span><span class="w"> </span><span class="mi">92888</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"nonheap.init"</span><span class="p">:</span><span class="w"> </span><span class="mi">2496</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"nonheap.used"</span><span class="p">:</span><span class="w"> </span><span class="mi">91408</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"nonheap"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"threads.peak"</span><span class="p">:</span><span class="w"> </span><span class="mi">56</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"threads.daemon"</span><span class="p">:</span><span class="w"> </span><span class="mi">52</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"threads.totalStarted"</span><span class="p">:</span><span class="w"> </span><span class="mi">187</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"threads"</span><span class="p">:</span><span class="w"> </span><span class="mi">56</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"classes"</span><span class="p">:</span><span class="w"> </span><span class="mi">11006</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"classes.loaded"</span><span class="p">:</span><span class="w"> </span><span class="mi">11006</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"classes.unloaded"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"gc.ps_scavenge.count"</span><span class="p">:</span><span class="w"> </span><span class="mi">13</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"gc.ps_scavenge.time"</span><span class="p">:</span><span class="w"> </span><span class="mi">407</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"gc.ps_marksweep.count"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"gc.ps_marksweep.time"</span><span class="p">:</span><span class="w"> </span><span class="mi">337</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"counter.servo.eurekaclient.transport.request"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+</span><span class="err">...</span><span class="w">
+  </span><span class="s2">"httpsessions.max"</span><span class="p">:</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"httpsessions.active"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>While these endpoints can be helpful, having some sort of administrative interface is preferable. In the next sections we’ll discuss using JMX as well as Spring Boot Admin UI for this purpose.</p>
+
+<h3 id="jmx">JMX</h3>
+
+<p>If you have JMX capabilities within your monitoring infrastructure, you may want to export actuator metrics to JMX. For example, Zabbix offers the <a href="https://www.zabbix.com/documentation/3.4/manual/config/items/itemtypes/jmx_monitoring">Java Gateway</a> as a great way to monitor a fleet of Java applications.</p>
+
+<p>In order to expose actuator metrics to JMX, you need to register a specific bean. The following configuration class is all you need:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="n">atc</span><span class="o">.</span><span class="na">example</span><span class="o">.</span><span class="na">config</span><span class="o">.</span><span class="na">monitoring</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.boot.actuate.autoconfigure.ExportMetricWriter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.actuate.metrics.jmx.JmxMetricWriter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.actuate.metrics.writer.MetricWriter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Bean</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.jmx.export.MBeanExporter</span><span class="o">;</span>
+
+<span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MonitoringConfiguration</span>
+<span class="o">{</span>
+    <span class="cm">/**
+     * Export spring boot metrics to JMX.
+     *
+     * @param exporter
+     * @return a MetricsWriter object
+     */</span>
+    <span class="nd">@Bean</span>
+    <span class="nd">@ExportMetricWriter</span>
+    <span class="kd">public</span> <span class="n">MetricWriter</span> <span class="nf">metricWriter</span> <span class="o">(</span> <span class="kd">final</span> <span class="n">MBeanExporter</span> <span class="n">exporter</span> <span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">JmxMetricWriter</span><span class="o">(</span> <span class="n">exporter</span> <span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Now you can view all of the actutor metrics via JMX.</p>
+
+<p><img src="/content/images/2018/03/JMX.png" alt="JMX" /></p>
+
+<h3 id="spring-boot-admin-server">Spring Boot Admin Server</h3>
+
+<p><a href="https://github.com/codecentric/spring-boot-admin">Spring Boot Admin</a> provides an administrative interface for our Spring Boot applications.</p>
+
+<p>Since we’re using Eureka, we can use service discovery for our applications to register with the Spring Boot Admin service. The only thing we need to handle is to tell Eureka that Spring Boot Admin should contact our service using the management port rather than our main http port.</p>
+
+<p>You do this by passing the management port to Eureka as metadata. The following stanza in <code class="highlighter-rouge">application.yml</code> shows how this is configured:</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">eureka</span><span class="pi">:</span>
+  <span class="na">instance</span><span class="pi">:</span>
+    <span class="na">metadataMap</span><span class="pi">:</span>
+      <span class="c1"># Support for Spring Boot Admin client discovery</span>
+      <span class="s">management.port</span><span class="pi">:</span> <span class="s">8000</span>
+</code></pre></div></div>
+
+<p>Now we need to stand up a Spring Boot Admin server. Fortunately this is quite simple as you only need a single annotation (<code class="highlighter-rouge">@EnableAdminServer</code>) applied to a Spring Boot application. I’ve provided the code to do so here:</p>
+
+<p>https://github.com/darrylanderson/spring-boot-admin-service</p>
+
+<p>Simply clone this repo, and then run ./gradlew bootRun to start up a server listening on port 8100. It also expects a Eureka server to be running on port 8761.</p>
+
+<p><img src="/content/images/2018/03/SpringBootAdmin-overview.png" alt="SpringBootAdmin-overview" /></p>
+
+<p><img src="/content/images/2018/03/SpringBootAdmin-detail.png" alt="SpringBootAdmin-detail" /></p>
+
+<hr />
+
+<h2 id="deployment">Deployment</h2>
+
+<h3 id="executable-jar">Executable Jar</h3>
+
+<p>Spring Boot offers us an easy way to package up our service as an <a href="https://docs.spring.io/spring-boot/docs/current/reference/html/deployment-install.html">executable jar</a>. This executable jar can be easily registered as an init.d or systemd service.</p>
+
+<p>The necessary configuration in our <code class="highlighter-rouge">build.gradle</code> is as follows:</p>
+
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Configure the spring boot executable jar</span>
+<span class="n">springBoot</span> <span class="o">{</span>
+    <span class="n">executable</span> <span class="o">=</span> <span class="kc">true</span>
+    <span class="n">buildInfo</span><span class="o">()</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Now when we run <code class="highlighter-rouge">./gradlew build</code> we will build an executable jar in <code class="highlighter-rouge">build/libs</code>.</p>
+
+<p>To register this jar as an init.d service, simply symlink the file to /etc/init.d/. For example, <code class="highlighter-rouge">sudo ln -s /var/myapp/myapp.jar /etc/init.d/myapp</code>.</p>
+
+<p>If you’re using systemd, you need to create a service script in <code class="highlighter-rouge">/etc/systemd/system</code>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[Unit]
+Description=myapp
+After=syslog.target
+
+[Service]
+User=myapp
+ExecStart=/var/myapp/myapp.jar
+SuccessExitStatus=143
+
+[Install]
+WantedBy=multi-user.target
+</code></pre></div></div>
+
+<h3 id="docker">Docker</h3>
+
+<p>We can also package our application as a Docker image. To do so we’ll use the <a href="https://github.com/Transmode/gradle-docker">Transmode gradle docker</a> plugin.</p>
+
+<p>I’ll take a deep dive into Docker based architectures in future articles, but for now I’ll simply present how to create the Docker image.</p>
+
+<p>The necessary configuration in <code class="highlighter-rouge">build.gradle</code> is as follows:</p>
+
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">buildscript</span> <span class="o">{</span>
+    <span class="n">repositories</span> <span class="o">{</span>
+        <span class="n">jcenter</span><span class="o">()</span>
+    <span class="o">}</span>
+    <span class="n">dependencies</span> <span class="o">{</span>
+        <span class="c1">// The gradle-docker plugin we want to use isn't yet in gradle plugin portal, se we</span>
+        <span class="c1">// pull it from jcenter</span>
+        <span class="n">classpath</span> <span class="s1">'se.transmode.gradle:gradle-docker:1.2'</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="o">...</span>
+
+<span class="c1">// Support for packaging our application as a Docker image</span>
+<span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">'docker'</span>
+
+<span class="o">...</span>
+
+<span class="c1">// Build the docker container for this application</span>
+<span class="n">task</span> <span class="nf">buildDocker</span><span class="o">(</span> <span class="nl">type:</span> <span class="n">Docker</span><span class="o">,</span> <span class="nl">dependsOn:</span> <span class="n">build</span> <span class="o">)</span> <span class="o">{</span>
+    <span class="n">push</span> <span class="o">=</span> <span class="kc">false</span>
+    <span class="n">applicationName</span> <span class="o">=</span> <span class="n">rootProject</span><span class="o">.</span><span class="na">name</span>
+    <span class="n">dockerfile</span> <span class="o">=</span> <span class="n">file</span><span class="o">(</span> <span class="s1">'Dockerfile'</span> <span class="o">)</span>
+
+    <span class="n">doFirst</span> <span class="o">{</span>
+        <span class="c1">// Rename the app jar to "app.jar" so that the Dockerfile does not require renames</span>
+        <span class="n">copy</span> <span class="o">{</span>
+            <span class="n">from</span> <span class="s2">"${project.buildDir}/libs"</span>
+            <span class="n">into</span> <span class="n">stageDir</span>
+            <span class="n">include</span> <span class="s2">"${rootProject.name}-${version}.jar"</span>
+            <span class="n">rename</span><span class="o">(</span> <span class="s2">"${rootProject.name}-${version}.jar"</span><span class="o">,</span> <span class="s2">"app.jar"</span> <span class="o">)</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>While not strictly necessary, we’ll use an external <code class="highlighter-rouge">Dockerfile</code>. This is to support other tooling.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>FROM anapsix/alpine-java:8_server-jre_unlimited
+VOLUME /tmp
+ADD app.jar app.jar
+ENV JAVA_OPTS=""
+ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /app.jar" ]
+</code></pre></div></div>
+
+<p>To produce the docker image, simply run:</p>
+
+<p><code class="highlighter-rouge">./gradlew buildDocker</code></p>
+
+<hr />
+
+<h2 id="wrapping-up">Wrapping Up</h2>
+
+<p>To recap, here are the github repos containing the code in this article:</p>
+
+<ul>
+  <li><a href="https://github.com/darrylanderson/microservice-chassis-java">Microservice chassis</a></li>
+  <li><a href="https://github.com/darrylanderson/spring-boot-eureka-service">Eureka server</a></li>
+  <li><a href="https://github.com/darrylanderson/spring-boot-admin-service">Spring Boot Admin server</a></li>
+  <li><a href="https://github.com/darrylanderson/spring-boot-zipkin-service">Zipkin server</a></li>
+</ul>
+
+<p>Having a microservice chassis can be a huge time saver when starting development on a new service. I hope that you’ll find this chassis useful in your own development efforts.</p>
+
+<hr />
+
+<p style="text-align: center;">Also published on <a href="https://dzone.com/articles/building-a-microservice-chassis-with-spring-boot-a">DZone</a>.</p>
+
+<hr />
+
+                </div>
+            </section>
+
+            <!-- Email subscribe form at the bottom of the page -->
+            
+
+            <footer class="post-full-footer">
+                <!-- Everything inside the #author tags pulls data from the author -->
+                <!-- #author-->
+                
+                    
+                        <section class="author-card">
+                            
+                                <img class="author-profile-image" src="/content/images/2018/03/ProfilePhoto-round-1.png" alt="darryl" />
+                            
+                            <section class="author-card-content">
+                                <h4 class="author-card-name"><a href="/author/darryl">Darryl Anderson</a></h4>
+                                
+                                    <p>Darryl provides technology advisement, design, and development services to early and growth stage software companies.</p>
+                                
+                            </section>
+                        </section>
+                        <div class="post-full-footer-right">
+                            <a class="author-card-button" href="/author/darryl">Read More</a>
+                        </div>
+                    
+                
+                <!-- /author  -->
+            </footer>
+
+            <!-- If you use Disqus comments, just uncomment this block.
+            The only thing you need to change is "test-apkdzgmqhj" - which
+            should be replaced with your own Disqus site-id. -->
+            
+
+        </article>
+
+    </div>
+</main>
+
+<!-- Links to Previous/Next posts -->
+<aside class="read-next outer">
+    <div class="inner">
+        <div class="read-next-feed">
+            
+                
+                
+                
+                
+            
+
+            <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+
+    <article class="post-card post-template">
+        
+            <a class="post-card-image-link" href="/a-comparison-of-distributed-ledgers-for-tokenization">
+                <div class="post-card-image" style="background-image: url(/assets/images/cover-dlt.jpeg)"></div>
+            </a>
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/a-comparison-of-distributed-ledgers-for-tokenization">
+                <header class="post-card-header">
+                    
+                        
+                            
+                                <span class="post-card-tags">Blockchain</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">A Comparison Of Distributed Ledgers For Tokenization</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    
+                        <p></p>
+                    
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                        
+                        <img class="author-profile-image" src="/content/images/2018/03/ProfilePhoto-round-1.png" alt="Darryl Anderson" />
+                        
+                        <span class="post-card-author">
+                            <a href="/author/darryl/">Darryl Anderson</a>
+                        </span>
+                    
+                
+                <span class="reading-time">
+                    
+                    
+                      1 min read
+                    
+                </span>
+            </footer>
+        </div>
+    </article>
+
+            
+
+            <!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+
+    <article class="post-card post-template">
+        
+            <a class="post-card-image-link" href="/multifactor-everything">
+                <div class="post-card-image" style="background-image: url(/assets/images/cover-mfa.jpeg)"></div>
+            </a>
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/multifactor-everything">
+                <header class="post-card-header">
+                    
+                        
+                            
+                                <span class="post-card-tags">Security</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">Multi-Factor Authentication With SSH And OpenVPN</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    
+                        <p></p>
+                    
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                        
+                        <img class="author-profile-image" src="/content/images/2018/03/ProfilePhoto-round-1.png" alt="Darryl Anderson" />
+                        
+                        <span class="post-card-author">
+                            <a href="/author/darryl/">Darryl Anderson</a>
+                        </span>
+                    
+                
+                <span class="reading-time">
+                    
+                    
+                      1 min read
+                    
+                </span>
+            </footer>
+        </div>
+    </article>
+
+            
+
+        </div>
+    </div>
+</aside>
+
+<!-- Floating header which appears on-scroll, included from includes/floating-header.hbs -->
+<div class="floating-header">
+    <div class="floating-header-logo">
+        <a href="/">
+            
+            <span>Anderson Technology Consulting</span>
+        </a>
+    </div>
+    <span class="floating-header-divider">&mdash;</span>
+    <div class="floating-header-title">Building A Microservice Chassis With Spring Boot and Spring Cloud</div>
+    <div class="floating-header-share">
+        <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
+</svg>
+</div>
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Building+A+Microservice+Chassis+With+Spring+Boot+and+Spring+Cloud&amp;url=https://darrylanderson.dev/building-a-microservice-chassis-with-spring-boot"
+            onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+
+        </a>
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://darrylanderson.dev/building-a-microservice-chassis-with-spring-boot"
+            onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
+
+        </a>
+    </div>
+    <progress class="progress" value="0">
+        <div class="progress-container">
+            <span class="progress-bar"></span>
+        </div>
+    </progress>
+</div>
+
+
+<!-- /post -->
+
+<!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs -->
+
+
+        <!-- Previous/next page links - displayed on every page -->
+        
+
+        <!-- The footer at the very bottom of the screen -->
+        <footer class="site-footer outer">
+            <div class="site-footer-content inner">
+                <section class="copyright"><a href="/">Anderson Technology Consulting</a> &copy; 2021</section>
+                <section class="poweredby">Published with <a href="https://jekyllrb.com/">Jekyll</a> &
+                    <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a> using
+                    <a href="https://github.com/jekyller/jasper2" target="_blank" rel="noopener">Jasper2</a></section>
+                <nav class="site-footer-nav">
+                    <a href="/">Latest Posts</a>
+                </nav>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- The big email subscribe modal content -->
+    
+
+    <!-- highlight.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.10.0/components/prism-abap.min.js"></script>
+    <script>$(document).ready(function() {
+      $('pre code').each(function(i, block) {
+        hljs.highlightBlock(block);
+      });
+    });</script>
+
+    <!-- jQuery + Fitvids, which makes all video embeds responsive -->
+    <script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous">
+    </script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="https://demo.ghost.io/assets/js/jquery.fitvids.js?v=724281a32e"></script>
+
+
+    <!-- Paginator increased to "infinit" in _config.yml -->
+    <!-- if paginator.posts  -->
+    <!-- <script>
+        var maxPages = parseInt('');
+    </script>
+    <script src="/assets/js/infinitescroll.js"></script> -->
+    <!-- /endif -->
+
+    
+
+
+    <!-- Add Google Analytics  -->
+    <!-- Google Analytics Tracking code -->
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-112416473-1', 'auto');
+  ga('send', 'pageview');
+
+ </script>
+
+
+    <!-- The #block helper will pull in data from the #contentFor other template files. In this case, there's some JavaScript which we only want to use in post.hbs, but it needs to be included down here, after jQuery has already loaded. -->
+    
+        <script>
+
+// NOTE: Scroll performance is poor in Safari
+// - this appears to be due to the events firing much more slowly in Safari.
+//   Dropping the scroll event and using only a raf loop results in smoother
+//   scrolling but continuous processing even when not scrolling
+$(document).ready(function () {
+    // Start fitVids
+    var $postContent = $(".post-full-content");
+    $postContent.fitVids();
+    // End fitVids
+
+    var progressBar = document.querySelector('progress');
+    var header = document.querySelector('.floating-header');
+    var title = document.querySelector('.post-full-title');
+
+    var lastScrollY = window.scrollY;
+    var lastWindowHeight = window.innerHeight;
+    var lastDocumentHeight = $(document).height();
+    var ticking = false;
+
+    function onScroll() {
+        lastScrollY = window.scrollY;
+        requestTick();
+    }
+
+    function onResize() {
+        lastWindowHeight = window.innerHeight;
+        lastDocumentHeight = $(document).height();
+        requestTick();
+    }
+
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(update);
+        }
+        ticking = true;
+    }
+
+    function update() {
+        var trigger = title.getBoundingClientRect().top + window.scrollY;
+        var triggerOffset = title.offsetHeight + 35;
+        var progressMax = lastDocumentHeight - lastWindowHeight;
+
+        // show/hide floating header
+        if (lastScrollY >= trigger + triggerOffset) {
+            header.classList.add('floating-active');
+        } else {
+            header.classList.remove('floating-active');
+        }
+
+        progressBar.setAttribute('max', progressMax);
+        progressBar.setAttribute('value', lastScrollY);
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', onScroll, {passive: true});
+    window.addEventListener('resize', onResize, false);
+
+    update();
+});
+</script>
+
+    
+
+    <!-- Ghost outputs important scripts and data with this tag - it should always be the very last thing before the closing body tag -->
+    <!-- ghost_foot -->
+
+</body>
+</html>

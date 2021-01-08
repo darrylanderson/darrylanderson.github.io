@@ -1,0 +1,1889 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<feed xmlns="http://www.w3.org/2005/Atom" >
+  <generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator>
+  <link href="/author/darryl/feed.xml" rel="self" type="application/atom+xml" />
+  <link href="/" rel="alternate" type="text/html" />
+  <updated>2021-01-08T22:44:48+00:00</updated>
+  <id>/author/darryl/feed.xml</id>
+
+  
+  
+  
+
+  
+    <title type="html">Anderson Technology Consulting | </title>
+  
+
+  
+    <subtitle>Pragmatic Cloud Architecture</subtitle>
+  
+
+  
+
+  
+    
+      
+    
+  
+
+  
+  
+
+  
+    <entry>
+      <title type="html">A Comparison Of Distributed Ledgers For Tokenization</title>
+      <link href="/a-comparison-of-distributed-ledgers-for-tokenization" rel="alternate" type="text/html" title="A Comparison Of Distributed Ledgers For Tokenization" />
+      <published>2018-10-07T02:58:07+00:00</published>
+      <updated>2018-10-07T02:58:07+00:00</updated>
+      <id>/a-comparison-of-distributed-ledgers-for-tokenization</id>
+      <content type="html" xml:base="/a-comparison-of-distributed-ledgers-for-tokenization">&lt;p&gt;If you’re like me, hearing the very word “blockchain” causes you to immediately tune out. Over-hyped as a solution to nearly every business problem imaginable, trying to wade through the noise is nearly a full time job. However, the technology can offer very powerful solutions to certain business problems. Tokenization is one such area where blockchain can have an enormous impact.&lt;/p&gt;
+
+&lt;p&gt;In this article we’ll look at the suitability of three popular public blockchain networks for tokenization use cases. Starting with an overview of tokenization and the business problems that it addresses, we’ll then present a high-level overview of blockchain and distributed ledger technology. We’ll be looking at three of the most popular blockchain networks, Stellar, Ripple, and Ethereum. We won’t be doing a deep technical dive into each blockchain network, instead we’ll evaluate each platform using a common set of high-level functional and non-functional tokenization requirements.&lt;/p&gt;
+
+&lt;h1 id=&quot;tokenization&quot;&gt;Tokenization&lt;/h1&gt;
+&lt;p&gt;Tokenization is a common model that most people have encountered even if they weren’t aware. Logging in to a website, credit card processing, loyalty points, even gift cards all leverage tokens.&lt;/p&gt;
+
+&lt;p&gt;In a nutshell, a token is a virtual representation of something else. That “something else” may be an asset such as a commodity, a payment token representing a credit card authorization, a loyalty reward point representing an alternative form of currency, even a login token so you don’t have to keep entering your username and password on your favorite websites. The token represents an exchange of something for a virtual representation of that thing. Credit card processing takes your credit card information and “tokenizes” it into a payment authorization. When you enter your username and password on a website, that information is turned into a token which is temporarily stored by your browser so you don’t have log in every time you click on a page. For loyalty points, the token is a point you earn which represents a virtual currency you can possibly use in the future.&lt;/p&gt;
+
+&lt;h2 id=&quot;benefits-of-tokenization&quot;&gt;Benefits of Tokenization&lt;/h2&gt;
+&lt;p&gt;Tokenization of payment card information and authorization credentials is very useful, although existing systems handle these business processes well.&lt;/p&gt;
+
+&lt;p&gt;Another type of tokenization is to take a real-world asset and represent it with a token. For example, a square foot of real estate could become a virtual token. If you buy shares in Google or Amazon you don’t want some of their office furniture, instead you get a share (a token) enabling you to own a part of the company. By tokenizing these real-world assets we now have the capability to trade them on a liquid market, allowing us to create new ways for companies and consumers to work together.&lt;/p&gt;
+
+&lt;p&gt;For these tokens there is a need to record ownership and other information about the token. Recently a new type of technology has emerged which is highly suited to this type of data. Known as “blockchain” or “distributed ledger technology”, it gives us the ability to record token information in a highly secure yet open manner.&lt;/p&gt;
+
+&lt;h1 id=&quot;defining-distributed-ledger-technology&quot;&gt;Defining Distributed Ledger Technology&lt;/h1&gt;
+&lt;p&gt;The terms “blockchain” and “distributed ledger” are often used interchangeably, and while they’re related, they are technically not the same thing. A &lt;strong&gt;blockchain&lt;/strong&gt; is an append-only, cryptographically linked data structure. This idea dates back to 1991, but was only recently used in a practical manner with the emergence of Bitcoin. A &lt;strong&gt;distributed ledger&lt;/strong&gt; is a database of replicated and shared data stored across geographically separate nodes. Each node participates in a consensus protocol to ensure that all network participants agree on the contents of the database. When a blockchain data structure is used as the data storage mechanism within a distributed ledger, we now have what’s known as a &lt;strong&gt;blockchain network&lt;/strong&gt; or &lt;strong&gt;blockchain ledger&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;A blockchain network is often described as decentralized because it is replicated across many network participants, each of whom collaborate in its maintenance. The participants are responsible for agreeing on the contents of each new block in the blockchain, a process known as &lt;strong&gt;consensus&lt;/strong&gt;. Some blockchain networks such as Bitcoin or Ethereum rely on what’s known as &lt;em&gt;proof of work&lt;/em&gt; consensus. This is an energy intensive process known as “mining” in which nodes compete to solve computationally complex hashing problems. The winning node receives an incentive in the form of a token, either Bitcoin or Ether depending on the network. This consensus protocol is also by definition relatively slow, resulting in limited transaction speeds.&lt;/p&gt;
+
+&lt;p&gt;Alternative consensus protocols eliminate the mining process in favor of more energy efficient approaches. We will be comparing blockchain networks which use &lt;a href=&quot;https://www.stellar.org/papers/stellar-consensus-protocol.pdf&quot;&gt;Federated Byzantine Agreement&lt;/a&gt; (Stellar), &lt;a href=&quot;https://medium.com/coinmonks/blockchain-consensus-algorithm-the-proof-of-stake-slice-a4bda6658bbe&quot;&gt;Proof of Stake&lt;/a&gt; (hopefully coming soon to Ethereum), and &lt;a href=&quot;https://ripple.com/build/reaching-consensus-xrp-ledger/&quot;&gt;Proof of Correctness&lt;/a&gt; (Ripple).&lt;/p&gt;
+
+&lt;p&gt;In addition to being decentralized and collaborative, the information recorded to a blockchain is append-only, using cryptographic techniques which guarantee that once a transaction has been added to the ledger it cannot be modified. This property of immutability makes it simple to determine the provenance of information because participants can be sure information has not been changed after the fact. It’s why blockchains are sometimes described as systems of proof.&lt;/p&gt;
+
+&lt;h1 id=&quot;tokenization-requirements&quot;&gt;Tokenization Requirements&lt;/h1&gt;
+&lt;p&gt;Our primary requirement is that we need to be able to create a custom token on the blockchain network. This token should be usable as a payment method, support more complex payment flows such as those involving escrow, and has some way to convert to/from fiat currency such as USD.&lt;/p&gt;
+
+&lt;p&gt;In addition, we want to ensure that the platform is cost effective, highly secure, easy to integrate with, and supports the standard architectural “ilities” such as reliability, scalability, monitorability, etc.&lt;/p&gt;
+
+&lt;p&gt;Let’s detail out our functional and non-functional requirements:&lt;/p&gt;
+
+&lt;h2 id=&quot;functional-requirements&quot;&gt;Functional Requirements&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Ability to issue a custom asset.&lt;/strong&gt; The asset should be capable of being either privately or publicly traded, and have inflationary and/or deflationary characteristics.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Support for payment operations.&lt;/strong&gt; These should be low cost, and have the ability to attach a custom memo to each payment transaction.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Support for escrow operations.&lt;/strong&gt; We need the ability to place a payment into an escrow account to be released at a later point in time assuming all parties agree.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Support for multiple signature transactions.&lt;/strong&gt; A multi-signature transaction is one in which multiple accounts have to sign a transaction in order for it to be valid. In our case we need all transactions to be additionally signed by our asset ownership account to prevent abuse of the asset.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Ability to trade custom asset for other assets (including fiat currency).&lt;/strong&gt; For our asset to have real-world value, there may be a need to trade it for fiat currency. For example, an asset representing real estate may be sold for cash.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;non-functional-requirements&quot;&gt;Non-Functional Requirements&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Minimal ongoing costs as volume increases.&lt;/strong&gt; We don’t want a situation where our costs become untenable as volume increases. Common issues here are with transaction fees, account minimum balances, and highly volatile blockchain native currencies.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Ease of development (SDKs, dev/test environments).&lt;/strong&gt; We need robust SDKs for popular languages/frameworks along with an easy way to test our applications.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Low operational overhead.&lt;/strong&gt; This is fairly subjective, but overall we would prefer a solution which requires a minimal amount of infrastructure, and offers high amounts of automation.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;These requirements are just a baseline. Your solution will likely have far more to consider, but for our purposes of comparing blockchain networks these are what we’ll use.&lt;/p&gt;
+
+&lt;p&gt;In the next sections we’ll outline how various public blockchain networks supports our tokenization needs.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;stellar&quot;&gt;Stellar&lt;/h1&gt;
+&lt;p&gt;&lt;img src=&quot;/content/images/2018/10/STELLAR-logo.png&quot; alt=&quot;STELLAR-logo&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Designed as a global payments platform, &lt;a href=&quot;https://stellar.org/&quot;&gt;Stellar&lt;/a&gt; offers a number of compelling features. At a high level, it has a fast transaction rate, low energy consumption, and has support for custom assets, low cost transactions, federated identity, and a distributed exchange.&lt;/p&gt;
+
+&lt;p&gt;Let’s start by looking at how Stellar supports our functional requirements:
+&lt;img src=&quot;/content/images/2018/10/Stellar-FR.png&quot; alt=&quot;Stellar-FR&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;All of our primary functional requirements are well supported, with the exception of conversion to fiat. This is a limitation of many blockchain networks coupled with complex financial regulations. CoinBase is one of the few crypto exchanges with full regulatory support, but it only supports Bitcoin and Ethereum. Recently &lt;a href=&quot;https://stronghold.co/&quot;&gt;Stronghold&lt;/a&gt; has announced a USD exchange, so it’s likely that this situation will change for the better shortly.&lt;/p&gt;
+
+&lt;p&gt;Now let’s look at our non-functional requirements:
+&lt;img src=&quot;/content/images/2018/10/Stellar-NFR.png&quot; alt=&quot;Stellar-NFR&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;After having completed a number of POCs on the Stellar network, I’ve found it to be very easy to work with. The biggest drawback is the costs as the number of accounts increase. If we were to create accounts for every user in a 1 million user community, we need to come up with 2 million XLM, currently valued at $0.20/XLM, or $400,000. Were the value of XLM to rise, our costs rise accordingly.&lt;/p&gt;
+
+&lt;p&gt;A way to avoid this is to instead operate your solution with a &lt;a href=&quot;https://www.stellar.org/developers/guides/exchange.html&quot;&gt;single custodial account&lt;/a&gt; for all users. In this case, you need to manage all operations on behalf of users. Transactions need to indicate which user balances are affected, and you’re responsible for all key management. This lowers the upfront investment requirement, at the expense of increased development and security complexity.&lt;/p&gt;
+
+&lt;p&gt;From an enterprise architecture standpoint, Stellar is very easy to incorporate into a secure cloud infrastructure. If you choose to &lt;a href=&quot;https://www.stellar.org/developers/guides/anchor/index.html&quot;&gt;operate your own anchor&lt;/a&gt; (which you should if you issue a custom asset), Stellar provides all the necessary packages to stand up a simple single node server. Operating a highly available anchor is also straightforward, we’ll cover this process in a future article.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;For those interested in learning more about a secure approach to using Stellar, check out my Hashicorp Vault plugin for Stellar here: https://github.com/ParticipateCrypto/vault-plugin-stellar&lt;/em&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;ripple&quot;&gt;Ripple&lt;/h1&gt;
+&lt;p&gt;&lt;img src=&quot;/content/images/2018/10/ripple-logo.svg&quot; alt=&quot;ripple-logo&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://ripple.com/&quot;&gt;Ripple&lt;/a&gt; is very similar to Stellar on the surface. Ripple uses a different consensus protocol (proof of correctness), but similar to Stellar it is designed to handle payments so shares many of the same semantics.&lt;/p&gt;
+
+&lt;p&gt;Again, we start by looking at how Ripple supports our functional requirements:
+&lt;img src=&quot;/content/images/2018/10/Ripple-FR.png&quot; alt=&quot;Ripple-FR&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Ripple meets most of our requirements in the same fashion as Stellar. However, Ripple does not support escrow payment operations using custom assets. If our tokenization solution requires escrow (think real estate, merchandise purchases, etc), then Ripple is not a good fit.&lt;/p&gt;
+
+&lt;p&gt;Now let’s look at our non-functional requirements:
+&lt;img src=&quot;/content/images/2018/10/Ripple-NFR.png&quot; alt=&quot;Ripple-NFR&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Similar to Stellar, Ripple has a minimum balance on accounts which can quickly result in a cost issue. Assuming we need to create 1 million user accounts, this would cost 25 million XRP, and with XRP currently valued at $0.48 USD, corresponds to an upfront investment of $12,000,000. This is considerably higher than Stellar. Also note that Ripple does not have the ability to “merge” or “close” accounts, so it’s impossible to reclaim the XRP minimum balances in unused user accounts&lt;/p&gt;
+
+&lt;p&gt;Fortunately we can apply the same approach of using a single custodial account in order to eliminate this cost. In reality this is probably the only valid approach to working with Ripple if you need a large amount of user accounts.&lt;/p&gt;
+
+&lt;p&gt;On the ease of development front, Ripple has a robust JSON-RPC API as well as a mature Javascript SDK. However it is lacking support for SDKs in other languages such as Java or Python. This may or may not be an issue for you depending on your team’s skillset.&lt;/p&gt;
+
+&lt;p&gt;Integration of the Ripple network into your cloud architecture is fairly straightforward. You can operate one or more &lt;a href=&quot;https://developers.ripple.com/run-a-rippled-validator.html&quot;&gt;rippled&lt;/a&gt; servers, configured to either be stock or validator nodes. Similar to Stellar, if you’re relying on the Ripple network it’s in your best interest to operate your own rippled infrastructure.&lt;/p&gt;
+
+&lt;h1 id=&quot;ethereum&quot;&gt;Ethereum&lt;/h1&gt;
+&lt;p&gt;&lt;img src=&quot;/content/images/2018/10/ETHEREUM-LOGO_LANDSCAPE_Black_small.png&quot; alt=&quot;ETHEREUM-LOGO_LANDSCAPE_Black_small&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://ethereum.org/&quot;&gt;Ethereum&lt;/a&gt; is still the big player in this space. As one of the original blockchain networks which supported custom tokens and smart contracts, it has the most adoption in the tokenization space.&lt;/p&gt;
+
+&lt;p&gt;However, Ethereum currently relies on a proof of work consensus protocol which severely limits transaction speeds, and requires large amounts of energy to operate the network.&lt;/p&gt;
+
+&lt;p&gt;Ethereum smart contracts are different than Stellar and Ripple. They use a custom language called Solidity. These smart contract are far more powerful, and can be used to create fully featured distributed applications.&lt;/p&gt;
+
+&lt;p&gt;For our tokenization use cases, we don’t necessarily need all the capabilities of &lt;a href=&quot;https://solidity.readthedocs.io/en/latest/&quot;&gt;Solidity&lt;/a&gt;. As long as we can issue a custom asset, make payments, and handle escrow, our smart contract requirements are met.
+&lt;img src=&quot;/content/images/2018/10/Ethereum-FR.png&quot; alt=&quot;Ethereum-FR&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;As we see above, Ethereum meets most of our functional requirements. The biggest drawback to using Ethereum is the transaction times. Payment operations can take multiple minutes to complete, depending on how much you’re willing to pay. This is unacceptable for most enterprise applications, and in this author’s humble opinion rules out Ethereum for our tokenization use cases. Ethereum may be shifting to a “proof of stake” consensus protocol primarily for this reason; if the shift results in much faster transaction times then Ethereum may be a good option.&lt;/p&gt;
+
+&lt;p&gt;For the sake of completeness, let’s look at how Ethereum meets our non-functional requirements:
+&lt;img src=&quot;/content/images/2018/10/Ethereum-NFR.png&quot; alt=&quot;Ethereum-NFR&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Again Ethereum fails in the cost department. If we need the fastest possible transaction times (multiple seconds if not minutes), you may be paying fees of $0.05/transaction. However this price is highly variable. It’s nearly impossible to predict the transactional costs of your application.&lt;/p&gt;
+
+&lt;p&gt;Where Ethereum excels is in the developer community. It seems like everyone is developing on Ethereum, so there is a large selection of SDKs and APIs to choose from.&lt;/p&gt;
+
+&lt;p&gt;Many cloud providers offer pre-built Ethereum VM templates which allow you to quickly stand up your own nodes. For example, AWS has a CloudFormation template which deploys a cluster of Ethereum VMs in a docker cluster. Having these quickstarts is a further benefit of Ethereum over other blockchain networks.&lt;/p&gt;
+
+&lt;h1 id=&quot;other-options&quot;&gt;Other Options&lt;/h1&gt;
+&lt;p&gt;Some other options that were considered:&lt;/p&gt;
+
+&lt;h2 id=&quot;hyperledger&quot;&gt;Hyperledger&lt;/h2&gt;
+
+&lt;p&gt;Hyperledger, hosted by The Linux Foundation, is an open-source collaborative effort centered around blockchain technology.&lt;/p&gt;
+
+&lt;p&gt;Hyperledger is an umbrella project, and actually has five blockchain “frameworks”, commonly known as Sawtooth, Iroha, Fabric, Burrow, and Indy. These are private blockchains, meaning that you would need to stand up and operate your own network. Also, none of these projects support tokenization directly. Due to these factors Hyperledger is not a candidate for our tokenization use cases. While there are workarounds available, we instead choose to focus on blockchains which have native support for tokens.&lt;/p&gt;
+
+&lt;p&gt;In future articles we’ll look at other use cases such as supply chain management where Hyperledger is an excellent fit.&lt;/p&gt;
+
+&lt;h2 id=&quot;non-blockchain-architecture&quot;&gt;Non-Blockchain Architecture&lt;/h2&gt;
+
+&lt;p&gt;A question we should always ask is “why even use blockchain”? I would argue that for many use cases, the answer to this question would be that blockchain is not a suitable technology choice. Unless you have a need for a distributed, immutable, append-only data structure, you may be better served by an alternative architecture.&lt;/p&gt;
+
+&lt;p&gt;However, for tokenization use cases, blockchain can be a good fit. Ease of payments, immutable record of token ownership, exchange to fiat currency, and the ability to trade on exchanges are all benefits of using a blockchain network.&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+&lt;p&gt;After looking at how various blockchain networks are suited to tokenization use cases, Stellar is currently the best candidate. Other than the lack of an easy token to fiat conversion path, its combination of low-cost, fast transactions and robust development tooling makes it an excellent choice.&lt;/p&gt;
+
+&lt;p&gt;Ripple is a very close second. If you don’t need escrow operations for your custom token, it should be considered.&lt;/p&gt;
+
+&lt;p&gt;If Ethereum manages to reduce transaction fees and increase transaction times, it would be the obvious choice. But as it currently exists, choosing Ethereum would result in an expensive solution which would be unable to meet most end-user’s expectations for performance.&lt;/p&gt;
+
+&lt;p&gt;In a future article we’ll do a deeper technical dive into Stellar. Understanding how it meets enterprise requirements such as security, reliability, scalability, monitorability are important next steps before we commit to the platform.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name>Darryl Anderson</name>
+        
+        
+      </author>
+
+      
+
+      
+        <category term="blockchain" />
+      
+
+      
+        <summary type="html">If you’re like me, hearing the very word “blockchain” causes you to immediately tune out. Over-hyped as a solution to nearly every business problem imaginable, trying to wade through the noise is nearly a full time job. However, the technology can offer very powerful solutions to certain business problems. Tokenization is one such area where blockchain can have an enormous impact.</summary>
+      
+
+      
+      
+    </entry>
+  
+    <entry>
+      <title type="html">Building A Microservice Chassis With Spring Boot and Spring Cloud</title>
+      <link href="/building-a-microservice-chassis-with-spring-boot" rel="alternate" type="text/html" title="Building A Microservice Chassis With Spring Boot and Spring Cloud" />
+      <published>2018-03-01T20:09:17+00:00</published>
+      <updated>2018-03-01T20:09:17+00:00</updated>
+      <id>/building-a-microservice-chassis-with-spring-boot</id>
+      <content type="html" xml:base="/building-a-microservice-chassis-with-spring-boot">&lt;p&gt;Starting development on a new application or service often results in repeating the same work to implement common concerns. The build system, runtime container, security, monitoring, logging, tracing, etc are all cross-cutting concerns that each of your services should ideally implement in a similar fashion. Just as we try to keep our code pragmatically DRY (don’t repeat yourself), we also want to apply the same principal to our application infrastructures.&lt;/p&gt;
+
+&lt;p&gt;A &lt;a href=&quot;http://microservices.io/patterns/microservice-chassis.html&quot;&gt;microservice chassis&lt;/a&gt; is one such way to implement these cross-cutting concerns. Building a reusable chassis can help save time, enforce consistency across teams, and ensure that each service shares the same operational charateristics. In this article I’ll outline a production-ready chassis using Spring Boot and Spring Cloud that you can use to bootstrap your own cloud applications.&lt;/p&gt;
+
+&lt;h2 id=&quot;microservices&quot;&gt;Microservices&lt;/h2&gt;
+
+&lt;p&gt;Ok, I’ll be honest… when I hear the term “microservices” I start to get a glazed look on my face. Just like the famous &lt;a href=&quot;http://www.mongodb-is-web-scale.com/&quot;&gt;“MongoDB is Web Scale”&lt;/a&gt; cartoon, microservices are often touted as the &lt;em&gt;only&lt;/em&gt; true way to implement an enterprise architecture. Of course, pragmatically your architecture may be better served by a clustered monolith. Or perhaps a collection of clustered “mini” services. Or maybe your team has the devops and architectural ability to properly implement and operate a microservices architecture. Or perhaps some combination of the above. While determining the granularity of your service footprint is an important up-front decision, it also should be adjustable over time. &lt;strong&gt;The important thing is to keep things as decoupled as possible.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Regardless of your decision regarding service granularity, you still have to address a common set of concerns up front. There may be additional unique concerns for your architecture, but these common areas are the ones that I’ll be addressing in this article:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Build System&lt;/li&gt;
+  &lt;li&gt;Logging&lt;/li&gt;
+  &lt;li&gt;Monitoring&lt;/li&gt;
+  &lt;li&gt;Distributed Tracing&lt;/li&gt;
+  &lt;li&gt;Service Discovery&lt;/li&gt;
+  &lt;li&gt;Runtime Container&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;the-chassis&quot;&gt;The Chassis&lt;/h2&gt;
+
+&lt;p&gt;Our chassis is comprised of the following frameworks and components:&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Framework/Component&lt;/th&gt;
+      &lt;th&gt;Purpose&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Spring Boot&lt;/td&gt;
+      &lt;td&gt;Core framework&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Spring Boot Actuator + Spring Boot Admin&lt;/td&gt;
+      &lt;td&gt;Runtime monitoring&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Spring Cloud Netflix (Eureka)&lt;/td&gt;
+      &lt;td&gt;Service registration and discovery&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Spring Cloud Sleuth + Zipkin&lt;/td&gt;
+      &lt;td&gt;Distributed call tracing&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;slf4j and Logback&lt;/td&gt;
+      &lt;td&gt;Logging&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Gradle&lt;/td&gt;
+      &lt;td&gt;Build system&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Docker&lt;/td&gt;
+      &lt;td&gt;Optional runtime container&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;We’ll dig into each of these areas in the following sections.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;build-system&quot;&gt;Build System&lt;/h2&gt;
+
+&lt;p&gt;Our build system is based on &lt;a href=&quot;https://gradle.org&quot;&gt;Gradle&lt;/a&gt;. It has the responsiblity for compiling, packaging, versioning, and resolving all of our 3rd party dependencies.&lt;/p&gt;
+
+&lt;p&gt;For those who would rather just get right to it, I’ll start by presenting the entire &lt;code class=&quot;highlighter-rouge&quot;&gt;build.gradle&lt;/code&gt; file. We’ll drill down into the details later.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;build.gradle&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&quot;language-groovy highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;buildscript&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;repositories&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;jcenter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;dependencies&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;// The gradle-docker plugin we want to use isn't yet in gradle plugin portal, so we&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;// pull it from jcenter&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;classpath&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'se.transmode.gradle:gradle-docker:1.2'&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;plugins&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// Use the Spring Boot Gradle plugin, which automatically applies the dependency management plugin&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// and configures it to import the spring-boot-starter-parent bom.&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'org.springframework.boot'&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;version&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'1.5.10.RELEASE'&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// Versioning plugin&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'pl.allegro.tech.build.axion-release'&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;version&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'1.8.1'&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// The Java plugin allows us to compile and package our code into a jar file&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;apply&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;plugin:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'java'&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Support for packaging our application as a Docker image&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;apply&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;plugin:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'docker'&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Define the namespace for our build artifacts (replace with your own group)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;group&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'atc'&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Explicitly declare that we're using JDK 1.8&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;sourceCompatibility&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1.8&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Use Maven Central to resolve all 3rd party dependencies&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;repositories&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;mavenCentral&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Using the dependency management plugin, import the dependencies for&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// Spring Cloud release train 'Edgware.SR2'&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;dependencyManagement&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;imports&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;mavenBom&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'org.springframework.cloud:spring-cloud-dependencies:Edgware.SR2'&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;dependencies&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// Enable Spring MVC&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;compile&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;group:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'org.springframework.boot'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;name:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'spring-boot-starter-web'&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// Enable Spring Security&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;compile&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;group:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'org.springframework.boot'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;name:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'spring-boot-starter-security'&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// Production metrics for Spring Boot&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;compile&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;group:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'org.springframework.boot'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;name:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'spring-boot-starter-actuator'&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// Service registration via Eureka&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;compile&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;group:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'org.springframework.cloud'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;name:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'spring-cloud-starter-eureka-server'&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// Enable distributed tracing with Sleuth&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;compile&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;group:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'org.springframework.cloud'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;name:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'spring-cloud-starter-zipkin'&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// Enable JSON logging&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;runtime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;group:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'net.logstash.logback'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;name:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'logstash-logback-encoder'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;version:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'4.11'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;exclude&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;group:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'ch.qos.logback'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;module:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'logback-core'&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;testCompile&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;group:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'junit'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;name:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'junit'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;version:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'4.12'&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Configure the spring boot executable jar&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;springBoot&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;executable&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;buildInfo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Versioning with the Axion release plugin&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;scmVersion&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// Treat uncommitted changes as trigger for version increment&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;ignoreUncommittedChanges&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// All versions will start with &quot;v&quot;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;tag&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;prefix&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'v'&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;versionSeparator&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;''&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// Our versioning scheme is major.minor.rcX. If we're on a branch named &quot;release/*&quot;, increment the release&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// candidate number, otherwise increment the minor version number.&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;versionIncrementer&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'incrementMinorIfNotOnRelease'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;releaseBranchPattern:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'release.*'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;branchVersionIncrementer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;
+          &lt;span class=&quot;s1&quot;&gt;'master'&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'incrementMinor'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+          &lt;span class=&quot;s1&quot;&gt;'feature'&lt;/span&gt;   &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'incrementMinor'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+          &lt;span class=&quot;s1&quot;&gt;'release/.*'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'incrementPrerelease'&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// Decorators&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;versionCreator&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'simple'&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;branchVersionCreator&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;
+          &lt;span class=&quot;s1&quot;&gt;'feature/.*'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'versionWithBranch'&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;checks&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;// Allow for releasing a new version if there are uncommitted changes&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;uncommittedChanges&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;project&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;version&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;scmVersion&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;version&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Add the version number to the manifest&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;jar&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;manifest&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;attributes&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Implementation-Title&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;project&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+                    &lt;span class=&quot;s2&quot;&gt;&quot;Implementation-Version&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;project&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;version&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+
+&lt;span class=&quot;c1&quot;&gt;// Build the docker container for this application&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;buildDocker&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;type:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Docker&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;dependsOn:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;build&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;push&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;applicationName&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rootProject&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;dockerfile&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Dockerfile'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;doFirst&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;// Rename the app jar to &quot;app.jar&quot; so that the Dockerfile does not require renames&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;copy&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;${project.buildDir}/libs&quot;&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;into&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stageDir&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;${rootProject.name}-${version}.jar&quot;&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;rename&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;${rootProject.name}-${version}.jar&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;app.jar&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+
+&lt;span class=&quot;c1&quot;&gt;// Configure the Gradle wrapper&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;wrapper&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;type:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Wrapper&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;gradleVersion&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'4.5.1'&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Let’s start by looking at the build-specific behaviors.&lt;/p&gt;
+
+&lt;h3 id=&quot;versioning&quot;&gt;Versioning&lt;/h3&gt;
+
+&lt;p&gt;For versioning we will be using the excellent &lt;a href=&quot;http://axion-release-plugin.readthedocs.io/en/latest/&quot;&gt;Axion&lt;/a&gt; gradle plugin. This will allow us to maintain unique version numbers by leveraging git tags. Basically it stores the version number as a git tag, and has various tasks that can be used to manage the version.&lt;/p&gt;
+
+&lt;p&gt;You can view the current version by running &lt;code class=&quot;highlighter-rouge&quot;&gt;./gradlew currentVerion&lt;/code&gt;, or &lt;code class=&quot;highlighter-rouge&quot;&gt;./gradlew cV&lt;/code&gt; for short.&lt;/p&gt;
+
+&lt;p&gt;To increment the version number, simply run &lt;code class=&quot;highlighter-rouge&quot;&gt;./gradlew release&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;To force a non-sequential version number, run &lt;code class=&quot;highlighter-rouge&quot;&gt;./gradlew markNextVersion -Prelease.version=1.0.0&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;That’s it! I’ve provided a default configuration (&lt;code class=&quot;highlighter-rouge&quot;&gt;scmVersion&lt;/code&gt;) in the above &lt;code class=&quot;highlighter-rouge&quot;&gt;build.gradle&lt;/code&gt; which will increment the minor release number unless you’re on a branch whose name starts with &lt;code class=&quot;highlighter-rouge&quot;&gt;release/&lt;/code&gt;, in which case the &lt;code class=&quot;highlighter-rouge&quot;&gt;.rcX&lt;/code&gt; number will be incremented. This is suitable for a git workflow similar to &lt;a href=&quot;http://www.bitsnbites.eu/a-stable-mainline-branching-model-for-git/&quot;&gt;this one&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;dependency-management&quot;&gt;Dependency Management&lt;/h3&gt;
+
+&lt;p&gt;The Spring Boot gradle plugin also includes the &lt;a href=&quot;https://github.com/spring-gradle-plugins/dependency-management-plugin/&quot;&gt;dependency management plugin&lt;/a&gt;. This lets us import a maven bom which in turn allows us to omit version numbers from the dependencies managed by the bom.&lt;/p&gt;
+
+&lt;p&gt;For example, we want to use the &lt;a href=&quot;https://github.com/spring-projects/spring-cloud/wiki/Spring-Cloud-Edgware-Release-Notes&quot;&gt;Edgware.SR2&lt;/a&gt; Spring Cloud release train. We do so by importing the bom as shown below.&lt;/p&gt;
+
+&lt;div class=&quot;language-groovy highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// Using the dependency management plugin, import the dependencies for&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// Spring Cloud release train 'Edgware.SR2'&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;dependencyManagement&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;imports&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;mavenBom&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'org.springframework.cloud:spring-cloud-dependencies:Edgware.SR2'&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now we can define our Spring Cloud dependencies without needing to specify a version number.&lt;/p&gt;
+
+&lt;div class=&quot;language-groovy highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;dependencies&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// Service registration via Eureka&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;compile&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;group:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'org.springframework.cloud'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;name:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'spring-cloud-starter-eureka-server'&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;gradle-wrapper&quot;&gt;Gradle Wrapper&lt;/h3&gt;
+
+&lt;p&gt;The &lt;a href=&quot;https://docs.gradle.org/current/userguide/gradle_wrapper.html&quot;&gt;gradle wrapper&lt;/a&gt; gives you the ability to generate a pre-built script which will self-bootstrap gradle onto local workstations. This means that developers working on the project won’t need to manage their own Gradle installations.&lt;/p&gt;
+
+&lt;p&gt;To use the wrapper, simply add the following task to your &lt;code class=&quot;highlighter-rouge&quot;&gt;build.gradle&lt;/code&gt; file:&lt;/p&gt;
+
+&lt;div class=&quot;language-groovy highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// Configure the Gradle wrapper&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;wrapper&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;type:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Wrapper&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;gradleVersion&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'4.5.1'&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The first time you generate the wrapper, you need to install a local copy of gradle. Run &lt;code class=&quot;highlighter-rouge&quot;&gt;$GRADLE_HOME/bin/gradle wrapper&lt;/code&gt; to generate the wrapper scripts which you can check into your version control system. Check in the resulting &lt;code class=&quot;highlighter-rouge&quot;&gt;gradlew&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;gradlew.bat&lt;/code&gt; scripts, as well as the &lt;code class=&quot;highlighter-rouge&quot;&gt;gradle/&lt;/code&gt; directory.&lt;/p&gt;
+
+&lt;p&gt;After that, anyone can simply clone the repo and run &lt;code class=&quot;highlighter-rouge&quot;&gt;./gradlew&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;gradlew.bat&lt;/code&gt; without needing to manually install gradle!&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;service-registration-and-discovery&quot;&gt;Service Registration And Discovery&lt;/h2&gt;
+
+&lt;p&gt;Within a cloud environment we need to expect service instances to come and go. As such, we need some mechanism to locate these instances.&lt;/p&gt;
+
+&lt;p&gt;In AWS I’ve often relied on ELBs to act as the service registry. This is known as &lt;a href=&quot;http://microservices.io/patterns/server-side-discovery.html&quot;&gt;server-side discovery&lt;/a&gt;. This works well if you’re using native AWS services such as Elastic Container Service.&lt;/p&gt;
+
+&lt;p&gt;An alternative pattern is &lt;a href=&quot;http://microservices.io/patterns/client-side-discovery.html&quot;&gt;client-side discovery&lt;/a&gt;. In this model, clients ask a service registry for the location of service instances, and handle load balancing themselves. This avoids having to pay for a bunch of AWS ELBs, instead you just need to operate an HA service registry. For our microservice chassis we’ll be implementing this pattern using &lt;a href=&quot;https://github.com/Netflix/eureka/wiki/Eureka-at-a-glance&quot;&gt;Eureka&lt;/a&gt; as our service registry.&lt;/p&gt;
+
+&lt;h3 id=&quot;eureka-client&quot;&gt;Eureka Client&lt;/h3&gt;
+
+&lt;p&gt;In order for our application to register with Eureka, we need to do a few things.&lt;/p&gt;
+
+&lt;p&gt;First, import the Eureka dependency in your &lt;code class=&quot;highlighter-rouge&quot;&gt;build.gradle&lt;/code&gt; file:&lt;/p&gt;
+
+&lt;div class=&quot;language-groovy highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// Service registration via Eureka&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;compile&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;group:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'org.springframework.cloud'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;name:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'spring-cloud-starter-eureka-server'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then add the &lt;code class=&quot;highlighter-rouge&quot;&gt;@EnableDiscoveryClient&lt;/code&gt; annotation to your main Spring Boot application class:&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@EnableDiscoveryClient&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@SpringBootApplication&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Application&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SpringApplication&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Application&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Finally, tell Spring Boot where to find the Eureka server(s) by adding the following to your &lt;code class=&quot;highlighter-rouge&quot;&gt;application.yml&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-yml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;eureka&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;client&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;serviceUrl&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;default&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;http://localhost:8761/eureka/&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;eureka-server&quot;&gt;Eureka Server&lt;/h3&gt;
+
+&lt;p&gt;Standing up a single node Eureka server is quite simple. Using a standalone Spring Boot application, simply apply the &lt;code class=&quot;highlighter-rouge&quot;&gt;@EnableEurekaServer&lt;/code&gt; annotation to your main application class. I’ve provided the code to do so here:&lt;/p&gt;
+
+&lt;p&gt;https://github.com/darrylanderson/spring-boot-eureka-service&lt;/p&gt;
+
+&lt;p&gt;Simply clone this repo, and then run &lt;code class=&quot;highlighter-rouge&quot;&gt;./gradlew bootRun&lt;/code&gt; to start up a Eureka server listening on port 8761.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/content/images/2018/03/EurekaServer.png&quot; alt=&quot;EurekaServer&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The Eureka server configuration I’ve presented is not suitable for a highly-available production infrastructure. In production you should run it across availability zones in a clustered configuration. I hope in the future to take a deeper dive into how to make Eureka production ready, but in the meantime take a look at this excellent article on running Eureka in a production environment: https://blog.asarkar.org/technical/netflix-eureka/.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;logging&quot;&gt;Logging&lt;/h2&gt;
+
+&lt;p&gt;You have a lot of choices for logging frameworks in Java. Log4j, Logj42, java.util.logging, Commons Logging, Logback, and slf4j, the choice can be confusing.&lt;/p&gt;
+
+&lt;p&gt;I almost always opt for using slf4j to abstract away the underlying log framework from the codebase, and either log4j2 or logback as the logging framework. In this case we’ll be using logback, for no other reason than it’s &lt;em&gt;slightly&lt;/em&gt; easier to set up from a dependency perspective (log4j2 requires a few more dependencies).&lt;/p&gt;
+
+&lt;p&gt;Configuring logback is done through a file &lt;code class=&quot;highlighter-rouge&quot;&gt;logback-spring.xml&lt;/code&gt; in &lt;code class=&quot;highlighter-rouge&quot;&gt;src/main/resources&lt;/code&gt;. We want to have the following logging characteristics:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Log to the console.&lt;/li&gt;
+  &lt;li&gt;Log to a file in a folder defined by the &lt;code class=&quot;highlighter-rouge&quot;&gt;$LOG_PATH&lt;/code&gt; variable, defaulting to /tmp.&lt;/li&gt;
+  &lt;li&gt;Optionally log json logs to a file, for consumption by tools such as logstash.&lt;/li&gt;
+  &lt;li&gt;For all log files, roll over every night, keeping a maximum of 90 days worth of log files.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Here’s a copy of the configuration we’ll use in our chassis. I’ve tried to comment the file as much as possible so you can see what’s going on.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;src/main/resurces/logback-spring.xml&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;configuration&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;include&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;resource=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;org/springframework/boot/logging/logback/defaults.xml&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+    ​
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;springProperty&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;scope=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;context&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;springAppName&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;source=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;spring.application.name&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+
+    &lt;span class=&quot;c&quot;&gt;&amp;lt;!-- Example for logging into a 'logs' folder --&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;LOG_FILE&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;value=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;${LOG_FILE:-${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}}}/${springAppName}.log&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;​
+
+    &lt;span class=&quot;c&quot;&gt;&amp;lt;!-- You can override this to have a custom pattern --&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;CONSOLE_LOG_PATTERN&quot;&lt;/span&gt;
+              &lt;span class=&quot;na&quot;&gt;value=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) 
+              %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} 
+              %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+
+    &lt;span class=&quot;c&quot;&gt;&amp;lt;!-- Appender to log to console --&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;appender&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;console&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ch.qos.logback.core.ConsoleAppender&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;filter&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ch.qos.logback.classic.filter.ThresholdFilter&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;c&quot;&gt;&amp;lt;!-- Minimum logging level to be presented in the console logs--&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;level&amp;gt;&lt;/span&gt;DEBUG&lt;span class=&quot;nt&quot;&gt;&amp;lt;/level&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;/filter&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;encoder&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;pattern&amp;gt;&lt;/span&gt;${CONSOLE_LOG_PATTERN}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/pattern&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;charset&amp;gt;&lt;/span&gt;utf8&lt;span class=&quot;nt&quot;&gt;&amp;lt;/charset&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;/encoder&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/appender&amp;gt;&lt;/span&gt;
+
+    &lt;span class=&quot;c&quot;&gt;&amp;lt;!-- Appender to log to file --&amp;gt;&lt;/span&gt;​
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;appender&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;flatfile&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;file&amp;gt;&lt;/span&gt;${LOG_FILE}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/file&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;c&quot;&gt;&amp;lt;!-- Daily rollovers, keep a maximum of 90 log files --&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;rollingPolicy&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ch.qos.logback.core.rolling.TimeBasedRollingPolicy&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;fileNamePattern&amp;gt;&lt;/span&gt;${LOG_FILE}.%d{yyyy-MM-dd}.gz&lt;span class=&quot;nt&quot;&gt;&amp;lt;/fileNamePattern&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;maxHistory&amp;gt;&lt;/span&gt;90&lt;span class=&quot;nt&quot;&gt;&amp;lt;/maxHistory&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;/rollingPolicy&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;encoder&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;pattern&amp;gt;&lt;/span&gt;${CONSOLE_LOG_PATTERN}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/pattern&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;charset&amp;gt;&lt;/span&gt;utf8&lt;span class=&quot;nt&quot;&gt;&amp;lt;/charset&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;/encoder&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/appender&amp;gt;&lt;/span&gt;
+    ​
+    &lt;span class=&quot;c&quot;&gt;&amp;lt;!-- Appender to log to file in a JSON format --&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;appender&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;logstash&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;file&amp;gt;&lt;/span&gt;${LOG_FILE}.json&lt;span class=&quot;nt&quot;&gt;&amp;lt;/file&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;c&quot;&gt;&amp;lt;!-- Daily rollovers, keep a maximum of 90 log files --&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;rollingPolicy&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ch.qos.logback.core.rolling.TimeBasedRollingPolicy&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;fileNamePattern&amp;gt;&lt;/span&gt;${LOG_FILE}.json.%d{yyyy-MM-dd}.gz&lt;span class=&quot;nt&quot;&gt;&amp;lt;/fileNamePattern&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;maxHistory&amp;gt;&lt;/span&gt;90&lt;span class=&quot;nt&quot;&gt;&amp;lt;/maxHistory&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;/rollingPolicy&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;encoder&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;providers&amp;gt;&lt;/span&gt;
+                &lt;span class=&quot;nt&quot;&gt;&amp;lt;timestamp&amp;gt;&lt;/span&gt;
+                    &lt;span class=&quot;nt&quot;&gt;&amp;lt;timeZone&amp;gt;&lt;/span&gt;UTC&lt;span class=&quot;nt&quot;&gt;&amp;lt;/timeZone&amp;gt;&lt;/span&gt;
+                &lt;span class=&quot;nt&quot;&gt;&amp;lt;/timestamp&amp;gt;&lt;/span&gt;
+                &lt;span class=&quot;nt&quot;&gt;&amp;lt;pattern&amp;gt;&lt;/span&gt;
+                    &lt;span class=&quot;nt&quot;&gt;&amp;lt;pattern&amp;gt;&lt;/span&gt;
+                        {
+                        &quot;severity&quot;: &quot;%level&quot;,
+                        &quot;service&quot;: &quot;${springAppName:-}&quot;,
+                        &quot;trace&quot;: &quot;%X{X-B3-TraceId:-}&quot;,
+                        &quot;span&quot;: &quot;%X{X-B3-SpanId:-}&quot;,
+                        &quot;parent&quot;: &quot;%X{X-B3-ParentSpanId:-}&quot;,
+                        &quot;exportable&quot;: &quot;%X{X-Span-Export:-}&quot;,
+                        &quot;pid&quot;: &quot;${PID:-}&quot;,
+                        &quot;thread&quot;: &quot;%thread&quot;,
+                        &quot;class&quot;: &quot;%logger{40}&quot;,
+                        &quot;rest&quot;: &quot;%message&quot;
+                        }
+                    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/pattern&amp;gt;&lt;/span&gt;
+                &lt;span class=&quot;nt&quot;&gt;&amp;lt;/pattern&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;/providers&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;/encoder&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/appender&amp;gt;&lt;/span&gt;
+    ​
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;root&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;level=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;INFO&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;appender-ref&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;ref=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;console&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;appender-ref&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;ref=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;flatfile&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;c&quot;&gt;&amp;lt;!-- uncomment this to have also JSON logs --&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;c&quot;&gt;&amp;lt;!--&amp;lt;appender-ref ref=&quot;logstash&quot;/&amp;gt;--&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/root&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/configuration&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;tracing&quot;&gt;Tracing&lt;/h2&gt;
+
+&lt;p&gt;An often overlooked concern is how to log distributed calls across multiple services. If not addressed early, it can lead to a difficult manual effort of correlating logs based on timestamps to recreate an entire call flow.&lt;/p&gt;
+
+&lt;p&gt;Fortunately Spring Cloud has a great solution for us. With a combination of Spring Cloud Sleuth as well as Zipkin we can gain visibility into distributed call traces.&lt;/p&gt;
+
+&lt;h3 id=&quot;spring-cloud-sleuth&quot;&gt;Spring Cloud Sleuth&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/spring-cloud/spring-cloud-sleuth&quot;&gt;Spring Cloud Sleuth&lt;/a&gt; will populate log entries with trace information as well as pass it to downstream services via request headers. This allows us to correlate log entries to view a complete distributed call trace.&lt;/p&gt;
+
+&lt;p&gt;To start instrumenting your logs, add the following dependencies to &lt;code class=&quot;highlighter-rouge&quot;&gt;build.gradle&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-groovy highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// Enable distributed tracing with Sleuth&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;compile&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;group:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'org.springframework.cloud'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;name:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'spring-cloud-starter-zipkin'&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Enable JSON logging&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;runtime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;group:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'net.logstash.logback'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;name:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'logstash-logback-encoder'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;version:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'4.11'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;exclude&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;group:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'ch.qos.logback'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;module:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'logback-core'&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Since we’re using slf4j we don’t need to do anything further to get trace information to show up in our logs. But if you’re using something different, you need to add the following to your logging pattern:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;%5p [${spring.zipkin.service.name:${spring.application.name:-}},%X{X-B3-TraceId:-},%X{X-B3-SpanId:-},%X{X-Span-Export:-}]&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Your logs will now look something like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;2018-02-27 15:52:19.254  INFO [microservice-chassis,44b89943973cf637,44b89943973cf637,true] 15010 --- [nio-8080-exec-1] a.e.c.ServiceInstanceRestController      : invoking GET /service-instances&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;While this is a good start, what we really need is some way to search and visualize correlated trace ids. An easy way to get started is with Zipkin.&lt;/p&gt;
+
+&lt;h3 id=&quot;zipkin-server&quot;&gt;Zipkin Server&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://zipkin.io/&quot;&gt;Zipkin&lt;/a&gt; is a web application which ingests and visualizes log data from Spring Cloud Sleuth.&lt;/p&gt;
+
+&lt;p&gt;To have logs sent to a Zipkin server, add the following to your &lt;code class=&quot;highlighter-rouge&quot;&gt;application.yml&lt;/code&gt; file:&lt;/p&gt;
+
+&lt;div class=&quot;language-yml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;spring&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# Send distributed traces to zipkin server (using Eureka to find the server)&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;sleuth&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;sampler&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;percentage&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;1.0&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;zipkin&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;baseUrl&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;http://zipkin-service/&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;What we’ve done is told Spring Cloud Sleuth to send 100% of our tracing logs to a Zipkin server which has registered itself Eureka as &lt;code class=&quot;highlighter-rouge&quot;&gt;zipkin-zervice&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Now we need to stand up a Zipkin server. Fortunately this is quite simple as you only need to apply the annotation &lt;code class=&quot;highlighter-rouge&quot;&gt;@EnableZipkinServer&lt;/code&gt; to a Spring Boot application. I’ve provided the code to do so here:&lt;/p&gt;
+
+&lt;p&gt;https://github.com/darrylanderson/spring-boot-zipkin-service&lt;/p&gt;
+
+&lt;p&gt;Simply clone this repo, and then run &lt;code class=&quot;highlighter-rouge&quot;&gt;./gradlew bootRun&lt;/code&gt; to start up a server listening on port 9411. It also expects a Eureka server to be running on port 8761.&lt;/p&gt;
+
+&lt;p&gt;Now you’ll be able to visualize distributed log traces similar to below:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/content/images/2018/02/ZipkinExample.png&quot; alt=&quot;ZipkinExample&quot; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;monitoring&quot;&gt;Monitoring&lt;/h2&gt;
+
+&lt;p&gt;Spring Boot applications are very easy to monitor. With a combination of JMX and &lt;a href=&quot;https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready.html&quot;&gt;Spring Boot Actuator&lt;/a&gt;, we have a wealth of useful instrumentation data to help monitor our applications in production.&lt;/p&gt;
+
+&lt;h3 id=&quot;spring-boot-actuator&quot;&gt;Spring Boot Actuator&lt;/h3&gt;
+
+&lt;p&gt;To start using Actuator, add the following dependency to &lt;code class=&quot;highlighter-rouge&quot;&gt;build.gradle&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-groovy highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// Production metrics for Spring Boot&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;compile&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;group:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'org.springframework.boot'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;name:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'spring-boot-starter-actuator'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;I usually like to host the Actuator endpoints on a different port from the main web application. This allows you to secure the port at a network level. Doing this is as simple as adding the following to your &lt;code class=&quot;highlighter-rouge&quot;&gt;application.yml&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-yml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;management&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;8000&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;add-application-context-header&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;false&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;security&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# Disable security on the management port (NOT FOR PRODUCTION)&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;enabled&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;false&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now you can request the following endpoints:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;curl -XGET http://localhost:8000/health&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;description&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Composite Discovery Client&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;status&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;UP&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;discoveryComposite&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;description&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Composite Discovery Client&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;status&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;UP&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;discoveryClient&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;description&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Composite Discovery Client&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;status&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;UP&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;services&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;spring-boot-admin-service&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;eureka-service&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;zipkin-service&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;microservice-chassis&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;eureka&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;description&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Remote status from Eureka server&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;status&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;UP&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;applications&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;SPRING-BOOT-ADMIN-SERVICE&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;MICROSERVICE-CHASSIS&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;EUREKA-SERVICE&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;ZIPKIN-SERVICE&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;diskSpace&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;status&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;UP&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;total&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;159639302144&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;free&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;24657862656&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;threshold&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10485760&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;hystrix&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;status&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;UP&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;curl -XGET http://localhost:8000/metrics&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;mem&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;723728&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;mem.free&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;463508&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;processors&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;instance.uptime&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1724610&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;uptime&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1734904&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;systemload.average&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.68&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;heap.committed&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;632320&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;heap.init&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;256000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;heap.used&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;168811&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;heap&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3626496&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;nonheap.committed&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;92888&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;nonheap.init&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2496&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;nonheap.used&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;91408&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;nonheap&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;threads.peak&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;56&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;threads.daemon&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;52&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;threads.totalStarted&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;187&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;threads&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;56&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;classes&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;11006&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;classes.loaded&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;11006&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;classes.unloaded&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;gc.ps_scavenge.count&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;13&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;gc.ps_scavenge.time&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;407&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;gc.ps_marksweep.count&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;gc.ps_marksweep.time&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;337&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;counter.servo.eurekaclient.transport.request&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;httpsessions.max&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;-1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;httpsessions.active&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;While these endpoints can be helpful, having some sort of administrative interface is preferable. In the next sections we’ll discuss using JMX as well as Spring Boot Admin UI for this purpose.&lt;/p&gt;
+
+&lt;h3 id=&quot;jmx&quot;&gt;JMX&lt;/h3&gt;
+
+&lt;p&gt;If you have JMX capabilities within your monitoring infrastructure, you may want to export actuator metrics to JMX. For example, Zabbix offers the &lt;a href=&quot;https://www.zabbix.com/documentation/3.4/manual/config/items/itemtypes/jmx_monitoring&quot;&gt;Java Gateway&lt;/a&gt; as a great way to monitor a fleet of Java applications.&lt;/p&gt;
+
+&lt;p&gt;In order to expose actuator metrics to JMX, you need to register a specific bean. The following configuration class is all you need:&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;package&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;atc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;example&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;monitoring&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.boot.actuate.autoconfigure.ExportMetricWriter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.boot.actuate.metrics.jmx.JmxMetricWriter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.boot.actuate.metrics.writer.MetricWriter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.context.annotation.Bean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.context.annotation.Configuration&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;org.springframework.jmx.export.MBeanExporter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;nd&quot;&gt;@Configuration&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MonitoringConfiguration&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;cm&quot;&gt;/**
+     * Export spring boot metrics to JMX.
+     *
+     * @param exporter
+     * @return a MetricsWriter object
+     */&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;@Bean&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;@ExportMetricWriter&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MetricWriter&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;metricWriter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MBeanExporter&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;exporter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;JmxMetricWriter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;exporter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now you can view all of the actutor metrics via JMX.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/content/images/2018/03/JMX.png&quot; alt=&quot;JMX&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;spring-boot-admin-server&quot;&gt;Spring Boot Admin Server&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/codecentric/spring-boot-admin&quot;&gt;Spring Boot Admin&lt;/a&gt; provides an administrative interface for our Spring Boot applications.&lt;/p&gt;
+
+&lt;p&gt;Since we’re using Eureka, we can use service discovery for our applications to register with the Spring Boot Admin service. The only thing we need to handle is to tell Eureka that Spring Boot Admin should contact our service using the management port rather than our main http port.&lt;/p&gt;
+
+&lt;p&gt;You do this by passing the management port to Eureka as metadata. The following stanza in &lt;code class=&quot;highlighter-rouge&quot;&gt;application.yml&lt;/code&gt; shows how this is configured:&lt;/p&gt;
+
+&lt;div class=&quot;language-yml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;eureka&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;instance&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;metadataMap&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;c1&quot;&gt;# Support for Spring Boot Admin client discovery&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;management.port&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;8000&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now we need to stand up a Spring Boot Admin server. Fortunately this is quite simple as you only need a single annotation (&lt;code class=&quot;highlighter-rouge&quot;&gt;@EnableAdminServer&lt;/code&gt;) applied to a Spring Boot application. I’ve provided the code to do so here:&lt;/p&gt;
+
+&lt;p&gt;https://github.com/darrylanderson/spring-boot-admin-service&lt;/p&gt;
+
+&lt;p&gt;Simply clone this repo, and then run ./gradlew bootRun to start up a server listening on port 8100. It also expects a Eureka server to be running on port 8761.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/content/images/2018/03/SpringBootAdmin-overview.png&quot; alt=&quot;SpringBootAdmin-overview&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/content/images/2018/03/SpringBootAdmin-detail.png&quot; alt=&quot;SpringBootAdmin-detail&quot; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;deployment&quot;&gt;Deployment&lt;/h2&gt;
+
+&lt;h3 id=&quot;executable-jar&quot;&gt;Executable Jar&lt;/h3&gt;
+
+&lt;p&gt;Spring Boot offers us an easy way to package up our service as an &lt;a href=&quot;https://docs.spring.io/spring-boot/docs/current/reference/html/deployment-install.html&quot;&gt;executable jar&lt;/a&gt;. This executable jar can be easily registered as an init.d or systemd service.&lt;/p&gt;
+
+&lt;p&gt;The necessary configuration in our &lt;code class=&quot;highlighter-rouge&quot;&gt;build.gradle&lt;/code&gt; is as follows:&lt;/p&gt;
+
+&lt;div class=&quot;language-groovy highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// Configure the spring boot executable jar&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;springBoot&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;executable&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;buildInfo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now when we run &lt;code class=&quot;highlighter-rouge&quot;&gt;./gradlew build&lt;/code&gt; we will build an executable jar in &lt;code class=&quot;highlighter-rouge&quot;&gt;build/libs&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;To register this jar as an init.d service, simply symlink the file to /etc/init.d/. For example, &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo ln -s /var/myapp/myapp.jar /etc/init.d/myapp&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;If you’re using systemd, you need to create a service script in &lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/systemd/system&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[Unit]
+Description=myapp
+After=syslog.target
+
+[Service]
+User=myapp
+ExecStart=/var/myapp/myapp.jar
+SuccessExitStatus=143
+
+[Install]
+WantedBy=multi-user.target
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;docker&quot;&gt;Docker&lt;/h3&gt;
+
+&lt;p&gt;We can also package our application as a Docker image. To do so we’ll use the &lt;a href=&quot;https://github.com/Transmode/gradle-docker&quot;&gt;Transmode gradle docker&lt;/a&gt; plugin.&lt;/p&gt;
+
+&lt;p&gt;I’ll take a deep dive into Docker based architectures in future articles, but for now I’ll simply present how to create the Docker image.&lt;/p&gt;
+
+&lt;p&gt;The necessary configuration in &lt;code class=&quot;highlighter-rouge&quot;&gt;build.gradle&lt;/code&gt; is as follows:&lt;/p&gt;
+
+&lt;div class=&quot;language-groovy highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;buildscript&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;repositories&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;jcenter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;dependencies&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;// The gradle-docker plugin we want to use isn't yet in gradle plugin portal, se we&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;// pull it from jcenter&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;classpath&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'se.transmode.gradle:gradle-docker:1.2'&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Support for packaging our application as a Docker image&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;apply&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;plugin:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'docker'&lt;/span&gt;
+
+&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Build the docker container for this application&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;buildDocker&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;type:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Docker&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;dependsOn:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;build&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;push&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;applicationName&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rootProject&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;dockerfile&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Dockerfile'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;doFirst&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;// Rename the app jar to &quot;app.jar&quot; so that the Dockerfile does not require renames&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;copy&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;${project.buildDir}/libs&quot;&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;into&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stageDir&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;${rootProject.name}-${version}.jar&quot;&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;rename&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;${rootProject.name}-${version}.jar&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;app.jar&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;While not strictly necessary, we’ll use an external &lt;code class=&quot;highlighter-rouge&quot;&gt;Dockerfile&lt;/code&gt;. This is to support other tooling.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;FROM anapsix/alpine-java:8_server-jre_unlimited
+VOLUME /tmp
+ADD app.jar app.jar
+ENV JAVA_OPTS=&quot;&quot;
+ENTRYPOINT [ &quot;sh&quot;, &quot;-c&quot;, &quot;java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /app.jar&quot; ]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;To produce the docker image, simply run:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;./gradlew buildDocker&lt;/code&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;wrapping-up&quot;&gt;Wrapping Up&lt;/h2&gt;
+
+&lt;p&gt;To recap, here are the github repos containing the code in this article:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/darrylanderson/microservice-chassis-java&quot;&gt;Microservice chassis&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/darrylanderson/spring-boot-eureka-service&quot;&gt;Eureka server&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/darrylanderson/spring-boot-admin-service&quot;&gt;Spring Boot Admin server&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/darrylanderson/spring-boot-zipkin-service&quot;&gt;Zipkin server&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Having a microservice chassis can be a huge time saver when starting development on a new service. I hope that you’ll find this chassis useful in your own development efforts.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;Also published on &lt;a href=&quot;https://dzone.com/articles/building-a-microservice-chassis-with-spring-boot-a&quot;&gt;DZone&lt;/a&gt;.&lt;/p&gt;
+
+&lt;hr /&gt;</content>
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name>Darryl Anderson</name>
+        
+        
+      </author>
+
+      
+
+      
+        <category term="microservices" />
+      
+
+      
+        <summary type="html">Starting development on a new application or service often results in repeating the same work to implement common concerns. The build system, runtime container, security, monitoring, logging, tracing, etc are all cross-cutting concerns that each of your services should ideally implement in a similar fashion. Just as we try to keep our code pragmatically DRY (don’t repeat yourself), we also want to apply the same principal to our application infrastructures.</summary>
+      
+
+      
+      
+    </entry>
+  
+    <entry>
+      <title type="html">Multi-Factor Authentication With SSH And OpenVPN</title>
+      <link href="/multifactor-everything" rel="alternate" type="text/html" title="Multi-Factor Authentication With SSH And OpenVPN" />
+      <published>2018-02-06T22:48:41+00:00</published>
+      <updated>2018-02-06T22:48:41+00:00</updated>
+      <id>/multifactor-everything</id>
+      <content type="html" xml:base="/multifactor-everything">&lt;p&gt;Lately I’ve been reviewing the security of my personal online accounts. Aside from regular password rotation, wherever possible I enable multi-factor authentication (MFA). Multi-factor authentication is where you not only supply something you &lt;em&gt;know&lt;/em&gt; (your password), but you also supply an additional piece of information based on something that you &lt;em&gt;have&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;This step is fairly simple, and because thieves would need to steal both your password and your phone (or similar device) in order to log in to your accounts, the risk of your account being compromised is considerably reduced.&lt;/p&gt;
+
+&lt;p&gt;The same principles that we use to protect our bank and email accounts should also be used to protect all administrative access to cloud infrastructures.&lt;/p&gt;
+
+&lt;p&gt;In this article I’ll explain how to add MFA protection to your cloud infrastructure.&lt;/p&gt;
+
+&lt;h2 id=&quot;best-practices-for-remote-access-to-cloud-infrastructure&quot;&gt;Best Practices for Remote Access To Cloud Infrastructure&lt;/h2&gt;
+
+&lt;p&gt;Let’s start by reviewing a typical cloud architecture which supports remote worker access.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/content/images/2018/02/Hybrid-Cloud-Architecture.png&quot; alt=&quot;Hybrid-Cloud-Architecture&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Within our VPC (virtual private cloud), we have a private subnet running our database instance, and another private subnet running our application. In order to administer the application and database we need some way to ssh into the EC2 instances. Rather than exposing all of these instances to the public internet, we use a bastion host as the only publicly available ssh service.&lt;/p&gt;
+
+&lt;p&gt;The bastion host (aka jump box) is the only instance which is open for remote SSH access. All other VMs in the cloud accept SSH only from that instance. Obviously the bastion host is a very important instance, and must be completely hardened.&lt;/p&gt;
+
+&lt;p&gt;Rather than opening up the bastion host to public SSH traffic, we use a VPN service to create a virtual private network. The VPN allows us to create a security group on the bastion host which only accepts SSH from the VPN subnet. The bastion host can then be moved to a private subnet which has no inbound routes from the public internet.&lt;/p&gt;
+
+&lt;p&gt;The two hosts that we want to harden with MFA are the bastion host and the OpenVPN host. We’ll see how to do that in the following sections.&lt;/p&gt;
+
+&lt;h2 id=&quot;mfa-basics&quot;&gt;MFA Basics&lt;/h2&gt;
+
+&lt;blockquote&gt;
+
+  &lt;p&gt;See this article for an excellent overview on MFA:
+https://www.nist.gov/itl/tig/back-basics-multi-factor-authentication&lt;/p&gt;
+
+&lt;/blockquote&gt;
+
+&lt;p&gt;Traditional authentication mechanisms usually involve the user presenting a username and credentials such as a password to gain access to a resource. This approach relies on the strength and secrecy of the credentials. If either of those are inadequate the resource is easily compromised.&lt;/p&gt;
+
+&lt;p&gt;To mitigate this risk, we can use multi-factor authentication to add an additional layer of security. MFA augments the authentication flow by requiring not only something that you know (your password), but something that you have (your phone, a smartcard, etc).&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/content/images/2018/01/MFA.png&quot; alt=&quot;MFA&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;While there are many implementations of smartphone-based MFA, for this article we’ll be using an &lt;a href=&quot;https://en.wikipedia.org/wiki/Time-based_One-time_Password_Algorithm&quot;&gt;OATH-TOTP&lt;/a&gt; application on our phone to generate one-time use codes. These codes are 6 digit numbers that are changed every 30 seconds. &lt;a href=&quot;https://github.com/google/google-authenticator/wiki&quot;&gt;Google Authenticator&lt;/a&gt; is one such application.&lt;/p&gt;
+
+&lt;h2 id=&quot;ssh-and-mfa&quot;&gt;SSH and MFA&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;This section is adapted from the following article to support Ubuntu 16.04:
+https://aws.amazon.com/blogs/startups/securing-ssh-to-amazon-ec2-linux-hosts/&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Start by SSHing into your EC2/Azure/Google Cloud VM, then install the MFA packages:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get update
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get install libpam-google-authenticator libqrencode3
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We now initialize the google-authenticator app:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/content/images/2018/02/google-authenticator.png&quot; alt=&quot;google-authenticator&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Using the Google Authenticator app on your smartphone (&lt;a href=&quot;https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&amp;amp;hl=en&quot;&gt;Android&lt;/a&gt;, &lt;a href=&quot;https://itunes.apple.com/us/app/google-authenticator/id388497605?mt=8&quot;&gt;iOS&lt;/a&gt;), scan the barcode presented on the screen to register your device.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Do you want me to update your &quot;/home/darryl/.google_authenticator&quot; file (y/n) y
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Do you want to disallow multiple uses of the same authentication
+token? This restricts you to one login about every 30s, but it increases
+your chances to notice or even prevent man-in-the-middle attacks (y/n) y
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;By default, tokens are good for 30 seconds and in order to compensate for
+possible time-skew between the client and the server, we allow an extra
+token before and after the current time. If you experience problems with poor
+time synchronization, you can increase the window from its default
+size of 1:30min to about 4min. Do you want to do so (y/n) n
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;If the computer that you are logging into isn't hardened against brute-force
+login attempts, you can enable rate-limiting for the authentication module.
+By default, this limits attackers to no more than 3 login attempts every 30s.
+Do you want to enable rate-limiting (y/n) y
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now that we have our device registered, we need to modify the ssh login flow to prompt for the time-based authentication code.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;WARNING:&lt;/strong&gt; Do NOT close the ssh session where you’re making these changes. Do all your testing in a separate session. This way if you have trouble logging in you won’t lock yourself out of your VM.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Start by editing &lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/pam.d/sshd&lt;/code&gt; and comment out the normal Unix auth line:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Standard Un*x authentication.&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#@include common-auth&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Also in this file, add the following line to the end of the file to force use of the verification code:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;auth required pam_google_authenticator.so nullok
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now edit &lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/ssh/sshd_config&lt;/code&gt; and change the &lt;code class=&quot;highlighter-rouge&quot;&gt;ChallengeResponseAuthentication&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;yes&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Change to yes to enable challenge-response passwords (beware issues with&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# some PAM modules and threads)&lt;/span&gt;
+ChallengeResponseAuthentication yes
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Also in this file, add the following line to the end of the file:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;AuthenticationMethods publickey,password publickey,keyboard-interactive
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Restart the sshd service:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;service sshd restart
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now when you ssh to your VM you should see the following:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;~&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;ssh &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; ~/.ssh/my-vm-key my-user@VM_IP_ADDR
+Authenticated with partial success.
+Verification code:
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;After entering the verification code you should be successfully logged in to the VM.&lt;/p&gt;
+
+&lt;h2 id=&quot;openvpn-basics&quot;&gt;OpenVPN Basics&lt;/h2&gt;
+
+&lt;p&gt;A VPN, or virtual private network, is a service which allows clients to securely connect to a remote private network. It does this by securely tunneling data through a single TCP/UDP port over an unsecured network such as the internet.&lt;/p&gt;
+
+&lt;p&gt;Within a public cloud architecture, a VPN allows you to securely expose your virtual cloud networks (VPCs in AWS and Google Cloud, VNets in Azure) to remote workers or your corporate network. In this article I’ll focus primarily on securely extending connectivity to remote workers.&lt;/p&gt;
+
+&lt;p&gt;VPN technology generally falls into one of two flavors… IPSec or SSL. IPSec is commonly implemented with hardware-based VPN services, and each client requires special software which can operate at the kernel layer.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://openvpn.net&quot;&gt;OpenVPN&lt;/a&gt; uses the SSL/TLS libraries to manage its cryptographic layer. The dual authenticated SSL/TLS key agreement/exchange method is almost identical to IPsec’s Internet Key Exchange (IKE), and OpenVPN implements a tunnel system like IPsec’s Encapsulating Security Payload (ESP) that has equivalent or better security to the IPSec standard.&lt;/p&gt;
+
+&lt;p&gt;Setting up OpenVPN requires a fair amount of configuration, so I’ve created an Ansible role to configure an Ubuntu 16.04 instance with an MFA-enabled OpenVPN service. This is a modification of the popular ‘&lt;a href=&quot;https://galaxy.ansible.com/Stouts/openvpn/&quot;&gt;Stouts.openvpn&lt;/a&gt;’ role in Ansible Galaxy to add MFA support.&lt;/p&gt;
+
+&lt;p&gt;https://github.com/darrylanderson/ansible-aws/tree/master/playbooks/roles/openvpn&lt;/p&gt;
+
+&lt;p&gt;In the following sections I’ll review some of the key prerequisites and network configuration needed to get your VPN up and running, and then walk through how to use the Ansible role.&lt;/p&gt;
+
+&lt;h4 id=&quot;create-vm-and-configure-route&quot;&gt;Create VM And Configure Route&lt;/h4&gt;
+
+&lt;p&gt;Assuming you already have a subnet created in your VPC to host your VPN VM, launch an Ubuntu 16.04 instance in that subnet.&lt;/p&gt;
+
+&lt;p&gt;Once the VM has launched, you need to create the network routes. We need the following additional routes on our subnet’s route table:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;A route allowing traffic from the public internet. This will be locked down to TCP/UDP traffic on port 1194.&lt;/li&gt;
+  &lt;li&gt;A route for VPN traffic to flow to the VPN VM instance.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;An example of what this might look like in your AWS environment is shown below:
+&lt;img src=&quot;/content/images/2018/02/AWS-route-1.png&quot; alt=&quot;AWS-route-1&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;configure-vm-for-packet-forwarding&quot;&gt;Configure VM For Packet Forwarding&lt;/h4&gt;
+
+&lt;p&gt;By default the Linux kernel is not configured to support packet forwarding, which is a requirement for our VPN tunnel to forward packets.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;vi /etc/sysctl.conf
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Enable ip forwarding by uncommenting the line containing the &lt;code class=&quot;highlighter-rouge&quot;&gt;net.ipv4.ip_forward&lt;/code&gt; setting as follows:&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Uncomment the next line to enable packet forwarding for IPv4&lt;/span&gt;
+net.ipv4.ip_forward&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You also need to ensure that the network interface attached to your OpenVPN instance allows for IP forwarding, and that it doesn’t do source/destination checks. This allows you to route traffic to your private subnets. The mechanism for configuring this varies depending on your cloud provider.&lt;/p&gt;
+
+&lt;h6 id=&quot;aws&quot;&gt;AWS&lt;/h6&gt;
+&lt;p&gt;In AWS you need to disable the source/destination check on the elastic network interface attached to the OpenVPN EC2 instance to allow packets to route correctly. See &lt;a href=&quot;https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-eni.html#change_source_dest_check&quot;&gt;Changing the Source or Destination Checking&lt;/a&gt; at the AWS doc site for more details.&lt;/p&gt;
+
+&lt;h6 id=&quot;azure&quot;&gt;Azure&lt;/h6&gt;
+&lt;p&gt;In Azure you need to enable IP forwarding on your OpenVPN VM. See &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-network-interface#enable-or-disable-ip-forwarding&quot;&gt;Enable or disable IP forwarding&lt;/a&gt; at the Microsoft Azure doc site for more details.&lt;/p&gt;
+
+&lt;h6 id=&quot;google-cloud&quot;&gt;Google Cloud&lt;/h6&gt;
+&lt;p&gt;In Google Cloud you need to have launched your OpenVPN VM with IP forwarding enabled. Unfortunately you can’t enable this setting on an existing VM. See &lt;a href=&quot;https://cloud.google.com/vpc/docs/using-routes#canipforward&quot;&gt;Enabling IP forwarding for instances&lt;/a&gt; at the Google Cloud doc site for more details.&lt;/p&gt;
+
+&lt;h4 id=&quot;configure-ansible&quot;&gt;Configure Ansible&lt;/h4&gt;
+
+&lt;p&gt;Start by SSHing into your VM, cloning my Ansible repo to get the role and playbook, and install Ansible:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone https://github.com/darrylanderson/ansible-aws.git
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;ansible-aws
+./bootstrap_ansible.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The Ansible role has a large number of configuration options. The simplest approach is to define them in the playbook. Below is an example of a configuration which will create an OpenVPN network using the default CIDR range of 10.8.0.0/24 (the default), and will push a route to clients allowing them to access a private subnet having a CIDR range of 10.10.0.0/16.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;playbooks/setup-openvpn.yml&lt;/p&gt;
+  &lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# Necessary for Ubuntu 16.04&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;hosts&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;all&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;become&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;yes&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;become_user&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;root&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;become_method&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;sudo&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;gather_facts&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;False&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;tasks&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;install python 2&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;raw&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;test -e /usr/bin/python || (apt -y update &amp;amp;&amp;amp; apt install -y python-minimal)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# For a local playbook run:  ansible-playbook -i &quot;localhost,&quot; -c local --ask-sudo-pass playbooks/setup-openvpn.yml&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;hosts&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;all&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;become&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;yes&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;become_user&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;root&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;become_method&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;sudo&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;roles&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;openvpn&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;vars&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;openvpn_use_pam&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;yes&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;openvpn_proto&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;tcp&quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;openvpn_topology&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;subnet&quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;openvpn_key_country&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;US&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;openvpn_key_province&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;IL&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;openvpn_key_city&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Chicago&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;openvpn_key_org&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;My Company Name&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;openvpn_key_email&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;me@myhost.mydomain&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;openvpn_server_options&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;push &quot;route 10.10.0.0 255.255.0.0&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;  &lt;/div&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;run-ansible-playbook&quot;&gt;Run Ansible Playbook&lt;/h4&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ~/ansible-aws
+ansible-playbook &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;localhost,&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;local &lt;/span&gt;playbooks/setup-openvpn.yml
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This may appear to hang for a while when generating the server keys if the VM does not have enough randomness (a common issue with Linux VMs). It will eventually finish.&lt;/p&gt;
+
+&lt;h4 id=&quot;create-openvpn-client-configurations&quot;&gt;Create OpenVPN Client Configurations&lt;/h4&gt;
+
+&lt;p&gt;Now that you have your OpenVPN server running, you need to create client configurations.&lt;/p&gt;
+
+&lt;p&gt;The Ansible role creates a helper script which does the following:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Create a new user account.&lt;/li&gt;
+  &lt;li&gt;Create keys for the user.&lt;/li&gt;
+  &lt;li&gt;Generate a MFA token for the user.&lt;/li&gt;
+  &lt;li&gt;Create ovpn file to send to the user.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Here’s how to create a new client:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo&lt;/span&gt; /etc/openvpn/build-client.sh username
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This will prompt you for a password for the user, display the QR code needed to register the smartphone, and if you have mutt installed and configured to send outbound emails, send the ovpn file to the user.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/content/images/2018/02/build-client-1.png&quot; alt=&quot;build-client-1&quot; /&gt;
+&lt;img src=&quot;/content/images/2018/02/build-client-2.png&quot; alt=&quot;build-client-2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;It’s usually easiest to have the user swing by and scan the QR code on their phone, but you can also send them the information offline so they can register their device.&lt;/p&gt;
+
+&lt;p&gt;If you don’t have mutt configured, you need to send the user their ovpn file in &lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/openvpn/client-config&lt;/code&gt; for them to import into their OpenVPN client.&lt;/p&gt;
+
+&lt;p&gt;Now when the client tries to connect, they will be prompted for a password. They should enter their token and password on the same line.&lt;/p&gt;
+
+&lt;p&gt;For example, if their password is “mypassword” (hopefully it’s not), and their current MFA token is 345678, they should enter &lt;code class=&quot;highlighter-rouge&quot;&gt;345678mypassword&lt;/code&gt; as their password when prompted by the VPN client.&lt;/p&gt;
+
+&lt;h4 id=&quot;revoking-clients&quot;&gt;Revoking Clients&lt;/h4&gt;
+
+&lt;p&gt;If a user leaves your organization, you can simply run &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo userdel username&lt;/code&gt; to deactive their OpenVPN access.&lt;/p&gt;
+
+&lt;p&gt;To remove their certificates, run &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo /etc/openvpn/revoke-client.sh username&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;Enabling MFA is a key step in hardening the critical remote entry points to your cloud infrastructure. In this article we’ve seen how to MFA-enable both your SSH services as well as OpenVPN. You should also enforce MFA on all your cloud console user accounts.&lt;/p&gt;
+
+&lt;p&gt;Of course MFA is only one part of a broader information security management system. Standard security best practices such as network segmentation, intrusion detection, audit trails, patching, etc all have to work together to improve your overall security posture.&lt;/p&gt;
+
+&lt;h2 id=&quot;resources&quot;&gt;Resources&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;https://aws.amazon.com/blogs/startups/securing-ssh-to-amazon-ec2-linux-hosts/&lt;/li&gt;
+  &lt;li&gt;https://www.digitalocean.com/community/tutorials/how-to-set-up-multi-factor-authentication-for-ssh-on-ubuntu-16-04&lt;/li&gt;
+  &lt;li&gt;https://medium.com/@egonbraun/using-google-authenticator-mfa-with-openvpn-on-ubuntu-16-04-774e4acc2852&lt;/li&gt;
+  &lt;li&gt;https://aws.amazon.com/blogs/security/category/best-practices/&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;Also published on &lt;a href=&quot;https://dzone.com/articles/multi-factor-authentication-with-ssh-and-openvpn&quot;&gt;DZone&lt;/a&gt;.&lt;/p&gt;
+
+&lt;hr /&gt;</content>
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name>Darryl Anderson</name>
+        
+        
+      </author>
+
+      
+
+      
+        <category term="security" />
+      
+
+      
+        <summary type="html">Lately I’ve been reviewing the security of my personal online accounts. Aside from regular password rotation, wherever possible I enable multi-factor authentication (MFA). Multi-factor authentication is where you not only supply something you know (your password), but you also supply an additional piece of information based on something that you have.</summary>
+      
+
+      
+      
+    </entry>
+  
+    <entry>
+      <title type="html">Running Ansible at Scale</title>
+      <link href="/running-ansible-at-scale" rel="alternate" type="text/html" title="Running Ansible at Scale" />
+      <published>2018-01-23T02:56:39+00:00</published>
+      <updated>2018-01-23T02:56:39+00:00</updated>
+      <id>/running-ansible-at-scale</id>
+      <content type="html" xml:base="/running-ansible-at-scale">&lt;p&gt;I’ve used plenty of automation solutions over the years. Chef, Puppet, Fabric, SaltStack, Capistrano, custom scripts, etc… all of them work well to varying degrees, but only one tool has stood the test of time for me. That tool is &lt;a href=&quot;https://ansible.com&quot;&gt;Ansible&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;In my humble opinion, no other tool combines the same level of functionality, ease of use, maintainability, portability, extensibility, and security as Ansible. I’ve used it for everything as simple as checking the time on a fleet of AWS EC2 instances, to complex orchestration operations like a zero-downtime blue/green deployment.&lt;/p&gt;
+
+&lt;p&gt;In this article I’ll give a brief overview of Ansible, and then quickly jump into some examples of how I’ve used it in the past for automation activities in a cloud environment.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-basics&quot;&gt;The Basics&lt;/h2&gt;
+
+&lt;p&gt;Ansible uses an agentless approach, making it a perfect fit for dynamic cloud environments. Since it uses SSH to communicate with remote hosts, there’s no additional infrastructure required.&lt;/p&gt;
+
+&lt;p&gt;Ansible has 3 primary concepts:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Host Inventory&lt;/strong&gt;: A set of named groupings of hosts. It can be a static map, or it can be dynamic when dealing with constantly changing cloud infrastructure.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Playbooks&lt;/strong&gt;: Indicates to Ansible which set of hosts should have what tasks performed on them. For example, there may be a web server farm which should all have Nginx installed.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Roles&lt;/strong&gt;: A grouping of tasks run on a single host. For example, there may be a role for installing, configuring, and starting Nginx. A role has no concept of &lt;em&gt;which&lt;/em&gt; host it will apply to.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;We’ll look at each of these in more detail in the following sections.&lt;/p&gt;
+
+&lt;h2 id=&quot;host-inventory&quot;&gt;Host Inventory&lt;/h2&gt;
+
+&lt;h3 id=&quot;static-host-inventory&quot;&gt;Static Host Inventory&lt;/h3&gt;
+
+&lt;p&gt;The simplest approach to defining host groupings is with a static inventory file.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;inventories/mycloud/hosts&lt;/code&gt;&lt;/p&gt;
+  &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[webservers]
+10.0.0.1
+10.0.0.2
+10.0.0.3
+
+[dbservers]
+10.10.0.1
+10.10.0.2
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;  &lt;/div&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;This file defines 3 “webserver” hosts, and 2 “dbserver” hosts. While this may be fine when dealing with a traditional data center, it becomes nearly impossible to manage in a dynamic cloud environment. What we want is for the list of hosts to be dynamically constructed based on metadata. This is what the dynamic inventory feature of Ansible provides.&lt;/p&gt;
+
+&lt;h3 id=&quot;dynamic-host-inventory&quot;&gt;Dynamic Host Inventory&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://docs.ansible.com/ansible/latest/intro_dynamic_inventory.html&quot;&gt;Dynamic inventory&lt;/a&gt; is what makes Ansible such a great fit in a cloud environment. As servers come and go, Ansible can dynamically build a list of hosts.&lt;/p&gt;
+
+&lt;p&gt;The exact mechanism of how this works depends on the cloud provider. In AWS, a script &lt;code class=&quot;highlighter-rouge&quot;&gt;ec2.py&lt;/code&gt; is used to make calls to the EC2 metadata service and group hosts by whatever metadata you choose. For example, you may have a web server farm consisting of a number of identically configured servers running Nginx. You could add EC2 tags for each instance using a key of “Service”, and a value of “Webserver”. Ansible’s dynamic inventory can then be used to discover any of these EC2 instances using the host name &lt;code class=&quot;highlighter-rouge&quot;&gt;tag_Service_Webserver&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;A similar option exists for &lt;a href=&quot;http://docs.ansible.com/ansible/latest/guide_azure.html&quot;&gt;Azure&lt;/a&gt;. In this case the script is called &lt;code class=&quot;highlighter-rouge&quot;&gt;azure_rm.py&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;For &lt;a href=&quot;http://docs.ansible.com/ansible/latest/guide_gce.html&quot;&gt;Google Cloud&lt;/a&gt; the script is &lt;code class=&quot;highlighter-rouge&quot;&gt;gce.py&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;All of the available dynamic inventory scripts can be found here: 
+https://github.com/ansible/ansible/tree/stable-2.4/contrib/inventory.&lt;/p&gt;
+
+&lt;p&gt;To use these scripts, place them in a subdirectory of the &lt;code class=&quot;highlighter-rouge&quot;&gt;inventory&lt;/code&gt; folder. For example, this is what my folder structure looks like for AWS.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;inventories/aws/ec2.py
+inventories/aws/ec2.ini
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;To use the inventory, simply pass it to the ansible-playbook command.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ansible-playbook -i inventories/aws playbooks/myplaybook.yml&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;playbooks&quot;&gt;Playbooks&lt;/h2&gt;
+
+&lt;p&gt;Now that we know how to define named groups of hosts, we can create a playbook. A playbook is a yaml file which describes the tasks and roles which should be applied to a given set of hosts.&lt;/p&gt;
+
+&lt;p&gt;In the example below, we configure any EC2 instance with the tag key-value pair of “service:zeppelin” to run Apache Zeppelin (a fantastic data analytics workbench).&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;playbooks/setup-zeppelin.yml&lt;/code&gt;&lt;/p&gt;
+  &lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;hosts&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;tag_service_zeppelin&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;become&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;true&lt;/span&gt;  
+  &lt;span class=&quot;na&quot;&gt;roles&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;java8&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;zeppelin&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;  &lt;/div&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;For all matching hosts, this playbook will first apply the &lt;code class=&quot;highlighter-rouge&quot;&gt;java8&lt;/code&gt; role, and then the &lt;code class=&quot;highlighter-rouge&quot;&gt;zeppelin&lt;/code&gt; role. It is the responsiblity of the role to define what should actually happen.&lt;/p&gt;
+
+&lt;h2 id=&quot;roles&quot;&gt;Roles&lt;/h2&gt;
+
+&lt;p&gt;Defining &lt;a href=&quot;http://docs.ansible.com/ansible/latest/playbooks_reuse_roles.html&quot;&gt;roles&lt;/a&gt; is where most of the work takes place in setting up an Ansible-based automation solution. The role is where you define what packages to install, any users to create, systemd templates, configuration file templates, start/stop the service, etc.&lt;/p&gt;
+
+&lt;p&gt;Fortunately a large and active community can be found at &lt;a href=&quot;https://galaxy.ansible.com/&quot;&gt;Ansible Galaxy&lt;/a&gt;. There you can find roles already built for most common applications.&lt;/p&gt;
+
+&lt;h2 id=&quot;variables&quot;&gt;Variables&lt;/h2&gt;
+
+&lt;p&gt;We want to reuse our playbooks and roles as much as possible, so we’ll extract any environment-specific values into variables.&lt;/p&gt;
+
+&lt;p&gt;With a dynamic inventory, you can easily group variables by host group using the following layout:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;inventories/aws/group_vars/tag_PROD_webserver/vars.yml
+inventories/aws/group_vars/tag_PROD_webserver/vault.yml
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;vars.yml&lt;/code&gt; contains property key-values that don’t need to be encrypted at rest.&lt;/p&gt;
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;http_port&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;8080&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;vault.yml&lt;/code&gt; uses &lt;a href=&quot;https://docs.ansible.com/ansible/2.4/vault.html&quot;&gt;Ansible Vault&lt;/a&gt; to store properties requiring encryption. Database passwords, private keys, etc. Start by creating a plain text properties file called &lt;code class=&quot;highlighter-rouge&quot;&gt;vault.yml&lt;/code&gt; as follows:&lt;/p&gt;
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;db_password&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;some_complex_password&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;To encrypt the file:
+&lt;code class=&quot;highlighter-rouge&quot;&gt;ansible-vault encrypt vault.yml&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;To use the encrypted values during a playbook run, you need to supply the vault password. One way is to prompt for it with the &lt;code class=&quot;highlighter-rouge&quot;&gt;--ask-vault-pass&lt;/code&gt; flag:
+&lt;code class=&quot;highlighter-rouge&quot;&gt;ansible-playbook --ask-vault-pass -i inventories/aws playbooks/myplaybook.yml&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;directory-layout&quot;&gt;Directory Layout&lt;/h2&gt;
+
+&lt;p&gt;Ansible has a &lt;a href=&quot;http://docs.ansible.com/ansible/latest/playbooks_best_practices.html#directory-layout&quot;&gt;recommended directory layout&lt;/a&gt;, but I’ve found that having all the playbooks at the root level adds clutter.&lt;/p&gt;
+
+&lt;p&gt;This is the structure that has worked well for me:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;inventories/
+    aws/
+        ec2.py
+        group_vars/      # variables for groups
+
+playbooks/  
+    setup-kafka.yml    # playbook to setup a Kafka cluster
+    deploy-myapp.yml   # playbook to deploy 'myapp'
+    
+    roles/
+        common/
+        kafka/
+        java8/
+        myapp/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;putting-it-all-together&quot;&gt;Putting It All Together&lt;/h2&gt;
+
+&lt;p&gt;The title of this article was “Running Ansible at Scale”. But we haven’t yet addressed how all of this should work when dealing with multiple teams, prod/uat/dev environments, and how to meet the normal enterprise requirements of least privilege and separation of duties.&lt;/p&gt;
+
+&lt;p&gt;In order for Ansible to work we need a control server somewhere. I’ve found it works best to have separate control servers as dictated by security requirements. For example, you might have a locked down server for production automation, and a separate one for uat automation. This allows you to limit what each Ansible master can do. Network isolation, security groups, and separate SSH keys all contribute to keeping things locked down.&lt;/p&gt;
+
+&lt;p&gt;You also should limit &lt;em&gt;who&lt;/em&gt; is allowed to run Ansible. My preferred approach here is to restrict ssh access to the Ansible control hosts by using named-user accounts along with MFA. See here for details on how to do this: 
+https://www.andersontech.consulting/multifactor-everything&lt;/p&gt;
+
+&lt;p&gt;And finally, you need to ensure you have a full audit trail. All of your Ansible code should be stored in a version control system. Each Ansible playbook run should write its log output to a centralized logging system. While I prefer using syslog along with a log shipping system such as logstash, there are plenty of other logging options detailed here: https://docs.ansible.com/ansible/devel/plugins/callback.html&lt;/p&gt;
+
+&lt;p&gt;An excellent option for integrating Ansible into an enterprise is to use the commercial &lt;a href=&quot;https://www.ansible.com/products/tower&quot;&gt;Ansible Tower&lt;/a&gt; product, or the open-source upstream &lt;a href=&quot;https://github.com/ansible/awx&quot;&gt;AWX&lt;/a&gt; project.&lt;/p&gt;
+
+&lt;h2 id=&quot;examples&quot;&gt;Examples&lt;/h2&gt;
+
+&lt;h3 id=&quot;time-checks&quot;&gt;Time Checks&lt;/h3&gt;
+
+&lt;p&gt;Ansible can be used to run ad-hoc commands across a set of hosts. Basically we forgo the use of a playbook, and instead execute a single command.&lt;/p&gt;
+
+&lt;p&gt;The example below shows how to run an arbitrary command across a set of servers. In this case, we want to check the time and date of all EC2 instances with a tag key of &lt;code class=&quot;highlighter-rouge&quot;&gt;Role&lt;/code&gt; and value of &lt;code class=&quot;highlighter-rouge&quot;&gt;PROD_apigateway&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;PROD_serviceA&lt;/code&gt;, or &lt;code class=&quot;highlighter-rouge&quot;&gt;PROD_serviceB&lt;/code&gt;. This particular command is useful to check for any servers with excessive clock drift due to ntp issues.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ansible tag_Role_PROD_apigateway, tag_Role_PROD_serviceA, tag_Role_PROD_serviceB -i inventories/aws -a &quot;date&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;rolling-aws-deployment&quot;&gt;Rolling AWS Deployment&lt;/h3&gt;
+
+&lt;p&gt;The real value of playbooks can be seen when a complex orchestration of operations need to be performed across a fleet of servers.&lt;/p&gt;
+
+&lt;p&gt;Let’s assume we have a fairly basic web application architecture. A fronting web server farm, an application server cluster, and a backend MySQL database.  We also assume that our applications can tolerate simultaneous different versions running across tiers.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/content/images/2018/01/Web-App-Reference-Architecture-1.png&quot; alt=&quot;Web-App-Reference-Architecture-1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;At a high level, our deployment pipeline requires the following tasks to be orchestrated by Ansible (all running from the Ansible control host in our AWS devzone).&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Record start of deployment process in release tracking tool&lt;/li&gt;
+  &lt;li&gt;Perform database schema upgrade&lt;/li&gt;
+  &lt;li&gt;For each tier (webserver, appserver):
+    &lt;ol&gt;
+      &lt;li&gt;Disable monitoring&lt;/li&gt;
+      &lt;li&gt;Remove server from ELB pool&lt;/li&gt;
+      &lt;li&gt;Shut down application&lt;/li&gt;
+      &lt;li&gt;Update application&lt;/li&gt;
+      &lt;li&gt;Start application&lt;/li&gt;
+      &lt;li&gt;Enable monitoring&lt;/li&gt;
+      &lt;li&gt;Add server to ELB pool&lt;/li&gt;
+      &lt;li&gt;Wait for service to pass health checks&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Record deployment complete in release tracking tool&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Here is a sample playbook showing the process:&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;#################&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# Send a slack notification that the deployment is starting&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;################# &lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;hosts&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;tag_Role_PROD_webserver&lt;/span&gt;  
+  &lt;span class=&quot;na&quot;&gt;tasks&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Send slack notification&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;slack&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;token&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Starting&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;production&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;deployment...&quot;&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;warning&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;icon_url&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;run_once&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;true&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;delegate_to&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;localhost&lt;/span&gt;
+
+
+&lt;span class=&quot;c1&quot;&gt;#################&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# Run database scheme update&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;################# &lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;hosts&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;tag_Role_PROD_db&lt;/span&gt; 
+  &lt;span class=&quot;na&quot;&gt;roles&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;database.liquibase&lt;/span&gt;
+
+
+&lt;span class=&quot;c1&quot;&gt;#################&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# Rolling deployment: web server farm&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;################# &lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# Roll out updates to the webserver farm 2 nodes at a time&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;hosts&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;tag_Role_PROD_webserver&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;become&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;yes&lt;/span&gt;  
+  &lt;span class=&quot;na&quot;&gt;serial&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;2&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;# These are the tasks to run before applying updates:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;pre_tasks&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;    
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Gather EC2 facts&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;action&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;ec2_facts&lt;/span&gt;
+
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;disable the server in the loadbalancer&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;local_action&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;ec2_elb&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;instance_id&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;region&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;      &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;us-west-2&quot;&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;ec2_elbs&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;    &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;       &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;absent'&lt;/span&gt;
+
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Disable service monitor&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;service&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;name='zabbix-agent' state=stopped&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;# Execute the deployment&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;roles&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;  
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;application.webserver.deploy&lt;/span&gt;    
+
+  &lt;span class=&quot;c1&quot;&gt;# These tasks run after the roles:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;post_tasks&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Enable service monitor&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;service&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;name='zabbix-agent' state=started&lt;/span&gt;
+
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Add instance to ELB... will wait up to 5 minutes for healthy checks to pass&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;local_action&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;ec2_elb&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;instance_id&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;  &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;region&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;       &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;us-west-2&quot;&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;ec2_elbs&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;     &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;wait_timeout&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;300&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;        &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;present'&lt;/span&gt;
+
+
+&lt;span class=&quot;c1&quot;&gt;#################&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# Rolling deployment: application server cluster&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;################# &lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# Roll out updates to the app server cluster 2 nodes at a time&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;hosts&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;tag_Role_PROD_appserver&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;become&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;yes&lt;/span&gt;  
+  &lt;span class=&quot;na&quot;&gt;serial&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;2&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;# These are the tasks to run before applying updates:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;pre_tasks&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;    
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Gather EC2 facts&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;action&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;ec2_facts&lt;/span&gt;
+
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;disable the server in the loadbalancer&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;local_action&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;ec2_elb&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;instance_id&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;region&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;      &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;us-west-2&quot;&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;ec2_elbs&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;    &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;       &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;absent'&lt;/span&gt;
+
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Disable service monitor&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;service&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;name='zabbix-agent' state=stopped&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;# Execute the deployment&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;roles&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;  
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;application.appserver.deploy&lt;/span&gt;    
+
+  &lt;span class=&quot;c1&quot;&gt;# These tasks run after the roles:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;post_tasks&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Enable service monitor&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;service&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;name='zabbix-agent' state=started&lt;/span&gt;
+
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Add instance to ELB... will wait up to 5 minutes for healthy checks to pass&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;local_action&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;ec2_elb&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;instance_id&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;  &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;region&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;       &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;us-west-2&quot;&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;ec2_elbs&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;     &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;wait_timeout&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;300&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;        &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;present'&lt;/span&gt;
+
+
+&lt;span class=&quot;c1&quot;&gt;#################&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# Send a slack notification that the deployment is complete&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;################# &lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;hosts&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;tag_Role_PROD_webserver&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;tasks&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Send slack notification&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;slack&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;token&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Production&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;deployment&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;complete.&quot;&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;good&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;icon_url&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;run_once&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;true&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;delegate_to&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;localhost&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;In this post I’ve briefly outlined some of the concepts and approaches to using Ansible for configuration management and orchestration. With a mature product, active community, and a focus on simplicity, Ansible is a great tooling choice to manage your cloud infrastructure and applications.&lt;/p&gt;
+
+&lt;p&gt;If you’d like to see working examples of some of these concepts, feel free to visit my GitHub repo: 
+https://github.com/darrylanderson/ansible-aws&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;Also published on &lt;a href=&quot;https://dzone.com/articles/running-ansible-at-scale&quot;&gt;DZone&lt;/a&gt;.&lt;/p&gt;
+
+&lt;hr /&gt;</content>
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name>Darryl Anderson</name>
+        
+        
+      </author>
+
+      
+
+      
+        <category term="devops" />
+      
+
+      
+        <summary type="html">I’ve used plenty of automation solutions over the years. Chef, Puppet, Fabric, SaltStack, Capistrano, custom scripts, etc… all of them work well to varying degrees, but only one tool has stood the test of time for me. That tool is Ansible.</summary>
+      
+
+      
+      
+    </entry>
+  
+    <entry>
+      <title type="html">Getting Started With Ghost on Google Cloud</title>
+      <link href="/getting-started-with-ghost-on-google-cloud" rel="alternate" type="text/html" title="Getting Started With Ghost on Google Cloud" />
+      <published>2018-01-17T14:59:56+00:00</published>
+      <updated>2018-01-17T14:59:56+00:00</updated>
+      <id>/getting-started-with-ghost-on-google-cloud</id>
+      <content type="html" xml:base="/getting-started-with-ghost-on-google-cloud">&lt;p&gt;A while back I started looking for a blogging platform. In my previous companies, when we were just starting up I was often asked “we need a quick blog site for marketing… can you get something up quickly?”. The usual choice was WordPress, which always started out great, but over time became more and more of a headache to operate. Especially since I wanted a completely hands-off solution. I decided there had to be something better. Enter &lt;a href=&quot;http://ghost.org&quot;&gt;Ghost&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;With a tech stack consisting of Node.js, Ember.js, and Handlebars, Ghost is a pleasure to install and operate. In less than 30 minutes I had everything running and ready to go.&lt;/p&gt;
+
+&lt;p&gt;I also wanted to learn more about Google Cloud. Having created large scale architectures on AWS and Azure, I was familiar with their offerings but hadn’t yet explored Google Cloud. This was a perfect opportunity to set up a real service using GCE.&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;h2 id=&quot;google-cloud-infrastructure&quot;&gt;Google Cloud Infrastructure&lt;/h2&gt;
+&lt;p&gt;After creating your Google Cloud free tier account, you should be able to log in to the &lt;a href=&quot;https://console.cloud.google.com&quot;&gt;console&lt;/a&gt; and see your dashboard.&lt;/p&gt;
+
+&lt;p&gt;For the purposes of this guide, we’ll keep things simple and use the &lt;code class=&quot;highlighter-rouge&quot;&gt;default&lt;/code&gt; VPC network. For more advanced configurations (HA, test/staging, etc) you’ll want to create separate VPCs and subnets.&lt;/p&gt;
+
+&lt;h3 id=&quot;create-vm&quot;&gt;Create VM&lt;/h3&gt;
+
+&lt;p&gt;Open the Google Cloud console and go to the &lt;code class=&quot;highlighter-rouge&quot;&gt;Compute Engine -&amp;gt; VM instances&lt;/code&gt; page. Click on &lt;code class=&quot;highlighter-rouge&quot;&gt;Create Instance&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Choose a VM name, select a zone (here we’ve chosen us-central1-a), and change the machine type. Since we’re trying to stay in the free tier, we use the &lt;code class=&quot;highlighter-rouge&quot;&gt;f1.micro&lt;/code&gt; instance type.&lt;/p&gt;
+
+&lt;p&gt;Ghost is supported on Ubuntu 16.04, so be sure to change the boot disk type to that image.&lt;/p&gt;
+
+&lt;p&gt;Enable HTTP and HTTPS traffic, then create the instance.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/content/images/2018/01/gce-vm.png&quot; alt=&quot;gce-vm&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;create-ssh-key&quot;&gt;Create SSH Key&lt;/h3&gt;
+
+&lt;p&gt;On your local workstation, create an SSH key using a command similar to the following:
+&lt;code class=&quot;highlighter-rouge&quot;&gt;ssh-keygen -t rsa -b 4096 -C &quot;myemail@mydomain.com&quot;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;This will create a private/public key pair in the location you choose.&lt;/p&gt;
+
+&lt;p&gt;To associate this key with your VM, go to the &lt;code class=&quot;highlighter-rouge&quot;&gt;Compute Engine -&amp;gt; Metadata -&amp;gt; SSH Keys&lt;/code&gt; page in the Google Cloud console. Add a new key, and paste in the public key value.&lt;/p&gt;
+
+&lt;p&gt;You should now be able to ssh to your instance from your local workstation.
+&lt;code class=&quot;highlighter-rouge&quot;&gt;ssh -i [private-key-location] [user]@[ip]&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;assign-static-ip&quot;&gt;Assign Static IP&lt;/h3&gt;
+
+&lt;p&gt;After the VM creation is complete, our instance will have an ephemeral public IP address assigned. We want to promote this address to a static IP address so that we can make the instance available to the public internet at a fixed location.&lt;/p&gt;
+
+&lt;p&gt;From the Google Cloud Console, go to &lt;code class=&quot;highlighter-rouge&quot;&gt;VPC network -&amp;gt; External IP addresses&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;The external IP address assigned to your VM instance should be listed. Change the type from &lt;code class=&quot;highlighter-rouge&quot;&gt;Ephemeral&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;Static&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/content/images/2018/01/gce-static-ip.png&quot; alt=&quot;gce-static-ip&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;create-dns-entry&quot;&gt;Create DNS Entry&lt;/h3&gt;
+
+&lt;p&gt;Now that we have a static IP address, we can create a DNS entry for our new blog. The process for adding DNS entries will vary depending on your domain registrar.&lt;/p&gt;
+
+&lt;p&gt;Let’s say your domain name is &lt;code class=&quot;highlighter-rouge&quot;&gt;mydomain.com&lt;/code&gt;, and you want to host your blog at &lt;code class=&quot;highlighter-rouge&quot;&gt;blog.mydomain.com&lt;/code&gt;. You need to add an A record which ties the subdomain name &lt;code class=&quot;highlighter-rouge&quot;&gt;blog&lt;/code&gt; to the static IP address above. An example of this is shown here:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/content/images/2018/01/dns-a-record-1.png&quot; alt=&quot;dns-a-record-1&quot; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;installing-ghost&quot;&gt;Installing Ghost&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;In order to squeeze everything into our tiny f1.micro instance, we opt for the sqlite3 database instead of MySQL. For a production site we should instead use the Google Cloud MySQL service (known as Google Cloud SQL).&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;The &lt;a href=&quot;http://https://docs.ghost.org/v1.0.0/docs/install&quot;&gt;Ghost installation instructions&lt;/a&gt; are very easy to follow. However, since I had to deviate from them a bit in order to account for sqlite3 as well as the low memory on the f1.micro instance, I’ll outline the steps I followed below.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Create a swap file to give us more working memory:
+&lt;code class=&quot;highlighter-rouge&quot;&gt;dd if=/dev/zero of=/var/swap bs=1k count=1024k
+mkswap /var/swap
+swapon /var/swap
+echo '/var/swap swap swap default 0 0' &amp;gt;&amp;gt; /etc/fstab
+&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Install nginx and Node.js:
+&lt;code class=&quot;highlighter-rouge&quot;&gt;sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get install nginx 
+curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash 
+sudo apt-get install nodejs
+&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Install ghost-cli:
+&lt;code class=&quot;highlighter-rouge&quot;&gt;sudo npm i -g ghost-cli&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Install sqlite3:
+&lt;code class=&quot;highlighter-rouge&quot;&gt;sudo npm i -g sqlite3&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Install Ghost:
+&lt;code class=&quot;highlighter-rouge&quot;&gt;sudo mkdir -p /var/www/ghost
+sudo chown [user]:[user] /var/www/ghost
+cd /var/www/ghost
+ghost install --db sqlite3 --dbpath ./content/data/ghost.db
+&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+&lt;h2 id=&quot;enable-ssl&quot;&gt;Enable SSL&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;/content/images/2018/01/le-logo-standard.png&quot; alt=&quot;le-logo-standard&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;With the Let’s Encrypt service and EFF’s certbot, it’s easier than ever to obtain and install a free SSL certificate signed by a trusted CA.&lt;/p&gt;
+
+&lt;p&gt;First install &lt;a href=&quot;https://certbot.eff.org/#ubuntuxenial-nginx&quot;&gt;certbot&lt;/a&gt;:
+&lt;code class=&quot;highlighter-rouge&quot;&gt;sudo apt-get update
+sudo apt-get install software-properties-common
+sudo add-apt-repository ppa:certbot/certbot
+sudo apt-get update
+sudo apt-get install python-certbot-nginx
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Then run certbot to request and install the certificate into nginx:
+&lt;code class=&quot;highlighter-rouge&quot;&gt;sudo certbot --authenticator webroot --installer nginx&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;After restarting nginx (&lt;code class=&quot;highlighter-rouge&quot;&gt;sudo service nginx restart&lt;/code&gt;), your site should now redirect to https and use a valid certificate.&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;h2 id=&quot;next-steps&quot;&gt;Next Steps&lt;/h2&gt;
+
+&lt;p&gt;While this setup is suitable for a low-traffic blog, it doesn’t offer many of the characteristics we would expect of an enterprise level service.&lt;/p&gt;
+
+&lt;p&gt;The simplest approach to add some ‘enterpriseness’ to our blog is to outsource hosting to &lt;a href=&quot;https://ghost.org/pricing/&quot;&gt;Ghost Pro&lt;/a&gt;. While I don’t have any personal experience with their service, it certainly looks attractive. Relatively low cost, automated backups, CDN, and we would be helping to support the efforts of the team behind the Ghost software.&lt;/p&gt;
+
+&lt;p&gt;But since we’re tinkerers and want to see what it would take to do this on our own, let’s explore some of the next steps if we want to continue operating the site ourselves…&lt;/p&gt;
+
+&lt;h4 id=&quot;monitoring&quot;&gt;Monitoring&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://pingdom.com&quot;&gt;Pingdom&lt;/a&gt; offers a free basic uptime monitoring service which can alert you if your blog is not available from any part of the globe. While the free version only offers email and push notifications, upgrading to the basic service adds SMS notifications.&lt;/p&gt;
+
+&lt;p&gt;For proactive monitoring, paid APM services such as &lt;a href=&quot;http://newrelic.com&quot;&gt;New Relic&lt;/a&gt;, &lt;a href=&quot;http://www.appdynamics.com&quot;&gt;AppDynamics&lt;/a&gt;, or &lt;a href=&quot;http://www.dynatrace.com&quot;&gt;Dynatrace&lt;/a&gt; can be used.&lt;/p&gt;
+
+&lt;p&gt;Also, Google Cloud offers built-in monitoring through Stackdriver. I’m still looking into this approach.&lt;/p&gt;
+
+&lt;h4 id=&quot;security&quot;&gt;Security&lt;/h4&gt;
+
+&lt;p&gt;The basic configuration outlined in this post doesn’t separate the web tier from the data tier. One of the first steps should be to deploy MySQL in a private subnet with firewall rules that only allow traffic from the web tier.&lt;/p&gt;
+
+&lt;p&gt;Additionally, the web tier currently exposes SSH to the public internet. To avoid this, we should utilize a VPN tunnel. Then we can restrict SSH traffic to only flow from the VPN. I will be writing a future post where I describe how to deploy OpenVPN along with Google Authenticator to support a secure, low-cost VPN service.&lt;/p&gt;
+
+&lt;h4 id=&quot;disaster-recovery&quot;&gt;Disaster Recovery&lt;/h4&gt;
+
+&lt;p&gt;Given our cost comprimise of running sqlite3 directly on the same VM running Ghost, backing up our data can be done by creating a VM snapshot. While we could automate this process, a better approach is to use MySQL.&lt;/p&gt;
+
+&lt;p&gt;With MySQL through Google Cloud SQL we can configure a &lt;a href=&quot;https://cloud.google.com/sql/docs/mysql/high-availability&quot;&gt;failover replica&lt;/a&gt;. This replica runs in a different zone than the master. If an outage occurs, a failover will automatically occur to the replica.&lt;/p&gt;
+
+&lt;p&gt;Google Cloud SQL also offers a &lt;a href=&quot;https://cloud.google.com/sql/docs/mysql/backup-recovery/backups&quot;&gt;robust backup facility&lt;/a&gt;. While the failover replica provides data protection in the event of a single instance failure, if the entire cluster corrupts our data we need to restore from a backup.&lt;/p&gt;
+
+&lt;h4 id=&quot;performance&quot;&gt;Performance&lt;/h4&gt;
+
+&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;f1.micro&lt;/code&gt; instance type is inadequate for anything other than a test site. The &lt;code class=&quot;highlighter-rouge&quot;&gt;n1-standard-1&lt;/code&gt; with 3.75GB of RAM and 1 VCPU would be a better choice. Assuming it’s running an entire month, the cost would be around $25/month.&lt;/p&gt;
+
+&lt;p&gt;Using a CDN is an easy way to accelerate content delivery and reduce load on our server(s). Like other cloud providers, Google Cloud offers a robust CDN. Pricing is similar to AWS CloudFront.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;wrapping-up&quot;&gt;Wrapping Up&lt;/h2&gt;
+&lt;p&gt;Now that we have Ghost up and running on Google Cloud, it’s time to start configuring our blog and creating content. Visit the official Ghost Blog for a lot of great ideas:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://blog.ghost.org/&quot;&gt;Ghost Blog&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Going further, I’d like to set up an Ansible role to install and configure Ghost, and either use Ansible or something like Terraform to orchestrate creation of the Google Cloud infrastructure. But from a build/buy perspective, moving to Ghost Pro’s hosting service is probably a better move.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name>Darryl Anderson</name>
+        
+        
+      </author>
+
+      
+
+      
+        <category term="google cloud" />
+      
+
+      
+        <summary type="html">A while back I started looking for a blogging platform. In my previous companies, when we were just starting up I was often asked “we need a quick blog site for marketing… can you get something up quickly?”. The usual choice was WordPress, which always started out great, but over time became more and more of a headache to operate. Especially since I wanted a completely hands-off solution. I decided there had to be something better. Enter Ghost.</summary>
+      
+
+      
+      
+    </entry>
+  
+</feed>

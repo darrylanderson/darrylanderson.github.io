@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- Document Settings -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Base Meta -->
+    <!-- dynamically fixing the title for tag/author pages -->
+
+
+
+    <title>A Comparison Of Distributed Ledgers For Tokenization</title>
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.edited.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/syntax.css" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Noto+Serif|Open+Sans|Lora" rel="stylesheet">
+    <style>
+        body,
+        .main-nav a,
+        .post-meta,
+        .post-card-excerpt,
+        .post-full-content,
+        .read-next-story .post:before,
+        .pagination {
+            font-family: "Lora", serif;
+            font-size: 21px;
+            line-height: 1.58;
+        }
+        h1, h2, h3, h4, h5, h6,
+        .page-title,
+        .subscribe-button,
+        .floating-header,
+        .site-nav,
+        .site-footer {
+            font-family: sans-serif;
+        }
+        /* This is necessary to not mess up share icons at bottom of posts */
+        [class^="icon-"]:before, [class*=" icon-"]:before {
+            font-family: "casper-icons", "Open Sans", sans-serif;
+        }
+        /* syntax highlighting */
+        pre[class*=language-] {
+            margin: 1.75em 0;
+        }
+    </style>
+    <!-- highlight.js -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <style>.hljs { background: none; }</style>
+
+    <!--[if IE]>
+        <style>
+            p, ol, ul{
+                width: 100%;
+            }
+            blockquote{
+                width: 100%;
+            }
+        </style>
+    <![endif]-->
+    
+    <!-- This tag outputs SEO meta+structured data and other important settings -->
+    <meta name="description" content="Pragmatic Cloud Architecture" />
+    <link rel="shortcut icon" href="/" type="image/png" />
+    <link rel="canonical" href="/a-comparison-of-distributed-ledgers-for-tokenization" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+
+     <!--title below is coming from _includes/dynamic_title-->
+    <meta property="og:site_name" content="Anderson Technology Consulting" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="A Comparison Of Distributed Ledgers For Tokenization" />
+    <meta property="og:description" content="Pragmatic Cloud Architecture" />
+    <meta property="og:url" content="/a-comparison-of-distributed-ledgers-for-tokenization" />
+    <meta property="og:image" content="/assets/images/cover-dlt.jpeg" />
+    <meta property="article:publisher" content="https://www.facebook.com/" />
+    <meta property="article:tag" content="Blockchain" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="A Comparison Of Distributed Ledgers For Tokenization" />
+    <meta name="twitter:description" content="Pragmatic Cloud Architecture" />
+    <meta name="twitter:url" content="/" />
+    <meta name="twitter:image" content="/assets/images/cover-dlt.jpeg" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Anderson Technology Consulting" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Blockchain" />
+    <meta name="twitter:site" content="@" />
+    <meta name="twitter:creator" content="@" />
+    <meta property="og:image:width" content="2000" />
+    <meta property="og:image:height" content="666" />
+
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Website",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Anderson Technology Consulting",
+        "logo": "/"
+    },
+    "url": "/a-comparison-of-distributed-ledgers-for-tokenization",
+    "image": {
+        "@type": "ImageObject",
+        "url": "/assets/images/cover-dlt.jpeg",
+        "width": 2000,
+        "height": 666
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "/a-comparison-of-distributed-ledgers-for-tokenization"
+    },
+    "description": "Pragmatic Cloud Architecture"
+}
+    </script>
+
+    <!-- <script type="text/javascript" src="https://demo.ghost.io/public/ghost-sdk.min.js?v=724281a32e"></script>
+    <script type="text/javascript">
+    ghost.init({
+    	clientId: "ghost-frontend",
+    	clientSecret: "f84a07a72b17"
+    });
+    </script> -->
+
+    <meta name="generator" content="Jekyll 3.6.2" />
+    <link rel="alternate" type="application/rss+xml" title="A Comparison Of Distributed Ledgers For Tokenization" href="/feed.xml" />
+
+
+</head>
+<body class="post-template">
+
+    <div class="site-wrapper">
+        <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
+        <!-- default -->
+
+<!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template -->
+
+<header class="site-header outer">
+    <div class="inner">
+        <nav class="site-nav">
+    <div class="site-nav-left">
+        
+            
+                <a class="site-nav-logo" href="/">Anderson Technology Consulting</a>
+            
+        
+        
+            <ul class="nav" role="menu">
+    <li class="nav-home" role="menuitem"><a href="/">Home</a></li>
+    <li class="nav-about" role="menuitem"><a href="/about/">About Me</a></li>
+</ul>
+
+        
+    </div>
+    <div class="site-nav-right">
+        <div class="social-links">
+              <a href="https://linkedin.com/in/darryl-anderson" target="_blank" rel="noopener">
+             <i class="fab fa-linkedin"></i> linkedin
+          </a>
+          &nbsp;&nbsp;
+          <a href="https://github.com/darrylanderson" target="_blank" rel="noopener">
+            <i class="fab fa-github"></i> github
+          </a>
+          &nbsp;&nbsp;
+          <a href="https://twitter.com/DarrylAnderson_" target="_blank" rel="noopener">
+             <i class="fab fa-twitter"></i> twitter
+          </a>
+          &nbsp;&nbsp;
+
+          <!---->
+          <!---->
+        </div>
+        
+    </div>
+</nav>
+
+    </div>
+</header>
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<main id="site-main" class="site-main outer" role="main">
+    <div class="inner">
+
+        <article class="post-full  ">
+
+            <header class="post-full-header">
+                <section class="post-full-meta">
+                    <time class="post-full-meta-date" datetime=" 7 October 2018"> 7 October 2018</time>
+                    
+                        <span class="date-divider">/</span>
+                        
+                            
+                               <a href='/tag/blockchain/'>BLOCKCHAIN</a>
+                            
+                        
+                    
+                </section>
+                <h1 class="post-full-title">A Comparison Of Distributed Ledgers For Tokenization</h1>
+            </header>
+
+            
+            <figure class="post-full-image" style="background-image: url(/assets/images/cover-dlt.jpeg)">
+            </figure>
+            
+
+            <section class="post-full-content">
+                <div class="kg-card-markdown">
+                    <p>If you’re like me, hearing the very word “blockchain” causes you to immediately tune out. Over-hyped as a solution to nearly every business problem imaginable, trying to wade through the noise is nearly a full time job. However, the technology can offer very powerful solutions to certain business problems. Tokenization is one such area where blockchain can have an enormous impact.</p>
+
+<p>In this article we’ll look at the suitability of three popular public blockchain networks for tokenization use cases. Starting with an overview of tokenization and the business problems that it addresses, we’ll then present a high-level overview of blockchain and distributed ledger technology. We’ll be looking at three of the most popular blockchain networks, Stellar, Ripple, and Ethereum. We won’t be doing a deep technical dive into each blockchain network, instead we’ll evaluate each platform using a common set of high-level functional and non-functional tokenization requirements.</p>
+
+<h1 id="tokenization">Tokenization</h1>
+<p>Tokenization is a common model that most people have encountered even if they weren’t aware. Logging in to a website, credit card processing, loyalty points, even gift cards all leverage tokens.</p>
+
+<p>In a nutshell, a token is a virtual representation of something else. That “something else” may be an asset such as a commodity, a payment token representing a credit card authorization, a loyalty reward point representing an alternative form of currency, even a login token so you don’t have to keep entering your username and password on your favorite websites. The token represents an exchange of something for a virtual representation of that thing. Credit card processing takes your credit card information and “tokenizes” it into a payment authorization. When you enter your username and password on a website, that information is turned into a token which is temporarily stored by your browser so you don’t have log in every time you click on a page. For loyalty points, the token is a point you earn which represents a virtual currency you can possibly use in the future.</p>
+
+<h2 id="benefits-of-tokenization">Benefits of Tokenization</h2>
+<p>Tokenization of payment card information and authorization credentials is very useful, although existing systems handle these business processes well.</p>
+
+<p>Another type of tokenization is to take a real-world asset and represent it with a token. For example, a square foot of real estate could become a virtual token. If you buy shares in Google or Amazon you don’t want some of their office furniture, instead you get a share (a token) enabling you to own a part of the company. By tokenizing these real-world assets we now have the capability to trade them on a liquid market, allowing us to create new ways for companies and consumers to work together.</p>
+
+<p>For these tokens there is a need to record ownership and other information about the token. Recently a new type of technology has emerged which is highly suited to this type of data. Known as “blockchain” or “distributed ledger technology”, it gives us the ability to record token information in a highly secure yet open manner.</p>
+
+<h1 id="defining-distributed-ledger-technology">Defining Distributed Ledger Technology</h1>
+<p>The terms “blockchain” and “distributed ledger” are often used interchangeably, and while they’re related, they are technically not the same thing. A <strong>blockchain</strong> is an append-only, cryptographically linked data structure. This idea dates back to 1991, but was only recently used in a practical manner with the emergence of Bitcoin. A <strong>distributed ledger</strong> is a database of replicated and shared data stored across geographically separate nodes. Each node participates in a consensus protocol to ensure that all network participants agree on the contents of the database. When a blockchain data structure is used as the data storage mechanism within a distributed ledger, we now have what’s known as a <strong>blockchain network</strong> or <strong>blockchain ledger</strong>.</p>
+
+<p>A blockchain network is often described as decentralized because it is replicated across many network participants, each of whom collaborate in its maintenance. The participants are responsible for agreeing on the contents of each new block in the blockchain, a process known as <strong>consensus</strong>. Some blockchain networks such as Bitcoin or Ethereum rely on what’s known as <em>proof of work</em> consensus. This is an energy intensive process known as “mining” in which nodes compete to solve computationally complex hashing problems. The winning node receives an incentive in the form of a token, either Bitcoin or Ether depending on the network. This consensus protocol is also by definition relatively slow, resulting in limited transaction speeds.</p>
+
+<p>Alternative consensus protocols eliminate the mining process in favor of more energy efficient approaches. We will be comparing blockchain networks which use <a href="https://www.stellar.org/papers/stellar-consensus-protocol.pdf">Federated Byzantine Agreement</a> (Stellar), <a href="https://medium.com/coinmonks/blockchain-consensus-algorithm-the-proof-of-stake-slice-a4bda6658bbe">Proof of Stake</a> (hopefully coming soon to Ethereum), and <a href="https://ripple.com/build/reaching-consensus-xrp-ledger/">Proof of Correctness</a> (Ripple).</p>
+
+<p>In addition to being decentralized and collaborative, the information recorded to a blockchain is append-only, using cryptographic techniques which guarantee that once a transaction has been added to the ledger it cannot be modified. This property of immutability makes it simple to determine the provenance of information because participants can be sure information has not been changed after the fact. It’s why blockchains are sometimes described as systems of proof.</p>
+
+<h1 id="tokenization-requirements">Tokenization Requirements</h1>
+<p>Our primary requirement is that we need to be able to create a custom token on the blockchain network. This token should be usable as a payment method, support more complex payment flows such as those involving escrow, and has some way to convert to/from fiat currency such as USD.</p>
+
+<p>In addition, we want to ensure that the platform is cost effective, highly secure, easy to integrate with, and supports the standard architectural “ilities” such as reliability, scalability, monitorability, etc.</p>
+
+<p>Let’s detail out our functional and non-functional requirements:</p>
+
+<h2 id="functional-requirements">Functional Requirements</h2>
+
+<ul>
+  <li><strong>Ability to issue a custom asset.</strong> The asset should be capable of being either privately or publicly traded, and have inflationary and/or deflationary characteristics.</li>
+  <li><strong>Support for payment operations.</strong> These should be low cost, and have the ability to attach a custom memo to each payment transaction.</li>
+  <li><strong>Support for escrow operations.</strong> We need the ability to place a payment into an escrow account to be released at a later point in time assuming all parties agree.</li>
+  <li><strong>Support for multiple signature transactions.</strong> A multi-signature transaction is one in which multiple accounts have to sign a transaction in order for it to be valid. In our case we need all transactions to be additionally signed by our asset ownership account to prevent abuse of the asset.</li>
+  <li><strong>Ability to trade custom asset for other assets (including fiat currency).</strong> For our asset to have real-world value, there may be a need to trade it for fiat currency. For example, an asset representing real estate may be sold for cash.</li>
+</ul>
+
+<h2 id="non-functional-requirements">Non-Functional Requirements</h2>
+
+<ul>
+  <li><strong>Minimal ongoing costs as volume increases.</strong> We don’t want a situation where our costs become untenable as volume increases. Common issues here are with transaction fees, account minimum balances, and highly volatile blockchain native currencies.</li>
+  <li><strong>Ease of development (SDKs, dev/test environments).</strong> We need robust SDKs for popular languages/frameworks along with an easy way to test our applications.</li>
+  <li><strong>Low operational overhead.</strong> This is fairly subjective, but overall we would prefer a solution which requires a minimal amount of infrastructure, and offers high amounts of automation.</li>
+</ul>
+
+<p>These requirements are just a baseline. Your solution will likely have far more to consider, but for our purposes of comparing blockchain networks these are what we’ll use.</p>
+
+<p>In the next sections we’ll outline how various public blockchain networks supports our tokenization needs.</p>
+
+<hr />
+
+<h1 id="stellar">Stellar</h1>
+<p><img src="/content/images/2018/10/STELLAR-logo.png" alt="STELLAR-logo" /></p>
+
+<p>Designed as a global payments platform, <a href="https://stellar.org/">Stellar</a> offers a number of compelling features. At a high level, it has a fast transaction rate, low energy consumption, and has support for custom assets, low cost transactions, federated identity, and a distributed exchange.</p>
+
+<p>Let’s start by looking at how Stellar supports our functional requirements:
+<img src="/content/images/2018/10/Stellar-FR.png" alt="Stellar-FR" /></p>
+
+<p>All of our primary functional requirements are well supported, with the exception of conversion to fiat. This is a limitation of many blockchain networks coupled with complex financial regulations. CoinBase is one of the few crypto exchanges with full regulatory support, but it only supports Bitcoin and Ethereum. Recently <a href="https://stronghold.co/">Stronghold</a> has announced a USD exchange, so it’s likely that this situation will change for the better shortly.</p>
+
+<p>Now let’s look at our non-functional requirements:
+<img src="/content/images/2018/10/Stellar-NFR.png" alt="Stellar-NFR" /></p>
+
+<p>After having completed a number of POCs on the Stellar network, I’ve found it to be very easy to work with. The biggest drawback is the costs as the number of accounts increase. If we were to create accounts for every user in a 1 million user community, we need to come up with 2 million XLM, currently valued at $0.20/XLM, or $400,000. Were the value of XLM to rise, our costs rise accordingly.</p>
+
+<p>A way to avoid this is to instead operate your solution with a <a href="https://www.stellar.org/developers/guides/exchange.html">single custodial account</a> for all users. In this case, you need to manage all operations on behalf of users. Transactions need to indicate which user balances are affected, and you’re responsible for all key management. This lowers the upfront investment requirement, at the expense of increased development and security complexity.</p>
+
+<p>From an enterprise architecture standpoint, Stellar is very easy to incorporate into a secure cloud infrastructure. If you choose to <a href="https://www.stellar.org/developers/guides/anchor/index.html">operate your own anchor</a> (which you should if you issue a custom asset), Stellar provides all the necessary packages to stand up a simple single node server. Operating a highly available anchor is also straightforward, we’ll cover this process in a future article.</p>
+
+<p><em>For those interested in learning more about a secure approach to using Stellar, check out my Hashicorp Vault plugin for Stellar here: https://github.com/ParticipateCrypto/vault-plugin-stellar</em></p>
+
+<h1 id="ripple">Ripple</h1>
+<p><img src="/content/images/2018/10/ripple-logo.svg" alt="ripple-logo" /></p>
+
+<p><a href="https://ripple.com/">Ripple</a> is very similar to Stellar on the surface. Ripple uses a different consensus protocol (proof of correctness), but similar to Stellar it is designed to handle payments so shares many of the same semantics.</p>
+
+<p>Again, we start by looking at how Ripple supports our functional requirements:
+<img src="/content/images/2018/10/Ripple-FR.png" alt="Ripple-FR" /></p>
+
+<p>Ripple meets most of our requirements in the same fashion as Stellar. However, Ripple does not support escrow payment operations using custom assets. If our tokenization solution requires escrow (think real estate, merchandise purchases, etc), then Ripple is not a good fit.</p>
+
+<p>Now let’s look at our non-functional requirements:
+<img src="/content/images/2018/10/Ripple-NFR.png" alt="Ripple-NFR" /></p>
+
+<p>Similar to Stellar, Ripple has a minimum balance on accounts which can quickly result in a cost issue. Assuming we need to create 1 million user accounts, this would cost 25 million XRP, and with XRP currently valued at $0.48 USD, corresponds to an upfront investment of $12,000,000. This is considerably higher than Stellar. Also note that Ripple does not have the ability to “merge” or “close” accounts, so it’s impossible to reclaim the XRP minimum balances in unused user accounts</p>
+
+<p>Fortunately we can apply the same approach of using a single custodial account in order to eliminate this cost. In reality this is probably the only valid approach to working with Ripple if you need a large amount of user accounts.</p>
+
+<p>On the ease of development front, Ripple has a robust JSON-RPC API as well as a mature Javascript SDK. However it is lacking support for SDKs in other languages such as Java or Python. This may or may not be an issue for you depending on your team’s skillset.</p>
+
+<p>Integration of the Ripple network into your cloud architecture is fairly straightforward. You can operate one or more <a href="https://developers.ripple.com/run-a-rippled-validator.html">rippled</a> servers, configured to either be stock or validator nodes. Similar to Stellar, if you’re relying on the Ripple network it’s in your best interest to operate your own rippled infrastructure.</p>
+
+<h1 id="ethereum">Ethereum</h1>
+<p><img src="/content/images/2018/10/ETHEREUM-LOGO_LANDSCAPE_Black_small.png" alt="ETHEREUM-LOGO_LANDSCAPE_Black_small" /></p>
+
+<p><a href="https://ethereum.org/">Ethereum</a> is still the big player in this space. As one of the original blockchain networks which supported custom tokens and smart contracts, it has the most adoption in the tokenization space.</p>
+
+<p>However, Ethereum currently relies on a proof of work consensus protocol which severely limits transaction speeds, and requires large amounts of energy to operate the network.</p>
+
+<p>Ethereum smart contracts are different than Stellar and Ripple. They use a custom language called Solidity. These smart contract are far more powerful, and can be used to create fully featured distributed applications.</p>
+
+<p>For our tokenization use cases, we don’t necessarily need all the capabilities of <a href="https://solidity.readthedocs.io/en/latest/">Solidity</a>. As long as we can issue a custom asset, make payments, and handle escrow, our smart contract requirements are met.
+<img src="/content/images/2018/10/Ethereum-FR.png" alt="Ethereum-FR" /></p>
+
+<p>As we see above, Ethereum meets most of our functional requirements. The biggest drawback to using Ethereum is the transaction times. Payment operations can take multiple minutes to complete, depending on how much you’re willing to pay. This is unacceptable for most enterprise applications, and in this author’s humble opinion rules out Ethereum for our tokenization use cases. Ethereum may be shifting to a “proof of stake” consensus protocol primarily for this reason; if the shift results in much faster transaction times then Ethereum may be a good option.</p>
+
+<p>For the sake of completeness, let’s look at how Ethereum meets our non-functional requirements:
+<img src="/content/images/2018/10/Ethereum-NFR.png" alt="Ethereum-NFR" /></p>
+
+<p>Again Ethereum fails in the cost department. If we need the fastest possible transaction times (multiple seconds if not minutes), you may be paying fees of $0.05/transaction. However this price is highly variable. It’s nearly impossible to predict the transactional costs of your application.</p>
+
+<p>Where Ethereum excels is in the developer community. It seems like everyone is developing on Ethereum, so there is a large selection of SDKs and APIs to choose from.</p>
+
+<p>Many cloud providers offer pre-built Ethereum VM templates which allow you to quickly stand up your own nodes. For example, AWS has a CloudFormation template which deploys a cluster of Ethereum VMs in a docker cluster. Having these quickstarts is a further benefit of Ethereum over other blockchain networks.</p>
+
+<h1 id="other-options">Other Options</h1>
+<p>Some other options that were considered:</p>
+
+<h2 id="hyperledger">Hyperledger</h2>
+
+<p>Hyperledger, hosted by The Linux Foundation, is an open-source collaborative effort centered around blockchain technology.</p>
+
+<p>Hyperledger is an umbrella project, and actually has five blockchain “frameworks”, commonly known as Sawtooth, Iroha, Fabric, Burrow, and Indy. These are private blockchains, meaning that you would need to stand up and operate your own network. Also, none of these projects support tokenization directly. Due to these factors Hyperledger is not a candidate for our tokenization use cases. While there are workarounds available, we instead choose to focus on blockchains which have native support for tokens.</p>
+
+<p>In future articles we’ll look at other use cases such as supply chain management where Hyperledger is an excellent fit.</p>
+
+<h2 id="non-blockchain-architecture">Non-Blockchain Architecture</h2>
+
+<p>A question we should always ask is “why even use blockchain”? I would argue that for many use cases, the answer to this question would be that blockchain is not a suitable technology choice. Unless you have a need for a distributed, immutable, append-only data structure, you may be better served by an alternative architecture.</p>
+
+<p>However, for tokenization use cases, blockchain can be a good fit. Ease of payments, immutable record of token ownership, exchange to fiat currency, and the ability to trade on exchanges are all benefits of using a blockchain network.</p>
+
+<hr />
+<h1 id="conclusion">Conclusion</h1>
+<p>After looking at how various blockchain networks are suited to tokenization use cases, Stellar is currently the best candidate. Other than the lack of an easy token to fiat conversion path, its combination of low-cost, fast transactions and robust development tooling makes it an excellent choice.</p>
+
+<p>Ripple is a very close second. If you don’t need escrow operations for your custom token, it should be considered.</p>
+
+<p>If Ethereum manages to reduce transaction fees and increase transaction times, it would be the obvious choice. But as it currently exists, choosing Ethereum would result in an expensive solution which would be unable to meet most end-user’s expectations for performance.</p>
+
+<p>In a future article we’ll do a deeper technical dive into Stellar. Understanding how it meets enterprise requirements such as security, reliability, scalability, monitorability are important next steps before we commit to the platform.</p>
+
+                </div>
+            </section>
+
+            <!-- Email subscribe form at the bottom of the page -->
+            
+
+            <footer class="post-full-footer">
+                <!-- Everything inside the #author tags pulls data from the author -->
+                <!-- #author-->
+                
+                    
+                        <section class="author-card">
+                            
+                                <img class="author-profile-image" src="/content/images/2018/03/ProfilePhoto-round-1.png" alt="darryl" />
+                            
+                            <section class="author-card-content">
+                                <h4 class="author-card-name"><a href="/author/darryl">Darryl Anderson</a></h4>
+                                
+                                    <p>Darryl provides technology advisement, design, and development services to early and growth stage software companies.</p>
+                                
+                            </section>
+                        </section>
+                        <div class="post-full-footer-right">
+                            <a class="author-card-button" href="/author/darryl">Read More</a>
+                        </div>
+                    
+                
+                <!-- /author  -->
+            </footer>
+
+            <!-- If you use Disqus comments, just uncomment this block.
+            The only thing you need to change is "test-apkdzgmqhj" - which
+            should be replaced with your own Disqus site-id. -->
+            
+
+        </article>
+
+    </div>
+</main>
+
+<!-- Links to Previous/Next posts -->
+<aside class="read-next outer">
+    <div class="inner">
+        <div class="read-next-feed">
+            
+                
+                
+                
+                
+            
+
+            <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
+            
+
+            <!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+
+    <article class="post-card post-template">
+        
+            <a class="post-card-image-link" href="/building-a-microservice-chassis-with-spring-boot">
+                <div class="post-card-image" style="background-image: url(/assets/images/cover-chassis.jpeg)"></div>
+            </a>
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/building-a-microservice-chassis-with-spring-boot">
+                <header class="post-card-header">
+                    
+                        
+                            
+                                <span class="post-card-tags">Microservices</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">Building A Microservice Chassis With Spring Boot and Spring Cloud</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    
+                        <p></p>
+                    
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                        
+                        <img class="author-profile-image" src="/content/images/2018/03/ProfilePhoto-round-1.png" alt="Darryl Anderson" />
+                        
+                        <span class="post-card-author">
+                            <a href="/author/darryl/">Darryl Anderson</a>
+                        </span>
+                    
+                
+                <span class="reading-time">
+                    
+                    
+                      1 min read
+                    
+                </span>
+            </footer>
+        </div>
+    </article>
+
+            
+
+        </div>
+    </div>
+</aside>
+
+<!-- Floating header which appears on-scroll, included from includes/floating-header.hbs -->
+<div class="floating-header">
+    <div class="floating-header-logo">
+        <a href="/">
+            
+            <span>Anderson Technology Consulting</span>
+        </a>
+    </div>
+    <span class="floating-header-divider">&mdash;</span>
+    <div class="floating-header-title">A Comparison Of Distributed Ledgers For Tokenization</div>
+    <div class="floating-header-share">
+        <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
+</svg>
+</div>
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=A+Comparison+Of+Distributed+Ledgers+For+Tokenization&amp;url=https://darrylanderson.dev/a-comparison-of-distributed-ledgers-for-tokenization"
+            onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+
+        </a>
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://darrylanderson.dev/a-comparison-of-distributed-ledgers-for-tokenization"
+            onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
+
+        </a>
+    </div>
+    <progress class="progress" value="0">
+        <div class="progress-container">
+            <span class="progress-bar"></span>
+        </div>
+    </progress>
+</div>
+
+
+<!-- /post -->
+
+<!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs -->
+
+
+        <!-- Previous/next page links - displayed on every page -->
+        
+
+        <!-- The footer at the very bottom of the screen -->
+        <footer class="site-footer outer">
+            <div class="site-footer-content inner">
+                <section class="copyright"><a href="/">Anderson Technology Consulting</a> &copy; 2021</section>
+                <section class="poweredby">Published with <a href="https://jekyllrb.com/">Jekyll</a> &
+                    <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a> using
+                    <a href="https://github.com/jekyller/jasper2" target="_blank" rel="noopener">Jasper2</a></section>
+                <nav class="site-footer-nav">
+                    <a href="/">Latest Posts</a>
+                </nav>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- The big email subscribe modal content -->
+    
+
+    <!-- highlight.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.10.0/components/prism-abap.min.js"></script>
+    <script>$(document).ready(function() {
+      $('pre code').each(function(i, block) {
+        hljs.highlightBlock(block);
+      });
+    });</script>
+
+    <!-- jQuery + Fitvids, which makes all video embeds responsive -->
+    <script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous">
+    </script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="https://demo.ghost.io/assets/js/jquery.fitvids.js?v=724281a32e"></script>
+
+
+    <!-- Paginator increased to "infinit" in _config.yml -->
+    <!-- if paginator.posts  -->
+    <!-- <script>
+        var maxPages = parseInt('');
+    </script>
+    <script src="/assets/js/infinitescroll.js"></script> -->
+    <!-- /endif -->
+
+    
+
+
+    <!-- Add Google Analytics  -->
+    <!-- Google Analytics Tracking code -->
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-112416473-1', 'auto');
+  ga('send', 'pageview');
+
+ </script>
+
+
+    <!-- The #block helper will pull in data from the #contentFor other template files. In this case, there's some JavaScript which we only want to use in post.hbs, but it needs to be included down here, after jQuery has already loaded. -->
+    
+        <script>
+
+// NOTE: Scroll performance is poor in Safari
+// - this appears to be due to the events firing much more slowly in Safari.
+//   Dropping the scroll event and using only a raf loop results in smoother
+//   scrolling but continuous processing even when not scrolling
+$(document).ready(function () {
+    // Start fitVids
+    var $postContent = $(".post-full-content");
+    $postContent.fitVids();
+    // End fitVids
+
+    var progressBar = document.querySelector('progress');
+    var header = document.querySelector('.floating-header');
+    var title = document.querySelector('.post-full-title');
+
+    var lastScrollY = window.scrollY;
+    var lastWindowHeight = window.innerHeight;
+    var lastDocumentHeight = $(document).height();
+    var ticking = false;
+
+    function onScroll() {
+        lastScrollY = window.scrollY;
+        requestTick();
+    }
+
+    function onResize() {
+        lastWindowHeight = window.innerHeight;
+        lastDocumentHeight = $(document).height();
+        requestTick();
+    }
+
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(update);
+        }
+        ticking = true;
+    }
+
+    function update() {
+        var trigger = title.getBoundingClientRect().top + window.scrollY;
+        var triggerOffset = title.offsetHeight + 35;
+        var progressMax = lastDocumentHeight - lastWindowHeight;
+
+        // show/hide floating header
+        if (lastScrollY >= trigger + triggerOffset) {
+            header.classList.add('floating-active');
+        } else {
+            header.classList.remove('floating-active');
+        }
+
+        progressBar.setAttribute('max', progressMax);
+        progressBar.setAttribute('value', lastScrollY);
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', onScroll, {passive: true});
+    window.addEventListener('resize', onResize, false);
+
+    update();
+});
+</script>
+
+    
+
+    <!-- Ghost outputs important scripts and data with this tag - it should always be the very last thing before the closing body tag -->
+    <!-- ghost_foot -->
+
+</body>
+</html>

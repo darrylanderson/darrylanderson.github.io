@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<feed xmlns="http://www.w3.org/2005/Atom" >
+  <generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator>
+  <link href="/tag/security/feed.xml" rel="self" type="application/atom+xml" />
+  <link href="/" rel="alternate" type="text/html" />
+  <updated>2021-01-08T22:44:48+00:00</updated>
+  <id>/tag/security/feed.xml</id>
+
+  
+  
+  
+
+  
+    <title type="html">Anderson Technology Consulting | </title>
+  
+
+  
+    <subtitle>Pragmatic Cloud Architecture</subtitle>
+  
+
+  
+
+  
+    
+      
+    
+  
+
+  
+  
+
+  
+    <entry>
+      <title type="html">Multi-Factor Authentication With SSH And OpenVPN</title>
+      <link href="/multifactor-everything" rel="alternate" type="text/html" title="Multi-Factor Authentication With SSH And OpenVPN" />
+      <published>2018-02-06T22:48:41+00:00</published>
+      <updated>2018-02-06T22:48:41+00:00</updated>
+      <id>/multifactor-everything</id>
+      <content type="html" xml:base="/multifactor-everything">&lt;p&gt;Lately I’ve been reviewing the security of my personal online accounts. Aside from regular password rotation, wherever possible I enable multi-factor authentication (MFA). Multi-factor authentication is where you not only supply something you &lt;em&gt;know&lt;/em&gt; (your password), but you also supply an additional piece of information based on something that you &lt;em&gt;have&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;This step is fairly simple, and because thieves would need to steal both your password and your phone (or similar device) in order to log in to your accounts, the risk of your account being compromised is considerably reduced.&lt;/p&gt;
+
+&lt;p&gt;The same principles that we use to protect our bank and email accounts should also be used to protect all administrative access to cloud infrastructures.&lt;/p&gt;
+
+&lt;p&gt;In this article I’ll explain how to add MFA protection to your cloud infrastructure.&lt;/p&gt;
+
+&lt;h2 id=&quot;best-practices-for-remote-access-to-cloud-infrastructure&quot;&gt;Best Practices for Remote Access To Cloud Infrastructure&lt;/h2&gt;
+
+&lt;p&gt;Let’s start by reviewing a typical cloud architecture which supports remote worker access.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/content/images/2018/02/Hybrid-Cloud-Architecture.png&quot; alt=&quot;Hybrid-Cloud-Architecture&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Within our VPC (virtual private cloud), we have a private subnet running our database instance, and another private subnet running our application. In order to administer the application and database we need some way to ssh into the EC2 instances. Rather than exposing all of these instances to the public internet, we use a bastion host as the only publicly available ssh service.&lt;/p&gt;
+
+&lt;p&gt;The bastion host (aka jump box) is the only instance which is open for remote SSH access. All other VMs in the cloud accept SSH only from that instance. Obviously the bastion host is a very important instance, and must be completely hardened.&lt;/p&gt;
+
+&lt;p&gt;Rather than opening up the bastion host to public SSH traffic, we use a VPN service to create a virtual private network. The VPN allows us to create a security group on the bastion host which only accepts SSH from the VPN subnet. The bastion host can then be moved to a private subnet which has no inbound routes from the public internet.&lt;/p&gt;
+
+&lt;p&gt;The two hosts that we want to harden with MFA are the bastion host and the OpenVPN host. We’ll see how to do that in the following sections.&lt;/p&gt;
+
+&lt;h2 id=&quot;mfa-basics&quot;&gt;MFA Basics&lt;/h2&gt;
+
+&lt;blockquote&gt;
+
+  &lt;p&gt;See this article for an excellent overview on MFA:
+https://www.nist.gov/itl/tig/back-basics-multi-factor-authentication&lt;/p&gt;
+
+&lt;/blockquote&gt;
+
+&lt;p&gt;Traditional authentication mechanisms usually involve the user presenting a username and credentials such as a password to gain access to a resource. This approach relies on the strength and secrecy of the credentials. If either of those are inadequate the resource is easily compromised.&lt;/p&gt;
+
+&lt;p&gt;To mitigate this risk, we can use multi-factor authentication to add an additional layer of security. MFA augments the authentication flow by requiring not only something that you know (your password), but something that you have (your phone, a smartcard, etc).&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/content/images/2018/01/MFA.png&quot; alt=&quot;MFA&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;While there are many implementations of smartphone-based MFA, for this article we’ll be using an &lt;a href=&quot;https://en.wikipedia.org/wiki/Time-based_One-time_Password_Algorithm&quot;&gt;OATH-TOTP&lt;/a&gt; application on our phone to generate one-time use codes. These codes are 6 digit numbers that are changed every 30 seconds. &lt;a href=&quot;https://github.com/google/google-authenticator/wiki&quot;&gt;Google Authenticator&lt;/a&gt; is one such application.&lt;/p&gt;
+
+&lt;h2 id=&quot;ssh-and-mfa&quot;&gt;SSH and MFA&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;This section is adapted from the following article to support Ubuntu 16.04:
+https://aws.amazon.com/blogs/startups/securing-ssh-to-amazon-ec2-linux-hosts/&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Start by SSHing into your EC2/Azure/Google Cloud VM, then install the MFA packages:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get update
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get install libpam-google-authenticator libqrencode3
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We now initialize the google-authenticator app:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/content/images/2018/02/google-authenticator.png&quot; alt=&quot;google-authenticator&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Using the Google Authenticator app on your smartphone (&lt;a href=&quot;https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&amp;amp;hl=en&quot;&gt;Android&lt;/a&gt;, &lt;a href=&quot;https://itunes.apple.com/us/app/google-authenticator/id388497605?mt=8&quot;&gt;iOS&lt;/a&gt;), scan the barcode presented on the screen to register your device.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Do you want me to update your &quot;/home/darryl/.google_authenticator&quot; file (y/n) y
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Do you want to disallow multiple uses of the same authentication
+token? This restricts you to one login about every 30s, but it increases
+your chances to notice or even prevent man-in-the-middle attacks (y/n) y
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;By default, tokens are good for 30 seconds and in order to compensate for
+possible time-skew between the client and the server, we allow an extra
+token before and after the current time. If you experience problems with poor
+time synchronization, you can increase the window from its default
+size of 1:30min to about 4min. Do you want to do so (y/n) n
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;If the computer that you are logging into isn't hardened against brute-force
+login attempts, you can enable rate-limiting for the authentication module.
+By default, this limits attackers to no more than 3 login attempts every 30s.
+Do you want to enable rate-limiting (y/n) y
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now that we have our device registered, we need to modify the ssh login flow to prompt for the time-based authentication code.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;WARNING:&lt;/strong&gt; Do NOT close the ssh session where you’re making these changes. Do all your testing in a separate session. This way if you have trouble logging in you won’t lock yourself out of your VM.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Start by editing &lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/pam.d/sshd&lt;/code&gt; and comment out the normal Unix auth line:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Standard Un*x authentication.&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#@include common-auth&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Also in this file, add the following line to the end of the file to force use of the verification code:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;auth required pam_google_authenticator.so nullok
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now edit &lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/ssh/sshd_config&lt;/code&gt; and change the &lt;code class=&quot;highlighter-rouge&quot;&gt;ChallengeResponseAuthentication&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;yes&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Change to yes to enable challenge-response passwords (beware issues with&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# some PAM modules and threads)&lt;/span&gt;
+ChallengeResponseAuthentication yes
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Also in this file, add the following line to the end of the file:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;AuthenticationMethods publickey,password publickey,keyboard-interactive
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Restart the sshd service:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;service sshd restart
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now when you ssh to your VM you should see the following:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;~&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;ssh &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; ~/.ssh/my-vm-key my-user@VM_IP_ADDR
+Authenticated with partial success.
+Verification code:
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;After entering the verification code you should be successfully logged in to the VM.&lt;/p&gt;
+
+&lt;h2 id=&quot;openvpn-basics&quot;&gt;OpenVPN Basics&lt;/h2&gt;
+
+&lt;p&gt;A VPN, or virtual private network, is a service which allows clients to securely connect to a remote private network. It does this by securely tunneling data through a single TCP/UDP port over an unsecured network such as the internet.&lt;/p&gt;
+
+&lt;p&gt;Within a public cloud architecture, a VPN allows you to securely expose your virtual cloud networks (VPCs in AWS and Google Cloud, VNets in Azure) to remote workers or your corporate network. In this article I’ll focus primarily on securely extending connectivity to remote workers.&lt;/p&gt;
+
+&lt;p&gt;VPN technology generally falls into one of two flavors… IPSec or SSL. IPSec is commonly implemented with hardware-based VPN services, and each client requires special software which can operate at the kernel layer.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://openvpn.net&quot;&gt;OpenVPN&lt;/a&gt; uses the SSL/TLS libraries to manage its cryptographic layer. The dual authenticated SSL/TLS key agreement/exchange method is almost identical to IPsec’s Internet Key Exchange (IKE), and OpenVPN implements a tunnel system like IPsec’s Encapsulating Security Payload (ESP) that has equivalent or better security to the IPSec standard.&lt;/p&gt;
+
+&lt;p&gt;Setting up OpenVPN requires a fair amount of configuration, so I’ve created an Ansible role to configure an Ubuntu 16.04 instance with an MFA-enabled OpenVPN service. This is a modification of the popular ‘&lt;a href=&quot;https://galaxy.ansible.com/Stouts/openvpn/&quot;&gt;Stouts.openvpn&lt;/a&gt;’ role in Ansible Galaxy to add MFA support.&lt;/p&gt;
+
+&lt;p&gt;https://github.com/darrylanderson/ansible-aws/tree/master/playbooks/roles/openvpn&lt;/p&gt;
+
+&lt;p&gt;In the following sections I’ll review some of the key prerequisites and network configuration needed to get your VPN up and running, and then walk through how to use the Ansible role.&lt;/p&gt;
+
+&lt;h4 id=&quot;create-vm-and-configure-route&quot;&gt;Create VM And Configure Route&lt;/h4&gt;
+
+&lt;p&gt;Assuming you already have a subnet created in your VPC to host your VPN VM, launch an Ubuntu 16.04 instance in that subnet.&lt;/p&gt;
+
+&lt;p&gt;Once the VM has launched, you need to create the network routes. We need the following additional routes on our subnet’s route table:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;A route allowing traffic from the public internet. This will be locked down to TCP/UDP traffic on port 1194.&lt;/li&gt;
+  &lt;li&gt;A route for VPN traffic to flow to the VPN VM instance.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;An example of what this might look like in your AWS environment is shown below:
+&lt;img src=&quot;/content/images/2018/02/AWS-route-1.png&quot; alt=&quot;AWS-route-1&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;configure-vm-for-packet-forwarding&quot;&gt;Configure VM For Packet Forwarding&lt;/h4&gt;
+
+&lt;p&gt;By default the Linux kernel is not configured to support packet forwarding, which is a requirement for our VPN tunnel to forward packets.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;vi /etc/sysctl.conf
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Enable ip forwarding by uncommenting the line containing the &lt;code class=&quot;highlighter-rouge&quot;&gt;net.ipv4.ip_forward&lt;/code&gt; setting as follows:&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Uncomment the next line to enable packet forwarding for IPv4&lt;/span&gt;
+net.ipv4.ip_forward&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You also need to ensure that the network interface attached to your OpenVPN instance allows for IP forwarding, and that it doesn’t do source/destination checks. This allows you to route traffic to your private subnets. The mechanism for configuring this varies depending on your cloud provider.&lt;/p&gt;
+
+&lt;h6 id=&quot;aws&quot;&gt;AWS&lt;/h6&gt;
+&lt;p&gt;In AWS you need to disable the source/destination check on the elastic network interface attached to the OpenVPN EC2 instance to allow packets to route correctly. See &lt;a href=&quot;https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-eni.html#change_source_dest_check&quot;&gt;Changing the Source or Destination Checking&lt;/a&gt; at the AWS doc site for more details.&lt;/p&gt;
+
+&lt;h6 id=&quot;azure&quot;&gt;Azure&lt;/h6&gt;
+&lt;p&gt;In Azure you need to enable IP forwarding on your OpenVPN VM. See &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-network-interface#enable-or-disable-ip-forwarding&quot;&gt;Enable or disable IP forwarding&lt;/a&gt; at the Microsoft Azure doc site for more details.&lt;/p&gt;
+
+&lt;h6 id=&quot;google-cloud&quot;&gt;Google Cloud&lt;/h6&gt;
+&lt;p&gt;In Google Cloud you need to have launched your OpenVPN VM with IP forwarding enabled. Unfortunately you can’t enable this setting on an existing VM. See &lt;a href=&quot;https://cloud.google.com/vpc/docs/using-routes#canipforward&quot;&gt;Enabling IP forwarding for instances&lt;/a&gt; at the Google Cloud doc site for more details.&lt;/p&gt;
+
+&lt;h4 id=&quot;configure-ansible&quot;&gt;Configure Ansible&lt;/h4&gt;
+
+&lt;p&gt;Start by SSHing into your VM, cloning my Ansible repo to get the role and playbook, and install Ansible:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone https://github.com/darrylanderson/ansible-aws.git
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;ansible-aws
+./bootstrap_ansible.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The Ansible role has a large number of configuration options. The simplest approach is to define them in the playbook. Below is an example of a configuration which will create an OpenVPN network using the default CIDR range of 10.8.0.0/24 (the default), and will push a route to clients allowing them to access a private subnet having a CIDR range of 10.10.0.0/16.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;playbooks/setup-openvpn.yml&lt;/p&gt;
+  &lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# Necessary for Ubuntu 16.04&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;hosts&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;all&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;become&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;yes&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;become_user&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;root&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;become_method&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;sudo&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;gather_facts&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;False&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;tasks&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;install python 2&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;raw&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;test -e /usr/bin/python || (apt -y update &amp;amp;&amp;amp; apt install -y python-minimal)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# For a local playbook run:  ansible-playbook -i &quot;localhost,&quot; -c local --ask-sudo-pass playbooks/setup-openvpn.yml&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;hosts&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;all&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;become&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;yes&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;become_user&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;root&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;become_method&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;sudo&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;roles&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;openvpn&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;vars&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;openvpn_use_pam&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;yes&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;openvpn_proto&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;tcp&quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;openvpn_topology&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;subnet&quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;openvpn_key_country&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;US&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;openvpn_key_province&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;IL&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;openvpn_key_city&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Chicago&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;openvpn_key_org&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;My Company Name&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;openvpn_key_email&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;me@myhost.mydomain&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;openvpn_server_options&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;push &quot;route 10.10.0.0 255.255.0.0&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;  &lt;/div&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;run-ansible-playbook&quot;&gt;Run Ansible Playbook&lt;/h4&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ~/ansible-aws
+ansible-playbook &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;localhost,&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;local &lt;/span&gt;playbooks/setup-openvpn.yml
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This may appear to hang for a while when generating the server keys if the VM does not have enough randomness (a common issue with Linux VMs). It will eventually finish.&lt;/p&gt;
+
+&lt;h4 id=&quot;create-openvpn-client-configurations&quot;&gt;Create OpenVPN Client Configurations&lt;/h4&gt;
+
+&lt;p&gt;Now that you have your OpenVPN server running, you need to create client configurations.&lt;/p&gt;
+
+&lt;p&gt;The Ansible role creates a helper script which does the following:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Create a new user account.&lt;/li&gt;
+  &lt;li&gt;Create keys for the user.&lt;/li&gt;
+  &lt;li&gt;Generate a MFA token for the user.&lt;/li&gt;
+  &lt;li&gt;Create ovpn file to send to the user.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Here’s how to create a new client:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo&lt;/span&gt; /etc/openvpn/build-client.sh username
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This will prompt you for a password for the user, display the QR code needed to register the smartphone, and if you have mutt installed and configured to send outbound emails, send the ovpn file to the user.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/content/images/2018/02/build-client-1.png&quot; alt=&quot;build-client-1&quot; /&gt;
+&lt;img src=&quot;/content/images/2018/02/build-client-2.png&quot; alt=&quot;build-client-2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;It’s usually easiest to have the user swing by and scan the QR code on their phone, but you can also send them the information offline so they can register their device.&lt;/p&gt;
+
+&lt;p&gt;If you don’t have mutt configured, you need to send the user their ovpn file in &lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/openvpn/client-config&lt;/code&gt; for them to import into their OpenVPN client.&lt;/p&gt;
+
+&lt;p&gt;Now when the client tries to connect, they will be prompted for a password. They should enter their token and password on the same line.&lt;/p&gt;
+
+&lt;p&gt;For example, if their password is “mypassword” (hopefully it’s not), and their current MFA token is 345678, they should enter &lt;code class=&quot;highlighter-rouge&quot;&gt;345678mypassword&lt;/code&gt; as their password when prompted by the VPN client.&lt;/p&gt;
+
+&lt;h4 id=&quot;revoking-clients&quot;&gt;Revoking Clients&lt;/h4&gt;
+
+&lt;p&gt;If a user leaves your organization, you can simply run &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo userdel username&lt;/code&gt; to deactive their OpenVPN access.&lt;/p&gt;
+
+&lt;p&gt;To remove their certificates, run &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo /etc/openvpn/revoke-client.sh username&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;Enabling MFA is a key step in hardening the critical remote entry points to your cloud infrastructure. In this article we’ve seen how to MFA-enable both your SSH services as well as OpenVPN. You should also enforce MFA on all your cloud console user accounts.&lt;/p&gt;
+
+&lt;p&gt;Of course MFA is only one part of a broader information security management system. Standard security best practices such as network segmentation, intrusion detection, audit trails, patching, etc all have to work together to improve your overall security posture.&lt;/p&gt;
+
+&lt;h2 id=&quot;resources&quot;&gt;Resources&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;https://aws.amazon.com/blogs/startups/securing-ssh-to-amazon-ec2-linux-hosts/&lt;/li&gt;
+  &lt;li&gt;https://www.digitalocean.com/community/tutorials/how-to-set-up-multi-factor-authentication-for-ssh-on-ubuntu-16-04&lt;/li&gt;
+  &lt;li&gt;https://medium.com/@egonbraun/using-google-authenticator-mfa-with-openvpn-on-ubuntu-16-04-774e4acc2852&lt;/li&gt;
+  &lt;li&gt;https://aws.amazon.com/blogs/security/category/best-practices/&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;Also published on &lt;a href=&quot;https://dzone.com/articles/multi-factor-authentication-with-ssh-and-openvpn&quot;&gt;DZone&lt;/a&gt;.&lt;/p&gt;
+
+&lt;hr /&gt;</content>
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name>Darryl Anderson</name>
+        
+        
+      </author>
+
+      
+
+      
+        <category term="security" />
+      
+
+      
+        <summary type="html">Lately I’ve been reviewing the security of my personal online accounts. Aside from regular password rotation, wherever possible I enable multi-factor authentication (MFA). Multi-factor authentication is where you not only supply something you know (your password), but you also supply an additional piece of information based on something that you have.</summary>
+      
+
+      
+      
+    </entry>
+  
+</feed>
