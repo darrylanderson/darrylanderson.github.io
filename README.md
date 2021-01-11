@@ -3,9 +3,8 @@
 This repo contains the source for a Jekyll-based blog hosted on GitHub Pages 
 at https://darrylanderson.dev.
 
-The develop branch contains the raw blog site, CircleCI then builds and publishes
-the static site to the master branch. GitHub Pages then picks up the static site from 
-master and publishes to https://darrylanderson.dev.
+The main branch contains the raw blog site, GitHub Actions then builds and publishes
+the static site to GitHub Pages which is published to https://darrylanderson.dev.
 
 ## License
 
