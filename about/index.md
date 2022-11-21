@@ -5,7 +5,7 @@ title: About Me
 featured: true
 navigation: True
 class: page-template
-date: '2018-01-13 21:29:00'
+date: '2022-11-21 21:29:00'
 tags:
 - about
 ---
@@ -27,10 +27,7 @@ Learn more about me at the links below:
 
 <i class="fab fa-linkedin"></i> [LinkedIn](https://linkedin.com/in/darryl-anderson) 
 <i class="fab fa-github"></i> [GitHub](https://github.com/darrylanderson)
-<i class="fab fa-twitter"></i> [Twitter](https://twitter.com/DarrylAnderson_)
-<i class="fab fa-angellist"></i> [AngelList](https://angel.co/darryl-anderson)
-
-Email: <darryl@andersontech.consulting>
+<i class="fab fa-mastodon"></i> [Mastodon](https://techhub.social/@DarrylAnderson)
 
 ## Services
 
